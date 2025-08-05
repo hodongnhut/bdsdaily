@@ -167,14 +167,15 @@ class Properties extends \yii\db\ActiveRecord
         $message = $fullAddress . "\n" . $areaTotal . "\n" . $price;
         
         $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://app.bdsdaily.com';
-        $images = [];
+        $imageUrls = [];
 
         if (count($model->propertyImages) > 0) {
             foreach ($model->propertyImages as $image) {
                 $fullUrl = rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/');
-                $images[] = ['image' => $fullUrl];
+                $imageUrls[] = $fullUrl;
             }
         }
+        $images = implode(',', $imageUrls);
         
         $payload = [
             'event_type' => 'property_updated',
@@ -187,7 +188,7 @@ class Properties extends \yii\db\ActiveRecord
             $client = new Client();
             $response = $client->createRequest()
                 ->setMethod('POST')
-                ->setUrl('https://n8n.bdsdaily.com/webhook/bdsdailys')
+                ->setUrl('https://n8n.bdsdaily.com/webhook/bdsdaily')
                 ->addHeaders(['Content-Type' => 'application/json'])
                 ->setContent(json_encode($payload))
                 ->send();
