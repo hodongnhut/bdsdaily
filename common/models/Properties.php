@@ -167,21 +167,20 @@ class Properties extends \yii\db\ActiveRecord
         $message = $fullAddress . "\n" . $areaTotal . "\n" . $price;
         
         $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://app.bdsdaily.com';
-        $imageUrls = [];
+        $images = [];
 
         if (count($model->propertyImages) > 0) {
             foreach ($model->propertyImages as $image) {
                 $fullUrl = rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/');
-                $imageUrls[] = $fullUrl;
+                $images[] = ['image' => $fullUrl];
             }
         }
-        $images = implode(',', $imageUrls);
         
         $payload = [
             'event_type' => 'property_updated',
             'timestamp' => time(),
             'message' => $message,
-            'images' =>  $images
+            'images' =>  $images ?? ''
         ];
 
         try {
