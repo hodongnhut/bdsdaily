@@ -94,8 +94,8 @@ $this->title = 'Bản Đồ Quy Hoạch TP.HCM';
         IsDevelop = "",
         _decl=false;
 </script>
-<script type="text/javascript" src="https://kinglandgroup.vn/js/map/script.min.js"></script>
-<script type="text/javascript" src="https://kinglandgroup.vn/js/map/rocker.helper.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/script.min.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/rocker.helper.js"></script>
 <!-- MapLibre GL JS and Turf.js -->
 <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
@@ -105,14 +105,14 @@ $this->title = 'Bản Đồ Quy Hoạch TP.HCM';
    
 <script type="text/javascript">
 hp_HeadCode([
-    "https://kinglandgroup.vn/css/map/maplibre-gl.css",
-    "https://kinglandgroup.vn/css/map/ZoningMapVer2.css",
-    "https://kinglandgroup.vn/css/map/stylezoning.css",
+    "https://app.bdsdaily.com/css/map/maplibre-gl.css",
+    "https://app.bdsdaily.com/css/map/ZoningMapVer2.css",
+    "https://app.bdsdaily.com/css/map/stylezoning.css",
 ],"css");
 hp_HeadCode([
-    "https://kinglandgroup.vn/js/map/maplibre-gl.js",
-    "https://kinglandgroup.vn/js/map/turf.js",
-    "https://kinglandgroup.vn/js/map/Zone.js"
+    "https://app.bdsdaily.com/js/map/maplibre-gl.js",
+    "https://app.bdsdaily.com/js/map/turf.js",
+    "https://app.bdsdaily.com/js/map/Zone.js"
 ],"js");
 </script>
     <section id="MainPageContainer" data-action="ZoningMapVer2" class="MainPageContainer  Page-ZoningMapVer2 View  ">
@@ -3356,9 +3356,9 @@ hp_HeadCode([
         </div>
     </section>
 </main>
-<script type="text/javascript" src="https://kinglandgroup.vn/js/map/Translator.js"></script>
-<script type="text/javascript" src="https://kinglandgroup.vn/js/map/rocker.all.js"></script>
-<script type="text/javascript" src="https://kinglandgroup.vn/js/map/jquery.history.js"></script>
-<script type="text/javascript" src="https://kinglandgroup.vn/js/map/rocker.dtl.js"></script>
-<script type="text/javascript" src="https://kinglandgroup.vn/js/map/rocker.fm.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/Translator.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/rocker.all.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/jquery.history.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/rocker.dtl.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/rocker.fm.js"></script>
 </div>
