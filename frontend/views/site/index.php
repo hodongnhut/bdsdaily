@@ -221,7 +221,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                 <p class="italic text-gray-600 mb-4">"Chúng tôi đã tích hợp API của BDS Daily vào hệ thống của mình
                     và nhận thấy hiệu suất làm việc của đội ngũ môi giới tăng lên đáng kể. Một dịch vụ tuyệt vời!"
                 </p>
-                <div class="font-semibold text-gray-800">- Bà Trần Thị B, Giám đốc Sàn Giao dịch Bất động sản</div>
+                <div class="font-semibold text-gray-800">- Bà Nguyễn Thị Thanh Thúy, Giám đốc Sàn Giao dịch Bất động sản</div>
             </div>
         </div>
     </div>
