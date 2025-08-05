@@ -215,12 +215,12 @@ function formatNumber($number) {
                                 1 => 'fas fa-mars text-blue-600',
                                 default => 'fas fa-user text-gray-500',
                             };
-                            $phoneDisplay = $contact->phone_number ? '•••••••' . substr($contact->phone_number, -3) : 'N/A';
+                            $phoneDisplay = $contact->phone_number ? '<i class="fas fa-eye fa-sm mr-1"></i> •••••••' . substr($contact->phone_number, -3) : 'N/A';
                             ?>
                             <div class="flex items-center font-medium contact-entry" data-contact-id="<?= Html::encode($contact->contact_id) ?>">
                                 <i class="<?= $iconClass ?> mr-2 w-4 text-center" aria-hidden="true"></i>
                                 <span class="text-gray-800 contact-info cursor-pointer hover:text-blue-600" 
-                                    title="Click to reveal phone number" 
+                                    title="Nhấp để hiển thị số điện thoại" 
                                     aria-label="Contact <?= Html::encode($contact->contact_name) ?>">
                                     <?= Html::encode($contact->contact_name) ?> 
                                     <span class="phone-display"><?= $phoneDisplay ?></span>
