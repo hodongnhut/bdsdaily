@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'My Yii Application';
+$this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
 ?>
 <!-- Hero Section with Background Image -->
 <section id="gioi-thieu" class="hero-bg text-white py-20 md:py-32">

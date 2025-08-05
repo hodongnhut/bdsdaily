@@ -19,7 +19,6 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php $this->registerCsrfMetaTags() ?>
-    <title>BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B</title>
     <!-- Thư viện Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Phông chữ Inter từ Google Fonts -->
