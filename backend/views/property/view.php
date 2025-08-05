@@ -209,18 +209,25 @@ function formatNumber($number) {
                     <div class="space-y-2">
                         <?php foreach ($model->ownerContacts as $contact): ?>
                             <?php
-                            if ($contact->gender_id == 2) {
-                                $iconClass = 'fas fa-venus text-pink-500';
-                            } else {
-                                $iconClass = 'fas fa-mars text-blue-600';
-                            }
+                            $iconClass = match ($contact->gender_id) {
+                                2 => 'fas fa-venus text-pink-500',
+                                1 => 'fas fa-mars text-blue-600',
+                                default => 'fas fa-user text-gray-500',
+                            };
+                            $phoneDisplay = $contact->phone_number ? '•••••••' . substr($contact->phone_number, -3) : 'N/A';
                             ?>
-                            
                             <div class="flex items-center font-medium contact-entry" data-contact-id="<?= Html::encode($contact->contact_id) ?>">
-                                <i class="<?= $iconClass ?> mr-2 w-4 text-center"></i>
-                                <span class="text-gray-800 contact-info cursor-pointer hover:text-blue-600" title="Click to reveal phone number">
+                                <i class="<?= $iconClass ?> mr-2 w-4 text-center" aria-hidden="true"></i>
+                                <span class="text-gray-800 contact-info cursor-pointer hover:text-blue-600" 
+                                    title="Click to reveal phone number" 
+                                    aria-label="Contact <?= Html::encode($contact->contact_name) ?>">
                                     <?= Html::encode($contact->contact_name) ?> 
-                                    <span class="phone-display">•••••••<?= substr($contact->phone_number, -3) ?></span>
+                                    <span class="phone-display"><?= $phoneDisplay ?></span>
+                                    <span class="zalo-link hidden ml-2" title="Chat on Zalo">
+                                        <a href="#" class="zalo-anchor" target="_blank">
+                                            <img src="/img/zalo.png" alt="Zalo" class="zalo-icon">
+                                        </a>
+                                    </span>
                                     <span class="error-message text-red-600 text-xs ml-2 hidden"></span>
                                 </span>
                                 <span class="ml-2 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
@@ -730,54 +737,66 @@ function formatNumber($number) {
 
 
         const contactEntries = document.querySelectorAll('.contact-entry');
-        contactEntries.forEach(entry => {
-            const contactInfo = entry.querySelector('.contact-info');
-            contactInfo.addEventListener('click', function() {
-                const contactId = entry.getAttribute('data-contact-id');
-                const phoneDisplay = entry.querySelector('.phone-display');
-                const errorMessage = entry.querySelector('.error-message');
-                const originalPhoneText = phoneDisplay.textContent; 
+            contactEntries.forEach(entry => {
+                const contactInfo = entry.querySelector('.contact-info');
+                contactInfo.addEventListener('click', function() {
+                    const contactId = entry.getAttribute('data-contact-id');
+                    const phoneDisplay = entry.querySelector('.phone-display');
+                    const zaloLink = entry.querySelector('.zalo-link');
+                    const zaloAnchor = entry.querySelector('.zalo-anchor');
+                    const errorMessage = entry.querySelector('.error-message');
+                    const originalPhoneText = phoneDisplay.textContent; 
 
-                if (phoneDisplay.classList.contains('revealed')) {
-                    return;
-                }
+                    if (phoneDisplay.classList.contains('revealed')) {
+                        return;
+                    }
 
-                phoneDisplay.textContent = 'Đang tải...';
+                    phoneDisplay.textContent = 'Đang tải...';
 
-                fetch('/property/get-phone', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-Token': yii.getCsrfToken()
-                    },
-                    body: JSON.stringify({
-                        contact_id: contactId
+                    fetch('/property/get-phone', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-Token': yii.getCsrfToken()
+                        },
+                        body: JSON.stringify({
+                            contact_id: contactId
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success && data.phone_number) {
-                        phoneDisplay.textContent = data.phone_number;
-                        phoneDisplay.classList.add('revealed');
-                    } else {
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success && data.phone_number) {
+                            phoneDisplay.textContent = data.phone_number;
+                            phoneDisplay.classList.add('revealed');
+                            if (zaloLink && zaloAnchor) {
+                                zaloLink.classList.remove('hidden');
+                                zaloAnchor.href = `https://zalo.me/${data.phone_number}`;
+                            }
+                        } else {
+                            phoneDisplay.textContent = originalPhoneText; 
+                            if (errorMessage) {
+                                errorMessage.textContent = data.error || 'Không thể lấy số điện thoại';
+                                errorMessage.classList.remove('hidden');
+                            }
+                            if (zaloLink) {
+                                zaloLink.classList.add('hidden');
+                            }
+                            console.error('Error:', data.error || 'Unknown error');
+                        }
+                    })
+                    .catch(error => {
                         phoneDisplay.textContent = originalPhoneText; 
                         if (errorMessage) {
-                            errorMessage.textContent = data.error || 'Không thể lấy số điện thoại';
+                            errorMessage.textContent = 'Lỗi kết nối máy chủ';
                             errorMessage.classList.remove('hidden');
                         }
-                        console.error('Error:', data.error || 'Unknown error');
-                    }
-                })
-                .catch(error => {
-                    phoneDisplay.textContent = originalPhoneText; 
-                    if (errorMessage) {
-                        errorMessage.textContent = 'Lỗi kết nối máy chủ';
-                        errorMessage.classList.remove('hidden');
-                    }
-                    console.error('Fetch error:', error);
+                        if (zaloLink) {
+                            zaloLink.classList.add('hidden');
+                        }
+                        console.error('Fetch error:', error);
+                    });
                 });
             });
-        });
     });
 
     const imageViewModal = document.getElementById('imageViewModal');

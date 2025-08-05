@@ -523,3 +523,34 @@
      color: #777;
      margin-top: 5px;
  }
+
+ .contact-entry {
+     display: flex;
+     align-items: center;
+ }
+
+ .contact-info {
+     display: flex;
+     align-items: center;
+     flex-wrap: nowrap;
+ }
+
+ .phone-display {
+     margin-left: 0.5rem;
+ }
+
+ .zalo-link {
+     display: inline-flex;
+     align-items: center;
+     margin-left: 0.5rem;
+ }
+
+ .zalo-icon {
+     width: 20px;
+     height: 20px;
+     object-fit: contain;
+ }
+
+ .error-message {
+     margin-left: 0.5rem;
+ }
