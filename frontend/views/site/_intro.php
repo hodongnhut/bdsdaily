@@ -71,6 +71,30 @@
                 </div>
             </div>
         </div>
+
+         <!-- Slide 4 -->
+        <div class="slider-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0">
+            <div class="flex flex-col md:flex-row h-full w-full">
+                <!-- Image Column (70% on desktop, 100% on mobile) -->
+                <div class="w-full h-1/2 md:h-full md:w-7/12 bg-cover bg-center" style="background-image: url('/img/slider4.webp');">
+                </div>
+                <!-- Info Column (30% on desktop, 100% on mobile) -->
+                <div class="w-full h-1/2 md:h-full md:w-5/12 bg-white flex items-center justify-center p-8 md:rounded-tr-lg md:rounded-br-lg md:shadow-lg">
+                    <div class="text-center text-gray-800 p-4">
+                        <h1 class="text-2xl md:text-4xl font-bold leading-tight mb-4">
+                            Tự Động Gửi Vào Group Zalo
+                        </h1>
+                        <p class="text-sm md:text-lg max-w-lg mx-auto mb-6">
+                            Khi Có 1 thông tin giỏ hàng mới tự động cập nhật vào Group Zalo
+                        </p>
+                        <a href="#zalo-group"
+                            class="inline-block bg-rose-600 text-white font-bold py-2 px-6 rounded-full text-md shadow-lg hover:bg-rose-700 transition-colors duration-300">
+                            Khám Phá Dịch Vụ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Slider Navigation Buttons -->
