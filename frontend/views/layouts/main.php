@@ -85,7 +85,9 @@ AppAsset::register($this);
             </div>
         </div>
         <div class="border-t border-gray-700 pt-6 text-sm text-gray-400">
-            &copy; 2025 BDS Daily. All rights reserved.
+            Copyright ©2025 All rights reserved | The Company <b><a href="https://stonenetworktech.com/"
+                target="_blank" rel="nofollow noopener" title="StoneNetworkTech">StoneNetworkTech</a></b>
+
         </div>
     </div>
 </footer>
