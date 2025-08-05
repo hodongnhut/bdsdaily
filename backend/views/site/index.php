@@ -2,7 +2,7 @@
 use Yii;
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
-$this->title = 'King Land Group';
+$this->title = 'Bất Động Sản Daily';
 $role_code = Yii::$app->user->identity->jobTitle->role_code;
 $this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js', [
     'position' => \yii\web\View::POS_BEGIN,
