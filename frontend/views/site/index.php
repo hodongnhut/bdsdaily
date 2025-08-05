@@ -105,7 +105,6 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
     </div>
 </section>
 
-<!-- Pricing Packages Section -->
 <section id="goi-dich-vu" class="py-20 bg-gray-50">
     <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Các Gói Dịch Vụ Phù Hợp Cho Sales</h2>
@@ -116,8 +115,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
             <!-- Gói Cơ Bản -->
             <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-gray-400">
                 <h3 class="text-2xl font-bold mb-2 text-gray-800">Gói Cơ Bản</h3>
-                <p class="text-4xl font-bold text-gray-800 mb-4">300.000 VNĐ <span
-                        class="text-base font-normal">/tháng</span></p>
+                <p class="text-4xl font-bold text-gray-800 mb-4">300.000 VNĐ <span class="text-base font-normal">/tháng</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>✔️ Truy cập dữ liệu cơ bản</li>
                     <li>✔️ Cập nhật tin tức hàng tuần</li>
@@ -126,16 +124,14 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     <li class="line-through text-gray-400">❌ Hỗ trợ qua Zalo</li>
                     <li class="line-through text-gray-400">❌ Định vị nhân viên</li>
                 </ul>
-                <a href="#lien-he"
-                    class="inline-block w-full bg-gray-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-700 transition-colors duration-300">
+                <a href="#lien-he" class="inline-block w-full bg-gray-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-700 transition-colors duration-300">
                     Chọn Gói Cơ Bản
                 </a>
             </div>
             <!-- Gói Bình Thường -->
             <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-600 scale-105 transform">
                 <h3 class="text-2xl font-bold mb-2 text-indigo-600">Gói Bình Thường</h3>
-                <p class="text-4xl font-bold text-indigo-600 mb-4">500.000 VNĐ <span
-                        class="text-base font-normal">/tháng</span></p>
+                <p class="text-4xl font-bold text-indigo-600 mb-4">500.000 VNĐ <span class="text-base font-normal">/tháng</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>✔️ Truy cập dữ liệu đầy đủ</li>
                     <li>✔️ Cập nhật tin tức hàng ngày</li>
@@ -144,16 +140,14 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     <li class="line-through text-gray-400">❌ Định vị nhân viên</li>
                     <li class="line-through text-gray-400">❌ Hỗ trợ 24/7</li>
                 </ul>
-                <a href="#lien-he"
-                    class="inline-block w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
+                <a href="#lien-he" class="inline-block w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
                     Chọn Gói Bình Thường
                 </a>
             </div>
             <!-- Gói Nâng Cao -->
             <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-teal-500">
                 <h3 class="text-2xl font-bold mb-2 text-gray-800">Gói Nâng Cao</h3>
-                <p class="text-4xl font-bold text-gray-800 mb-4">900.000 VNĐ <span
-                        class="text-base font-normal">/tháng</span></p>
+                <p class="text-4xl font-bold text-gray-800 mb-4">900.000 VNĐ <span class="text-base font-normal">/tháng</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>✔️ Truy cập dữ liệu đầy đủ & phân tích</li>
                     <li>✔️ Cập nhật tin tức thời gian thực</li>
@@ -162,8 +156,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     <li>✔️ Định vị nhân viên</li>
                     <li>✔️ Hỗ trợ 24/7</li>
                 </ul>
-                <a href="#lien-he"
-                    class="inline-block w-full bg-teal-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-teal-600 transition-colors duration-300">
+                <a href="#lien-he" class="inline-block w-full bg-teal-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-teal-600 transition-colors duration-300">
                     Chọn Gói Nâng Cao
                 </a>
             </div>

@@ -523,11 +523,3 @@
      color: #777;
      margin-top: 5px;
  }
-
- .nav-hover\:scale-150:hover {
-     transform: scale(1.5);
- }
-
- .nav-hover\:shadow-lg:hover {
-     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
- }
