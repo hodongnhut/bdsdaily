@@ -52,7 +52,7 @@
         <div class="slider-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0">
             <div class="flex flex-col md:flex-row h-full w-full">
                 <!-- Image Column (70% on desktop, 100% on mobile) -->
-                <div class="w-full h-1/2 md:h-full md:w-7/12 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/9d174d/fce7f3?text=BDS+Daily+-+Slide+3');">
+                <div class="w-full h-1/2 md:h-full md:w-7/12 bg-cover bg-center" style="background-image: url('/img/slider3.webp');">
                 </div>
                 <!-- Info Column (30% on desktop, 100% on mobile) -->
                 <div class="w-full h-1/2 md:h-full md:w-5/12 bg-white flex items-center justify-center p-8 md:rounded-tr-lg md:rounded-br-lg md:shadow-lg">
