@@ -36,7 +36,7 @@ class PropertyController extends Controller
 
         $properties = $dataProvider->getModels();
 
-        $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://app.bdsdaily.com';
+        $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://kinglandgroup.vn';
 
         $noImage[] = [
             'image_id' => 1,
