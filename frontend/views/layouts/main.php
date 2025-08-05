@@ -71,7 +71,9 @@ AppAsset::register($this);
 <footer class="bg-gray-800 text-white py-12">
     <div class="container mx-auto px-6 text-center">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-8">
-            <div class="text-2xl font-bold text-indigo-400">BDS Daily</div>
+            <a href="/" class="flex items-center">
+                <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" alt="Bất Động Sản Daily Logo" class="h-10 w-auto">
+            </a>
             <div class="space-x-6 text-sm font-medium">
                 <a href="#gioi-thieu" class="hover:text-indigo-400">Giới Thiệu</a>
                 <a href="#du-lieu" class="hover:text-indigo-400">Dữ Liệu</a>
