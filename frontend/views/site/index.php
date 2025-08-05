@@ -235,7 +235,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
             Hãy liên hệ với chúng tôi ngay hôm nay để nhận tư vấn miễn phí và khám phá sức mạnh của dữ liệu bất động
             sản.
         </p>
-        <a href="mailto:contact@bdsdaily.com"
+        <a href="mailto:nhuthd@stonenetworktech.com"
             class="inline-block bg-white text-indigo-600 font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-gray-100 transition-colors duration-300">
             Liên Hệ Ngay
         </a>
