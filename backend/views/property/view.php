@@ -315,7 +315,7 @@ function formatNumber($number) {
                                         $imageUrl = $baseUrl . '/' . $imagePath;
                                     }
                                     echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
-                                    echo "<img src='{$imageUrl}' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
+                                    echo "<img src='{$imageUrl}' loading='lazy' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
                                     echo "</div>";
                                 }
                             }
@@ -342,7 +342,7 @@ function formatNumber($number) {
                                         $imageUrl = $baseUrl . '/' . $imagePath;
                                     }
                                     echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
-                                    echo "<img src='{$imageUrl}' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
+                                    echo "<img src='{$imageUrl}' loading='lazy' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
                                     echo "</div>";
                                 }
                             }
