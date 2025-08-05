@@ -299,7 +299,7 @@ function formatNumber($number) {
                             $images = $model->propertyImages;
                             foreach ($images as $image) {
                                 if ($image->image_type == 1) {
-                                    $imageUrl = 'https://kinglandgroup.vn' .$image->image_path;
+                                    $imageUrl = 'https://kinglandgroup.vn/' .$image->image_path;
                                     echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
                                     echo "<img src='{$imageUrl}' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
                                     echo "</div>";
@@ -321,7 +321,7 @@ function formatNumber($number) {
                             $images = $model->propertyImages;
                             foreach ($images as $image) {
                                 if ($image->image_type == 0) {
-                                    $imageUrl = 'https://kinglandgroup.vn' .$image->image_path;
+                                    $imageUrl = 'https://kinglandgroup.vn/' .$image->image_path;
                                     echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
                                     echo "<img src='{$imageUrl}' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
                                     echo "</div>";
