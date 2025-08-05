@@ -4,22 +4,7 @@
 
 $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
 ?>
-<!-- Hero Section with Background Image -->
-<section id="gioi-thieu" class="hero-bg text-white py-20 md:py-32">
-    <div class="container mx-auto px-6 text-center bg-black bg-opacity-50 py-10 rounded-lg">
-        <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">
-            Giải Pháp Dữ Liệu Bất Động Sản Đáng Tin Cậy Cho Doanh Nghiệp
-        </h1>
-        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8">
-            Với 125.000+ dữ liệu nhà phố tại TP.HCM, Vũng Tàu, và Bình Dương, chúng tôi cung cấp thông tin chuyên
-            sâu để hỗ trợ quyết định đầu tư và kinh doanh của bạn.
-        </p>
-        <a href="#lien-he"
-            class="inline-block bg-white text-indigo-600 font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-gray-100 transition-colors duration-300">
-            Tìm Hiểu Thêm
-        </a>
-    </div>
-</section>
+<?= $this->render('_intro') ?>
 
 <!-- Our Data Section -->
 <section id="du-lieu" class="py-20 bg-gray-50">
@@ -256,3 +241,37 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
         </a>
     </div>
 </section>
+
+
+<script>
+    // Slider logic
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slider-slide');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+        // Hide all slides
+        slides.forEach(slide => {
+            slide.classList.remove('opacity-100');
+            slide.classList.add('opacity-0');
+        });
+        // Show the current slide
+        slides[index].classList.add('opacity-100');
+        slides[index].classList.remove('opacity-0');
+    }
+
+    function changeSlide(direction) {
+        currentSlide += direction;
+        if (currentSlide >= totalSlides) {
+            currentSlide = 0;
+        } else if (currentSlide < 0) {
+            currentSlide = totalSlides - 1;
+        }
+        showSlide(currentSlide);
+    }
+    
+    // Auto-play the slider every 5 seconds
+    setInterval(() => {
+        changeSlide(1);
+    }, 5000);
+</script>
