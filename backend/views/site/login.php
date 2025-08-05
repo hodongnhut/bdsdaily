@@ -99,6 +99,13 @@ $this->title = 'Đăng Nhập';
             <?= Html::submitButton('Đăng Nhập', ['class' => 'btn btn-primary w-100 py-2', 'name' => 'login-button']) ?>
         </div>
 
+        <div class="form-group text-center">
+            <div class="border-t border-gray-700 pt-6 text-sm text-gray-400">
+                Bản Quyền Thuộc Về Công Ty <a href="https://stonenetworktech.com/"
+                        target="_blank" rel="nofollow noopener" title="StoneNetworkTech">StoneNetworkTech</a>
+                </div>
+        </div>
+
         <?php ActiveForm::end(); ?>
 
 </div>
