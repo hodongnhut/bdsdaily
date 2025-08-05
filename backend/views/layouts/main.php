@@ -30,8 +30,8 @@ AppAsset::register($this);
         <i class="fas fa-bars"></i>
     </button>
     <aside id="main-sidebar" class="flex flex-col items-start py-4">
-        <div class="mb-8 px-3">
-            <div class="h-10 w-10 rounded-lg flex items-center justify-center text-white text-xl font-bold overflow-hidden">
+        <div class="mb-8 px-3 group">
+            <div class="h-10 w-10 rounded-lg flex items-center justify-center text-white text-xl font-bold transition-transform duration-300 group-hover:scale-150 group-hover:shadow-lg">
                 <img src="<?= Yii::$app->request->baseUrl ?>/img/logo.webp" alt="King Land" class="h-full w-full object-contain img-logo">
             </div>
         </div>
