@@ -187,7 +187,7 @@ class Properties extends \yii\db\ActiveRecord
             $client = new Client();
             $response = $client->createRequest()
                 ->setMethod('POST')
-                ->setUrl('https://n8n.kinglandgroup.vn/webhook/kinglands')
+                ->setUrl('https://n8n.bdsdaily.com/webhook/bdsdailys')
                 ->addHeaders(['Content-Type' => 'application/json'])
                 ->setContent(json_encode($payload))
                 ->send();
