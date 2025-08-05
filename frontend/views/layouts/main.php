@@ -19,62 +19,73 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php $this->registerCsrfMetaTags() ?>
+    <title>BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B</title>
+    <!-- Thư viện Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phông chữ Inter từ Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="d-flex flex-column h-100">
+<body class="text-gray-800">
 <?php $this->beginBody() ?>
 
-<header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-    }
-
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
-        'items' => $menuItems,
-    ]);
-    if (Yii::$app->user->isGuest) {
-        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-flex']]);
-    } else {
-        echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout text-decoration-none']
-            )
-            . Html::endForm();
-    }
-    NavBar::end();
-    ?>
+<header class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="/" class="flex items-center">
+            <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" alt="Bất Động Sản Daily Logo" class="h-10 w-auto">
+        </a>
+        <div class="hidden md:flex space-x-6 text-sm font-medium">
+            <a href="#gioi-thieu" class="text-gray-600 hover:text-indigo-600">Giới Thiệu</a>
+            <a href="#du-lieu" class="text-gray-600 hover:text-indigo-600">Dữ Liệu Của Chúng Tôi</a>
+            <a href="#dich-vu" class="text-gray-600 hover:text-indigo-600">Dịch Vụ</a>
+            <a href="#goi-dich-vu" class="text-gray-600 hover:text-indigo-600">Gói Dịch Vụ</a>
+            <a href="#app-mobile" class="text-gray-600 hover:text-indigo-600">App Mobile</a>
+            <a href="#zalo" class="text-gray-600 hover:text-indigo-600">Zalo B2B</a>
+            <a href="#lien-he"
+                class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full transition-colors duration-300">Liên
+                Hệ</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-gray-600 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+            </svg>
+        </button>
+    </nav>
 </header>
 
 <main role="main" class="flex-shrink-0">
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+    <?= Alert::widget() ?>
+    <?= $content ?>
 </main>
 
-<footer class="footer mt-auto py-3 text-muted">
-    <div class="container">
-        <p class="float-start">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-end"><?= Yii::powered() ?></p>
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-6 text-center">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-8">
+            <div class="text-2xl font-bold text-indigo-400">BDS Daily</div>
+            <div class="space-x-6 text-sm font-medium">
+                <a href="#gioi-thieu" class="hover:text-indigo-400">Giới Thiệu</a>
+                <a href="#du-lieu" class="hover:text-indigo-400">Dữ Liệu</a>
+                <a href="#dich-vu" class="hover:text-indigo-400">Dịch Vụ</a>
+                <a href="#goi-dich-vu" class="hover:text-indigo-400">Gói Dịch Vụ</a>
+                <a href="#app-mobile" class="hover:text-indigo-400">App Mobile</a>
+                <a href="#zalo" class="hover:text-indigo-400">Zalo B2B</a>
+                <a href="#lien-he" class="hover:text-indigo-400">Liên Hệ</a>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 pt-6 text-sm text-gray-400">
+            &copy; 2025 BDS Daily. All rights reserved.
+        </div>
     </div>
 </footer>
 
