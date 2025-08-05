@@ -72,7 +72,7 @@ AppAsset::register($this);
     <div class="container mx-auto px-6 text-center">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-8">
             <a href="/" class="flex items-center">
-                <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" alt="Bất Động Sản Daily Logo" class="h-10 w-auto">
+                <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" alt="Bất Động Sản Daily Logo" class="h-14 w-auto">
             </a>
             <div class="space-x-6 text-sm font-medium">
                 <a href="#gioi-thieu" class="hover:text-indigo-400">Giới Thiệu</a>
