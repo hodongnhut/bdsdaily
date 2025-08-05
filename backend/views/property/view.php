@@ -10,6 +10,7 @@ $this->title = "Xem Dữ Liệu Nhà Đất [". $model->property_id . "]";
 $this->params['breadcrumbs'][] = ['label' => 'Properties', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+$baseUrl = 'https://kinglandgroup.vn';
 
 $this->registerCssFile('/css/history.css', [
     'rel' => 'stylesheet',
@@ -334,9 +335,7 @@ function formatNumber($number) {
                             $images = $model->propertyImages;
                             foreach ($images as $image) {
                                 if ($image->image_type == 0) {
-                                    $baseUrl = 'https://kinglandgroup.vn';
                                     $imagePath = $image->image_path;
-
                                     if (strpos($imagePath, '/') === 0) {
                                         $imageUrl = $baseUrl . $imagePath;
                                     } else {
