@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch Vụ - BDS Daily</title>
+    <!-- Thư viện Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phông chữ Inter từ Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-indigo-600">
+                BDS Daily
+            </div>
+            <div class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="index.html" class="text-gray-600 hover:text-indigo-600">Giới Thiệu</a>
+                <a href="dich-vu.html" class="text-indigo-600 font-bold">Dịch Vụ</a>
+                <a href="lien-he.html" class="text-gray-600 hover:text-indigo-600">Liên Hệ</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Why Choose Us Section -->
+    <section id="dich-vu" class="py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Các Dịch Vụ Giá Trị Gia Tăng</h2>
+            <p class="text-lg text-gray-600 max-w-4xl mx-auto mb-12">
+                Chúng tôi không chỉ cung cấp dữ liệu, mà còn là đối tác chiến lược giúp doanh nghiệp bạn thành công.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <svg class="w-12 h-12 mx-auto text-indigo-600 mb-4" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0h6m-6 0v-6a2 2 0 012-2h2a2 2 0 012 2v6m0 0V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10M9 21h6">
+                        </path>
+                    </svg>
+                    <h4 class="text-lg font-bold mb-2">Phân Tích Thị Trường</h4>
+                    <p class="text-sm text-gray-600">Báo cáo chuyên sâu về giá, xu hướng và tiềm năng từng khu vực.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <svg class="w-12 h-12 mx-auto text-indigo-600 mb-4" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-2.485 0-4.5 2.015-4.5 4.5S9.515 17 12 17s4.5-2.015 4.5-4.5S14.485 8 12 8z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15M4.5 12h15">
+                        </path>
+                    </svg>
+                    <h4 class="text-lg font-bold mb-2">Tích Hợp API</h4>
+                    <p class="text-sm text-gray-600">Tích hợp dữ liệu của chúng tôi trực tiếp vào hệ thống của bạn.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <svg class="w-12 h-12 mx-auto text-indigo-600 mb-4" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6.253v13m0-13C10.832 5.485 9.49 5 8 5c-3.141 0-4.5 3.003-4.5 4.5S4.859 14 8 14c1.49 0 2.832-.485 4-1.253M12 6.253c1.168-.768 2.51-1.253 4-1.253 3.141 0 4.5 3.003 4.5 4.5S19.141 14 16 14c-1.49 0-2.832-.485-4-1.253m0-6.747v13">
+                        </path>
+                    </svg>
+                    <h4 class="text-lg font-bold mb-2">Đào Tạo & Tư Vấn</h4>
+                    <p class="text-sm text-gray-600">Đào tạo nhân sự và tư vấn chiến lược dựa trên dữ liệu.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <svg class="w-12 h-12 mx-auto text-indigo-600 mb-4" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c1.657 0 3-1.343 3-3s-1.343-3-3-3S9 3.343 9 5s1.343 3 3 3z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 14c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 21c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"></path>
+                    </svg>
+                    <h4 class="text-lg font-bold mb-2">Báo Cáo Tùy Chỉnh</h4>
+                    <p class="text-sm text-gray-600">Tạo báo cáo theo yêu cầu riêng biệt của doanh nghiệp bạn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Section -->
+    <section id="app-mobile" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="md:flex md:items-center md:space-x-12">
+                <div class="md:w-1/2">
+                    <img src="https://placehold.co/600x400/2563eb/ffffff?text=App+Mobile+BDS+Daily"
+                        alt="BDS Daily Mobile App" class="rounded-xl shadow-lg mb-8 md:mb-0">
+                </div>
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Ứng Dụng Di Động BDS Daily</h2>
+                    <p class="text-lg text-gray-600 max-w-xl mx-auto md:mx-0 mb-8">
+                        Truy cập kho dữ liệu khổng lồ của chúng tôi mọi lúc, mọi nơi ngay trên chiếc điện thoại của bạn.
+                        Cập nhật thông tin thị trường, quản lý danh sách sản phẩm và kết nối với đối tác dễ dàng hơn bao
+                        giờ hết.
+                    </p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#"
+                            class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:bg-indigo-700 transition-colors duration-300">
+                            Tải Về Cho iOS
+                        </a>
+                        <a href="#"
+                            class="inline-block bg-gray-800 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:bg-gray-700 transition-colors duration-300">
+                            Tải Về Cho Android
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Zalo B2B Section -->
+    <section id="zalo" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="md:flex md:items-center md:space-x-12">
+                <div class="md:w-1/2 text-center md:text-left order-2 md:order-1">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Hệ Thống Gửi Tin Tự Động qua Zalo</h2>
+                    <p class="text-lg text-gray-600 max-w-xl mx-auto md:mx-0 mb-8">
+                        Tự động cập nhật các tin rao nhà phố mới nhất đến nhóm Zalo của bạn. Hệ thống của chúng tôi sẽ
+                        giúp bạn và đối tác luôn nắm bắt được các cơ hội đầu tư một cách nhanh chóng và kịp thời.
+                    </p>
+                    <a href="#"
+                        class="inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-green-600 transition-colors duration-300">
+                        Đăng Ký Nhận Tin
+                    </a>
+                </div>
+                <div class="md:w-1/2 order-1 md:order-2">
+                    <!-- Placeholder for Zalo icon/image -->
+                    <img src="https://placehold.co/600x400/2563eb/ffffff?text=Zalo+B2B+Integration"
+                        alt="Zalo B2B Integration" class="rounded-xl shadow-lg mb-8 md:mb-0">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-8">
+                <div class="text-2xl font-bold text-indigo-400">BDS Daily</div>
+                <div class="space-x-6 text-sm font-medium">
+                    <a href="index.html" class="hover:text-indigo-400">Giới Thiệu</a>
+                    <a href="dich-vu.html" class="hover:text-indigo-400">Dịch Vụ</a>
+                    <a href="lien-he.html" class="hover:text-indigo-400">Liên Hệ</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-sm text-gray-400">
+                &copy; 2025 BDS Daily. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

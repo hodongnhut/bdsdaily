@@ -166,7 +166,7 @@ class Properties extends \yii\db\ActiveRecord
 
         $message = $fullAddress . "\n" . $areaTotal . "\n" . $price;
         
-        $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://kinglandgroup.vn';
+        $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://app.bdsdaily.com';
         $images = [];
 
         if (count($model->propertyImages) > 0) {
@@ -187,7 +187,7 @@ class Properties extends \yii\db\ActiveRecord
             $client = new Client();
             $response = $client->createRequest()
                 ->setMethod('POST')
-                ->setUrl('https://n8n.kinglandgroup.vn/webhook/kingland')
+                ->setUrl('https://n8n.kinglandgroup.vn/webhook/kinglands')
                 ->addHeaders(['Content-Type' => 'application/json'])
                 ->setContent(json_encode($payload))
                 ->send();
@@ -501,7 +501,7 @@ class Properties extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPropertyActionPhone()
+    public function getActionHistory()
     {
         return $this->hasMany(PropertyActionPhone::class, ['property_id' => 'property_id']);
     }

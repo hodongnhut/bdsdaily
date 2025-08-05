@@ -36,11 +36,11 @@ class PropertyController extends Controller
 
         $properties = $dataProvider->getModels();
 
-        $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://kinglandgroup.vn';
+        $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://app.bdsdaily.com';
 
         $noImage[] = [
             'image_id' => 1,
-            'image_path'=> 'https://kinglandgroup.vn/img/no-image.webp',
+            'image_path'=> 'https://app.bdsdaily.com/img/no-image.webp',
             'is_main' => 1,
             'sort_order' => 0
         ];
@@ -148,11 +148,11 @@ class PropertyController extends Controller
         
         $data = array_map(function ($favorite) {
             $property = $favorite->property;
-            $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://kinglandgroup.vn';
+            $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://app.bdsdaily.com';
 
             $noImage[] = [
                 'image_id' => 1,
-                'image_path'=> 'https://kinglandgroup.vn/img/no-image.webp',
+                'image_path'=> 'https://app.bdsdaily.com/img/no-image.webp',
                 'is_main' => 1,
                 'sort_order' => 0
             ];

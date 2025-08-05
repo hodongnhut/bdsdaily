@@ -1,5 +1,5 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
-    'imageDomain' => 'https://kinglandgroup.vn',
+    'imageDomain' => 'https://app.bdsdaily.com',
 ];
