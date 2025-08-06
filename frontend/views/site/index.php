@@ -211,7 +211,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                         <p class="italic text-gray-600 mb-4">"Dữ liệu của BDS Daily đã giúp chúng tôi định hướng chiến lược
                             đầu tư một cách hiệu quả hơn bao giờ hết. Thông tin chính xác và kịp thời là chìa khóa thành
                             công."</p>
-                        <div class="font-semibold text-gray-800">- Ông Tứ Land, Sàn giao dịch Bất động sản TỨ Land</div>
+                        <div class="font-semibold text-gray-800">- Ông Tứ Land, Sàn giao dịch Bất động sản Tứ Land</div>
                     </div>
                 </div>
                 <!-- Testimonial Item 2 -->
