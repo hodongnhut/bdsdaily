@@ -90,59 +90,43 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
     </div>
 </section>
 
+<!-- Pricing Packages Section -->
 <section id="goi-dich-vu" class="py-20 bg-gray-50">
     <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Các Gói Dịch Vụ Phù Hợp Cho Sales</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Các Gói Dịch Vụ Của Chúng Tôi</h2>
         <p class="text-lg text-gray-600 max-w-4xl mx-auto mb-12">
-            Hãy lựa chọn gói dịch vụ phù hợp nhất với nhu cầu kinh doanh và ngân sách của bạn.
+            Lựa chọn giải pháp phù hợp nhất với nhu cầu cá nhân hoặc doanh nghiệp của bạn.
         </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Gói Cơ Bản -->
-            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-gray-400">
-                <h3 class="text-2xl font-bold mb-2 text-gray-800">Gói Cơ Bản</h3>
-                <p class="text-4xl font-bold text-gray-800 mb-4">300.000 VNĐ <span class="text-base font-normal">/tháng</span></p>
-                <ul class="text-left text-gray-600 space-y-2 mb-6">
-                    <li>✔️ Truy cập dữ liệu cơ bản</li>
-                    <li>✔️ Cập nhật tin tức hàng tuần</li>
-                    <li>✔️ Hỗ trợ qua email</li>
-                    <li class="line-through text-gray-400">❌ Hệ thống giỏ hàng</li>
-                    <li class="line-through text-gray-400">❌ Hỗ trợ qua Zalo</li>
-                    <li class="line-through text-gray-400">❌ Định vị nhân viên</li>
-                </ul>
-                <a href="#lien-he" class="inline-block w-full bg-gray-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-700 transition-colors duration-300">
-                    Chọn Gói Cơ Bản
-                </a>
-            </div>
-            <!-- Gói Bình Thường -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-600 scale-105 transform">
-                <h3 class="text-2xl font-bold mb-2 text-indigo-600">Gói Bình Thường</h3>
+                <h3 class="text-2xl font-bold mb-2 text-indigo-600">Gói Cơ Bản (Dành cho Member)</h3>
                 <p class="text-4xl font-bold text-indigo-600 mb-4">500.000 VNĐ <span class="text-base font-normal">/tháng</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
-                    <li>✔️ Truy cập dữ liệu đầy đủ</li>
-                    <li>✔️ Cập nhật tin tức hàng ngày</li>
-                    <li>✔️ Hệ thống giỏ hàng</li>
-                    <li>✔️ Hỗ trợ qua Zalo</li>
-                    <li class="line-through text-gray-400">❌ Định vị nhân viên</li>
-                    <li class="line-through text-gray-400">❌ Hỗ trợ 24/7</li>
+                    <li>✔️ Truy cập dữ liệu nhà phố đầy đủ (125K+ dữ liệu)</li>
+                    <li>✔️ Cập nhật tin tức thị trường hàng ngày</li>
+                    <li>✔️ Sử dụng hệ thống giỏ hàng</li>
+                    <li>✔️ Hỗ trợ qua Zalo và Email</li>
+                    <li>✔️ Báo cáo phân tích thị trường cơ bản</li>
+                    <li>✔️ Hỗ trợ kỹ thuật 24/7</li>
                 </ul>
                 <a href="#lien-he" class="inline-block w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
-                    Chọn Gói Bình Thường
+                    Đăng Ký Gói Cơ Bản
                 </a>
             </div>
-            <!-- Gói Nâng Cao -->
             <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-teal-500">
-                <h3 class="text-2xl font-bold mb-2 text-gray-800">Gói Nâng Cao</h3>
-                <p class="text-4xl font-bold text-gray-800 mb-4">900.000 VNĐ <span class="text-base font-normal">/tháng</span></p>
+                <h3 class="text-2xl font-bold mb-2 text-gray-800">Gói Full Combo (Doanh Nghiệp)</h3>
+                <p class="text-4xl font-bold text-gray-800 mb-4">Liên hệ <span class="text-base font-normal">để báo giá</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
-                    <li>✔️ Truy cập dữ liệu đầy đủ & phân tích</li>
-                    <li>✔️ Cập nhật tin tức thời gian thực</li>
-                    <li>✔️ Hệ thống giỏ hàng</li>
-                    <li>✔️ Hệ thống tự động gửi Zalo</li>
-                    <li>✔️ Định vị nhân viên</li>
-                    <li>✔️ Hỗ trợ 24/7</li>
+                    <li>✔️ Xây dựng hệ thống từ A-Z: Website, App Mobile, CRM, Dashboard</li>
+                    <li>✔️ Tích hợp toàn bộ 125K+ dữ liệu nhà phố của bạn</li>
+                    <li>✔️ Hệ thống tự động gửi tin qua Zalo Group B2B</li>
+                    <li>✔️ Giải pháp định vị và quản lý nhân viên</li>
+                    <li>✔️ Tích hợp AI phân tích dữ liệu chuyên sâu</li>
+                    <li>✔️ Đào tạo và tư vấn chiến lược độc quyền</li>
+                    <li>✔️ Hỗ trợ ưu tiên 24/7 và bảo trì hệ thống</li>
                 </ul>
                 <a href="#lien-he" class="inline-block w-full bg-teal-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-teal-600 transition-colors duration-300">
-                    Chọn Gói Nâng Cao
+                    Yêu Cầu Tư Vấn
                 </a>
             </div>
         </div>
