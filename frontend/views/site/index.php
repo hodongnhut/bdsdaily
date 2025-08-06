@@ -144,7 +144,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
     <div class="container mx-auto px-6">
         <div class="md:flex md:items-center md:space-x-12">
             <div class="md:w-1/2">
-                <img src="https://placehold.co/600x400/2563eb/ffffff?text=App+Mobile+BDS+Daily"
+                <img src="/img/slider1.webp"
                     alt="BDS Daily Mobile App" class="rounded-xl shadow-lg mb-8 md:mb-0">
             </div>
             <div class="md:w-1/2 text-center md:text-left">
@@ -154,7 +154,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     Cập nhật thông tin thị trường, quản lý danh sách sản phẩm và kết nối với đối tác dễ dàng hơn bao
                     giờ hết.
                 </p>
-                <div class="flex justify-center md:justify-start space-x-4">
+                <div class="flex justify-center space-x-4 mx-auto px-6 text-center">
                     <a href="#"
                         class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:bg-indigo-700 transition-colors duration-300">
                         Tải Về Cho iOS
@@ -186,7 +186,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
             </div>
             <div class="md:w-1/2 order-1 md:order-2">
                 <!-- Placeholder for Zalo icon/image -->
-                <img src="https://placehold.co/600x400/2563eb/ffffff?text=Zalo+B2B+Integration"
+                <img src="/img/slider4.webp"
                     alt="Zalo B2B Integration" class="rounded-xl shadow-lg mb-8 md:mb-0">
             </div>
         </div>
