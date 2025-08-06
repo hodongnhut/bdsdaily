@@ -124,7 +124,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                 <p class="text-4xl font-bold text-gray-800 mb-4">Liên Hệ <span class="text-base font-normal">để báo giá</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>✔️ Build Website, App Mobile, CRM, Dashboard</li>
-                    <li>✔️ Tích hợp toàn bộ 125K+ dữ liệu nhà phố </li>
+                    <li>✔️ Tích hợp toàn bộ 200K+ dữ liệu nhà phố </li>
                     <li>✔️ Dữ liệu được xác thực liên tục </li>
                     <li>✔️ Setup Xem Số Chủ Nhà theo doanh nghiệp</li>
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
