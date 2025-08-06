@@ -1,8 +1,7 @@
 <?php
-use Yii;
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
-$this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B<';
+$this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
 
 $role_code = Yii::$app->user->identity->jobTitle->role_code;
 $this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js', [
