@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 
 \yii\web\YiiAsset::register($this);
+$baseUrl = 'https://kinglandgroup.vn';
 ?>
 
 <div id="so-hong-content" class="tab-content bg-white p-6 rounded-lg shadow-md mt-1">
@@ -41,8 +42,14 @@ use yii\helpers\Html;
         <?php
         $images = $model->propertyImages;
         foreach ($images as $image) {
+            $imagePath = $image->image_path;
+            if (strpos($imagePath, '/') === 0) {
+                $imageUrl = $baseUrl . $imagePath;
+            } else {
+                $imageUrl = $baseUrl . '/' . $imagePath;
+            }
             echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container' data-image-id='{$image->image_id}'>";
-            echo "<img src='" . Html::encode(Yii::$app->urlManager->createAbsoluteUrl($image->image_path)) . "' alt='" . Html::encode($image->image_path) . "' class='object-cover w-full h-full'>";
+            echo "<img src='" .$imageUrl. "' alt='" . Html::encode($image->image_path) . "' class='object-cover w-full h-full'>";
             if (!Yii::$app->user->isGuest && in_array(Yii::$app->user->identity->jobTitle->role_code, ['manager', 'super_admin'])) {
                 echo "<button class='absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 p-2 rounded-full delete-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200' data-image-id='{$image->image_id}'>";
                 echo "<svg class='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>";
