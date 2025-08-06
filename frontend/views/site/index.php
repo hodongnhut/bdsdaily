@@ -177,7 +177,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
 <section id="zalo" class="py-20">
     <div class="container mx-auto px-6">
         <div class="md:flex md:items-center md:space-x-12">
-            <div class="md:w-1/2 text-center md:text-left order-2 md:order-1">
+            <div class="md:w-1/2 text-center md:text-left order-2 md:order-1 mb-2">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Hệ Thống Gửi Tin Tự Động qua Zalo</h2>
                 <p class="text-lg text-gray-600 max-w-xl mx-auto md:mx-0 mb-8">
                     Tự động cập nhật các tin rao nhà phố mới nhất đến nhóm Zalo của bạn. Hệ thống của chúng tôi sẽ

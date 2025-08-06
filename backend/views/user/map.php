@@ -261,6 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <?php
-$googleMapsApiKey = Yii::$app->params['googleMapsApiKey'];
-$this->registerJsFile("https://maps.googleapis.com/maps/api/js?key={$googleMapsApiKey}&callback=initMap", ['async' => true, 'defer' => true]);
+    $googleMapsApiKey = Yii::$app->params['googleMapsApiKey'];
+    $this->registerJsFile("https://maps.googleapis.com/maps/api/js?key={$googleMapsApiKey}&callback=initMap", ['async' => true, 'defer' => true]);
 ?>
