@@ -227,7 +227,7 @@ foreach ($advancedFields as $field) {
                 [
                     'prompt' => 'Chọn Tỉnh Thành',
                     'value' => 'Hồ Chí Minh',
-                    'class' => 'w-full form-input border border-gray-300 rounded-md py-1 px-2 w-1/2 focus:ring-blue-500 focus:border-blue-500 text-sm'
+                    'class' => 'form-select border border-gray-300 rounded-md py-1 px-2 focus:ring-blue-500 focus:border-blue-500 w-full text-sm'
                 ]
             )->label('<span class="text-red-500">*</span> Tỉnh Thành', ['class' => 'text-sm font-medium text-gray-700']) ?>
             
@@ -235,7 +235,7 @@ foreach ($advancedFields as $field) {
                     ArrayHelper::map($modelDistricts, 'Name', 'Name'),
                     [
                         'prompt' => 'Chọn Quận Huyện...', 
-                        'class' => 'w-full form-input border border-gray-300 rounded-md py-1 px-2 w-1/2 focus:ring-blue-500 focus:border-blue-500 text-sm'
+                        'class' => 'form-select border border-gray-300 rounded-md py-1 px-2 focus:ring-blue-500 focus:border-blue-500 w-full text-sm'
                     ]
                 )->label('<span class="text-red-500">*</span> Quận Huyện', ['class' => 'text-sm font-medium text-gray-700']) ?>
         </div>

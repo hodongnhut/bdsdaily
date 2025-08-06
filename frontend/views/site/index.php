@@ -90,6 +90,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
     </div>
 </section>
 
+
 <!-- Pricing Packages Section -->
 <section id="goi-dich-vu" class="py-20 bg-gray-50">
     <div class="container mx-auto px-6 text-center">
@@ -102,23 +103,28 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                 <h3 class="text-2xl font-bold mb-2 text-indigo-600">Gói Cơ Bản (Dành cho Member)</h3>
                 <p class="text-4xl font-bold text-indigo-600 mb-4">500.000 VNĐ <span class="text-base font-normal">/tháng</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
-                    <li>✔️ Truy cập dữ liệu nhà phố đầy đủ (125K+ dữ liệu)</li>
+                    <li>✔️ Truy cập dữ liệu nhà phố đầy đủ (50K+)</li>
                     <li>✔️ Cập nhật tin tức thị trường hàng ngày</li>
                     <li>✔️ Sử dụng hệ thống giỏ hàng</li>
+                    <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
+                    <li>✔️ Hỗ trợ App mobile</li>
                     <li>✔️ Hỗ trợ qua Zalo và Email</li>
                     <li>✔️ Báo cáo phân tích thị trường cơ bản</li>
                     <li>✔️ Hỗ trợ kỹ thuật 24/7</li>
+                    <li>✔️ Hỗ trợ sài thử 7 ngày</li>
                 </ul>
                 <a href="#lien-he" class="inline-block w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
                     Đăng Ký Gói Cơ Bản
                 </a>
             </div>
             <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-teal-500">
-                <h3 class="text-2xl font-bold mb-2 text-gray-800">Gói Full Combo (Doanh Nghiệp)</h3>
-                <p class="text-4xl font-bold text-gray-800 mb-4">Liên hệ <span class="text-base font-normal">để báo giá</span></p>
+                <h3 class="text-2xl font-bold mb-2 text-gray-800">Gói Cài Đặt Full (Doanh Nghiệp)</h3>
+                <p class="text-4xl font-bold text-gray-800 mb-4">Liên Hệ <span class="text-base font-normal">để báo giá</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
-                    <li>✔️ Xây dựng hệ thống từ A-Z: Website, App Mobile, CRM, Dashboard</li>
-                    <li>✔️ Tích hợp toàn bộ 125K+ dữ liệu nhà phố của bạn</li>
+                    <li>✔️ Build Website, App Mobile, CRM, Dashboard</li>
+                    <li>✔️ Tích hợp toàn bộ 125K+ dữ liệu nhà phố </li>
+                    <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
+                    <li>✔️ Hỗ trợ App mobile Doanh Nghiệp</li>
                     <li>✔️ Hệ thống tự động gửi tin qua Zalo Group B2B</li>
                     <li>✔️ Giải pháp định vị và quản lý nhân viên</li>
                     <li>✔️ Tích hợp AI phân tích dữ liệu chuyên sâu</li>
