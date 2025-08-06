@@ -105,6 +105,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>✔️ Truy cập dữ liệu nhà phố đầy đủ (50K+)</li>
                     <li>✔️ Cập nhật tin tức thị trường hàng ngày</li>
+                    <li>✔️ Dữ liệu được xác thực liên tục </li>
                     <li>✔️ Sử dụng hệ thống giỏ hàng</li>
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ App mobile</li>
@@ -123,6 +124,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>✔️ Build Website, App Mobile, CRM, Dashboard</li>
                     <li>✔️ Tích hợp toàn bộ 125K+ dữ liệu nhà phố </li>
+                    <li>✔️ Dữ liệu được xác thực liên tục </li>
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ App mobile Doanh Nghiệp</li>
                     <li>✔️ Hệ thống tự động gửi tin qua Zalo Group B2B</li>
@@ -194,25 +196,64 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
 </section>
 
 <!-- Testimonials Section -->
-<section class="py-20 bg-white">
+<section id="khach-hang" class="py-20 bg-white">
     <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Khách Hàng Nói Về Chúng Tôi</h2>
         <p class="text-lg text-gray-600 max-w-4xl mx-auto mb-12">
             Sự hài lòng của đối tác là thước đo thành công lớn nhất của chúng tôi.
         </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-gray-50 p-8 rounded-xl shadow-md">
-                <p class="italic text-gray-600 mb-4">"Dữ liệu của BDS Daily đã giúp chúng tôi định hướng chiến lược
-                    đầu tư một cách hiệu quả hơn bao giờ hết. Thông tin chính xác và kịp thời là chìa khóa thành
-                    công."</p>
-                <div class="font-semibold text-gray-800">- Ông Nguyễn Văn A, Giám đốc Phát triển Dự án</div>
+        <div class="relative w-full overflow-hidden">
+            <div id="testimonials-slider" class="flex transition-transform duration-700 ease-in-out">
+                <!-- Testimonial Item 1 -->
+                <div class="flex-shrink-0 w-full md:w-1/2 p-4">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
+                        <img src="/img/avatar/Samland.jpg" alt="Avatar Samland" class="w-20 h-20 rounded-full mb-4 object-cover">
+                        <p class="italic text-gray-600 mb-4">"Dữ liệu của BDS Daily đã giúp chúng tôi định hướng chiến lược
+                            đầu tư một cách hiệu quả hơn bao giờ hết. Thông tin chính xác và kịp thời là chìa khóa thành
+                            công."</p>
+                        <div class="font-semibold text-gray-800">- Ông Tứ Land, Sàn giao dịch Bất động sản TỨ Land</div>
+                    </div>
+                </div>
+                <!-- Testimonial Item 2 -->
+                <div class="flex-shrink-0 w-full md:w-1/2 p-4">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
+                        <img src="/img/avatar/thanhthuy.jpg" alt="Avatar Nguyễn Thị Thanh Thúy" class="w-20 h-20 rounded-full mb-4 object-cover">
+                        <p class="italic text-gray-600 mb-4">"Chúng tôi đã tích hợp Zalo B2B của BDS Daily vào hệ thống của mình
+                            và nhận thấy hiệu suất làm việc của đội ngũ môi giới tăng lên đáng kể. Một dịch vụ tuyệt vời!"
+                        </p>
+                        <div class="font-semibold text-gray-800">- Bà Nguyễn Thị Thanh Thúy, Công ty CP Đầu tư Địa ốc Bến Thành</div>
+                    </div>
+                </div>
+                <!-- Testimonial Item 3 -->
+                <div class="flex-shrink-0 w-full md:w-1/2 p-4">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
+                        <img src="/img/avatar/tienphat.jpg" alt="Avatar Khách hàng C" class="w-20 h-20 rounded-full mb-4 object-cover">
+                        <p class="italic text-gray-600 mb-4">"BDS Daily đã thay đổi cách chúng tôi tiếp cận thị trường. Các báo cáo chuyên sâu giúp chúng tôi đưa ra quyết định đầu tư thông minh và nhanh chóng."</p>
+                        <div class="font-semibold text-gray-800">- Ông Tiến Phát, Chuyên gia Đầu tư</div>
+                    </div>
+                </div>
+                <!-- Testimonial Item 4 -->
+                <div class="flex-shrink-0 w-full md:w-1/2 p-4">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
+                        <img src="/img/avatar/Kieunguen.jpg" alt="Avatar Khách hàng D" class="w-20 h-20 rounded-full mb-4 object-cover">
+                        <p class="italic text-gray-600 mb-4">"Dịch vụ hỗ trợ khách hàng của BDS Daily rất tuyệt vời. Mọi thắc mắc đều được giải đáp nhanh chóng và chuyên nghiệp, giúp chúng tôi yên tâm phát triển kinh doanh."</p>
+                        <div class="font-semibold text-gray-800">- Bà Kiều Ngân, Trưởng phòng Kinh doanh</div>
+                    </div>
+                </div>
             </div>
-            <div class="bg-gray-50 p-8 rounded-xl shadow-md">
-                <p class="italic text-gray-600 mb-4">"Chúng tôi đã tích hợp API của BDS Daily vào hệ thống của mình
-                    và nhận thấy hiệu suất làm việc của đội ngũ môi giới tăng lên đáng kể. Một dịch vụ tuyệt vời!"
-                </p>
-                <div class="font-semibold text-gray-800">- Bà Nguyễn Thị Thanh Thúy, Giám đốc Sàn Giao dịch Bất động sản</div>
-            </div>
+        </div>
+        <!-- Slider Navigation Buttons -->
+        <div class="flex justify-center mt-8 space-x-4">
+            <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700 transition-colors duration-300" onclick="changeTestimonialSlide(-1)">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <button class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700 transition-colors duration-300" onclick="changeTestimonialSlide(1)">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
         </div>
     </div>
 </section>
@@ -264,4 +305,39 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
     setInterval(() => {
         changeSlide(1);
     }, 5000);
+
+    // Testimonials Slider logic
+    let currentTestimonialIndex = 0;
+        const testimonialsSlider = document.getElementById('testimonials-slider');
+        const testimonialItems = document.querySelectorAll('#testimonials-slider .flex-shrink-0');
+        const totalTestimonialItems = testimonialItems.length;
+        const itemsPerScreen = 2; // Display 2 items per screen
+
+        function updateTestimonialSlider() {
+            const itemWidth = testimonialsSlider.offsetWidth / itemsPerScreen; // Width of one item on screen
+            testimonialsSlider.style.transform = `translateX(-${currentTestimonialIndex * itemWidth}px)`;
+        }
+
+        function changeTestimonialSlide(direction) {
+            currentTestimonialIndex += direction;
+
+            // Handle looping
+            if (currentTestimonialIndex >= totalTestimonialItems / itemsPerScreen) {
+                currentTestimonialIndex = 0;
+            } else if (currentTestimonialIndex < 0) {
+                currentTestimonialIndex = Math.floor((totalTestimonialItems - 1) / itemsPerScreen);
+            }
+            updateTestimonialSlider();
+        }
+
+        // Auto-play the testimonial slider every 7 seconds
+        setInterval(() => {
+            changeTestimonialSlide(1);
+        }, 7000);
+
+        // Update slider on window resize
+        window.addEventListener('resize', updateTestimonialSlider);
+
+        // Initial update for testimonial slider
+        document.addEventListener('DOMContentLoaded', updateTestimonialSlider);
 </script>
