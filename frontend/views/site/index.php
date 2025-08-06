@@ -99,7 +99,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
             Lựa chọn giải pháp phù hợp nhất với nhu cầu cá nhân hoặc doanh nghiệp của bạn.
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-600 scale-105 transform">
+            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-600 scale-105 transform>
                 <h3 class="text-2xl font-bold mb-2 text-indigo-600">Gói Cơ Bản (Dành cho Member)</h3>
                 <p class="text-4xl font-bold text-indigo-600 mb-4">500.000 VNĐ <span class="text-base font-normal">/tháng</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
@@ -118,7 +118,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     Đăng Ký Gói Cơ Bản
                 </a>
             </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-teal-500">
+            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-600 scale-105 transform">
                 <h3 class="text-2xl font-bold mb-2 text-gray-800">Gói Cài Đặt Full (Doanh Nghiệp)</h3>
                 <p class="text-4xl font-bold text-gray-800 mb-4">Liên Hệ <span class="text-base font-normal">để báo giá</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
