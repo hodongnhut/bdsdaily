@@ -407,13 +407,13 @@ function formatNumber($number) {
                 <?php if (count($modelActionPhone)): ?>
                     <?php foreach ($modelActionPhone as $action): ?>
                         <div class="flex items-start space-x-4">
-                            <img src="https://placehold.co/40x40/E5E7EB/4B5563?text=<?= $action->user->username ?>" alt="Avatar" class="w-10 h-10 rounded-full object-cover">
+                            <img src="https://placehold.co/40x40/E5E7EB/4B5563?text=<?= $action->user ? $action->user->username : 'Admin' ?>" alt="Avatar" class="w-10 h-10 rounded-full object-cover">
                             <div class="flex-1">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center space-x-2">
                                         <span class="text-gray-500 text-xs"><?= $action->timestamp ?></span>
-                                        <span class="font-semibold text-gray-900"><?= $action->user->full_name ?></span>
-                                        <span class="px-2 py-0.5 bg-gray-800 text-white text-xs rounded-md font-medium"><?= $action->user->username ?></span>
+                                        <span class="font-semibold text-gray-900"><?= $action->user ? $action->user->full_name : 'Admin'?></span>
+                                        <span class="px-2 py-0.5 bg-gray-800 text-white text-xs rounded-md font-medium"><?= $action->user ? $action->user->username : 'Admin' ?></span>
                                     </div>
                                 </div>
                                 <div class="mt-2 pl-2 border-l-2 border-gray-200">
@@ -429,7 +429,7 @@ function formatNumber($number) {
                                                 Xem số điện thoại
                                             </button>
                                         <?php endif; ?>
-                                        <span class="text-gray-700"><?= $action->user->full_name ?>: <span class="text-red-600 font-medium"><?= HtmlLogHelper::maskPhoneNumber($action->phone_number)?></span></span>
+                                        <span class="text-gray-700"><?= $action->user ? $action->user->full_name : 'Admin' ?>: <span class="text-red-600 font-medium"><?= HtmlLogHelper::maskPhoneNumber($action->phone_number)?></span></span>
                                     </div>
                                 </div>
                             </div>
