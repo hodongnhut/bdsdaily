@@ -16,7 +16,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
         </p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-600">
-                <div class="text-5xl font-bold text-indigo-600 mb-2">125K+</div>
+                <div class="text-5xl font-bold text-indigo-600 mb-2">200K+</div>
                 <h3 class="text-xl font-semibold mb-2">Dữ liệu nhà phố</h3>
                 <p class="text-gray-600">Tập trung vào các khu vực trọng điểm: TP.HCM, Vũng Tàu, Bình Dương.</p>
             </div>
