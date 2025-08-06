@@ -3,12 +3,12 @@
 /** @var \yii\web\View $this */
 /** @var string $content */
 
+use yii\bootstrap5\Nav;
+use yii\bootstrap5\Html;
 use common\widgets\Alert;
+use yii\bootstrap5\NavBar;
 use frontend\assets\AppAsset;
 use yii\bootstrap5\Breadcrumbs;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
 ?>
@@ -91,6 +91,31 @@ AppAsset::register($this);
         </div>
     </div>
 </footer>
+
+<div id="button-contact-vr">
+    <div id="gom-all-in-one">
+        <div id="zalo-vr" class="button-contact">
+            <div class="phone-vr">
+                <div class="phone-vr-circle-fill"></div>
+                <div class="phone-vr-img-circle">
+                    <a target="_blank" href="https://zalo.me/0934880855">
+                        <img alt="Zalo" src="https://tingtingpos.com/img/zalo.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="phone-vr" class="button-contact">
+            <div class="phone-vr">
+                <div class="phone-vr-circle-fill"></div>
+                <div class="phone-vr-img-circle">
+                    <a href="tel:0934880855">
+                        <img alt="Phone" src="https://tingtingpos.com/img/phone.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php $this->endBody() ?>
 </body>
