@@ -107,6 +107,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     <li>✔️ Cập nhật tin tức thị trường hàng ngày</li>
                     <li>✔️ Dữ liệu được xác thực liên tục </li>
                     <li>✔️ Sử dụng hệ thống giỏ hàng</li>
+                    <li>✔️ Hỗ trợ Xem Số Chủ Nhà 300/ ngày</li>
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ App mobile</li>
                     <li>✔️ Hỗ trợ qua Zalo và Email</li>
@@ -125,6 +126,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     <li>✔️ Build Website, App Mobile, CRM, Dashboard</li>
                     <li>✔️ Tích hợp toàn bộ 125K+ dữ liệu nhà phố </li>
                     <li>✔️ Dữ liệu được xác thực liên tục </li>
+                    <li>✔️ Setup Xem Số Chủ Nhà theo doanh nghiệp</li>
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ App mobile Doanh Nghiệp</li>
                     <li>✔️ Hệ thống tự động gửi tin qua Zalo Group B2B</li>
