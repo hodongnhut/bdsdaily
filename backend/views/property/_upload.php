@@ -66,9 +66,6 @@ $baseUrl = 'https://kinglandgroup.vn';
 document.addEventListener('DOMContentLoaded', function() {
     const uploadAreas = document.querySelectorAll('.upload-area');
     const uploadInputs = document.querySelectorAll('.upload-input');
-
-    console.log('CSRF Token:', yii.getCsrfToken()); // Debug CSRF token
-
     uploadAreas.forEach(area => {
         area.addEventListener('click', function() {
             this.querySelector('.upload-input').click();
@@ -158,10 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (xhr.status === 200) {
                     try {
                         const response = JSON.parse(xhr.responseText);
-                        console.log('Upload response:', response); // Debug
                         if (response.success) {
                             response.images.forEach(image => {
-                                console.log('Adding image:', image); // Debug
                                 const div = document.createElement('div');
                                 div.className = 'relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container';
                                 div.dataset.imageId = image.id;

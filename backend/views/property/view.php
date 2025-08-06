@@ -154,7 +154,7 @@ function formatNumber($number) {
                         : '';
                     ?>
                     
-                    <div class="grid grid-cols-3 gap-4 mb-4 mt-4">
+                    <div class="grid grid-cols-4 gap-4 mb-4 mt-4">
                         <?php
                             $totalPrice = $model->price; 
                             $totalArea = $model->area_total;
@@ -204,6 +204,24 @@ function formatNumber($number) {
                             <p class="text-xs text-gray-500">
                                 (<?= formatNumber($model->area_width) ?>m × <?= formatNumber($model->area_length) ?>m)
                             </p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Thử Đất Số: </p>
+                            <p class="text-lg font-bold text-gray-800">
+                                <?= $model->plot_number ?? 'N/A' ?>
+                            </p>
+                            <? if (empty($model->plot_number)):  ?>
+                                <p class="text-xs text-gray-500"> Vui Lòng check Sổ Bên dưới</p>
+                            <?php endif; ?>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Số Tờ: </p>
+                            <p class="text-lg font-bold text-gray-800">
+                                <?= $model->sheet_number ?? 'N/A' ?>
+                            </p>
+                            <? if (empty($model->sheet_number)):  ?>
+                                <p class="text-xs text-gray-500"> Vui Lòng check Sổ Bên dưới</p>
+                            <?php endif; ?>
                         </div>
                     </div>
                     
