@@ -5,12 +5,16 @@ namespace backend\controllers\api;
 use Yii;
 use yii\rest\Controller;
 use yii\filters\auth\HttpBearerAuth;
+use common\models\Properties;
 use common\models\PropertiesSearch;
 use common\models\PropertiesFrom;
 use common\models\PropertyFavorite;
 use common\models\Districts;
 use common\models\Wards;
 use common\models\Streets;
+use common\models\Advantages;
+use common\models\Disadvantages;
+use yii\web\NotFoundHttpException;
 
 class PropertyController extends Controller
 {
@@ -299,6 +303,64 @@ class PropertyController extends Controller
             return $this->response(true, 'Lấy danh sách Phường thành công ', $data);
         }
         return $this->response(false, 'Không có Danh sách');
+    }
+
+    /**
+     * Finds the Properties model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $propertyId Property ID
+     * @return Properties the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($propertyId) {
+        $model = $this->findModel($propertyId);
+        $images = [];
+        $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://app.bdsdaily.com';
+        foreach ($model->propertyImages as $image) {
+            $images[] = [
+                'image_id' => $image->image_id,
+                'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
+                'is_main' => $image->is_main,
+                'sort_order' => $image->sort_order,
+            ];
+        }
+
+        $contacts = [];
+        foreach ($model->ownerContacts as $contact) {
+            $contacts[] = [
+                'contact_id' => $contact->contact_id,
+                'contact_name' => $contact->contact_name,
+                'phone_number' => $contact->phone_number,
+                'role' => $contact->role ? $contact->role->name : null,
+                'gender' => $contact->gender ? $contact->gender->name : null,
+            ];
+        }
+        $data = [
+            'property' => $model,
+            'advantages' => Advantages::find()->all(),
+            'disadvantages' => Disadvantages::find()->all(),
+            'images' => $images,
+            'contacts' => $contacts,
+        ];
+        if (!empty($model)) {
+            return $this->response(true, 'Get a property Success ', $data);
+        }
+    }
+
+    /**
+     * Finds the Properties model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $property_id Property ID
+     * @return Properties the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($property_id)
+    {
+        if (($model = Properties::findOne(['property_id' => $property_id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
    
     private function response($status, $msg, $data = null)

@@ -179,7 +179,6 @@ class PropertyController extends Controller
     {
         $model = new PropertiesFrom();
 
-
         if ($this->request->isPost) {
             $property = $model->load($this->request->post()) ? $model->save() : null;
             if ($property !== null) {
