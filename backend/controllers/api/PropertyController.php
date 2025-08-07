@@ -10,6 +10,8 @@ use common\models\PropertiesFrom;
 use common\models\PropertyFavorite;
 use common\models\Districts;
 use common\models\Wards;
+use common\models\Streets;
+
 class PropertyController extends Controller
 {
     public function behaviors()
@@ -283,16 +285,22 @@ class PropertyController extends Controller
         $wards = Wards::find()
             ->where(['DistrictId' => $district->id])
             ->all();
+
+        $streets = Streets::find()
+            ->where(['DistrictId' => $district->id])
+            ->all();
+        
+        $data = [
+            'wards' => $wards,
+            'streets' =>$streets
+        ];
+
         if (!empty($wards)) {
-            return $this->response(true, 'Lấy danh sách Phường thành công ', $wards);
+            return $this->response(true, 'Lấy danh sách Phường thành công ', $data);
         }
         return $this->response(false, 'Không có Danh sách');
     }
-
-    
-
-
-
+   
     private function response($status, $msg, $data = null)
     {
         return [
