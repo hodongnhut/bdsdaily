@@ -103,7 +103,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                 <h3 class="text-2xl font-bold mb-2 text-indigo-600">Gói Cơ Bản (Dành cho Member)</h3>
                 <p class="text-4xl font-bold text-indigo-600 mb-4">500.000 VNĐ <span class="text-base font-normal">/tháng</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
-                    <li>✔️ Truy cập dữ liệu nhà phố đầy đủ (50K+)</li>
+                    <li>✔️ Truy cập dữ liệu nhà phố đầy đủ (200K+)</li>
                     <li>✔️ Cập nhật tin tức thị trường hàng ngày</li>
                     <li>✔️ Dữ liệu được xác thực liên tục </li>
                     <li>✔️ Sử dụng hệ thống giỏ hàng</li>
