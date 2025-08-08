@@ -277,6 +277,49 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
     </div>
 </section>
 
+<!-- About Us & Contact Section -->
+<section id="lien-he" class="bg-indigo-600 py-20">
+    <div class="container mx-auto px-6 text-center text-white">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Về Chúng Tôi & Liên Hệ</h2>
+        <p class="text-lg max-w-2xl mx-auto mb-8">
+            BDS Daily là nền tảng hàng đầu cung cấp giải pháp dữ liệu bất động sản toàn diện, giúp các nhà đầu tư và doanh nghiệp đưa ra quyết định sáng suốt. Chúng tôi cam kết mang đến những thông tin chính xác, kịp thời và những công nghệ đột phá để tối ưu hóa hiệu quả kinh doanh của bạn.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left mt-12 max-w-4xl mx-auto">
+            <!-- Address -->
+            <div class="flex items-center space-x-4">
+                <svg class="w-8 h-8 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                    <h3 class="text-xl font-bold">Địa Chỉ</h3>
+                    <p class="text-sm">Tòa nhà BCONS POLYGON Tower, 15 Bế Văn Đàn, An Bình, Dĩ An, Tp.HCM</p>
+                </div>
+            </div>
+            <!-- Email -->
+            <div class="flex items-center space-x-4">
+                <svg class="w-8 h-8 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                </svg>
+                <div>
+                    <h3 class="text-xl font-bold">Email</h3>
+                    <p class="text-sm">nhuthd@bdsdaily.com</p>
+                </div>
+            </div>
+            <!-- Phone -->
+            <div class="flex items-center space-x-4">
+                <svg class="w-8 h-8 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.058 11.058 0 007.862 7.862l.774-1.548a1 1 0 011.06-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.163 18 3 13.837 3 8V6a1 1 0 011-1z"></path>
+                </svg>
+                <div>
+                    <h3 class="text-xl font-bold">Số Điện Thoại</h3>
+                    <p class="text-sm">+84 934 880 855</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <script>
     // Slider logic
