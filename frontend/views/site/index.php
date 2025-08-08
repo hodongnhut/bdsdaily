@@ -199,7 +199,6 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
     </div>
 </section>
 
-<!-- Testimonials Section -->
 <section id="khach-hang" class="py-20 bg-white">
     <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Khách Hàng Nói Về Chúng Tôi</h2>
@@ -209,9 +208,9 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
         <div class="relative w-full overflow-hidden">
             <div id="testimonials-slider" class="flex transition-transform duration-700 ease-in-out">
                 <!-- Testimonial Item 1 -->
-                <div class="flex-shrink-0 w-full md:w-1/2 p-4">
+                <div class="flex-shrink-0 w-full md:w-1/2 p-4 testimonial-item">
                     <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
-                        <img src="/img/avatar/Samland.jpg" alt="Avatar Samland" class="w-20 h-20 rounded-full mb-4 object-cover">
+                        <img src="img/avatar/Samland.jpg" alt="Avatar Nguyễn Văn A" class="w-20 h-20 rounded-full mb-4 object-cover">
                         <p class="italic text-gray-600 mb-4">"Dữ liệu của BDS Daily đã giúp chúng tôi định hướng chiến lược
                             đầu tư một cách hiệu quả hơn bao giờ hết. Thông tin chính xác và kịp thời là chìa khóa thành
                             công."</p>
@@ -219,17 +218,17 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     </div>
                 </div>
                 <!-- Testimonial Item 2 -->
-                <div class="flex-shrink-0 w-full md:w-1/2 p-4">
+                <div class="flex-shrink-0 w-full md:w-1/2 p-4 testimonial-item">
                     <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
-                        <img src="/img/avatar/thanhthuy.jpg" alt="Avatar Nguyễn Thị Thanh Thúy" class="w-20 h-20 rounded-full mb-4 object-cover">
-                        <p class="italic text-gray-600 mb-4">"Chúng tôi đã tích hợp Zalo B2B của BDS Daily vào hệ thống của mình
+                        <img src="img/avatar/thanhthuy.jpg" alt="Avatar Nguyễn Thị Thanh Thúy" class="w-20 h-20 rounded-full mb-4 object-cover">
+                        <p class="italic text-gray-600 mb-4">"Chúng tôi đã tích hợp API của BDS Daily vào hệ thống của mình
                             và nhận thấy hiệu suất làm việc của đội ngũ môi giới tăng lên đáng kể. Một dịch vụ tuyệt vời!"
                         </p>
                         <div class="font-semibold text-gray-800">- Bà Nguyễn Thị Thanh Thúy, Công ty CP Đầu tư Địa ốc Bến Thành</div>
                     </div>
                 </div>
                 <!-- Testimonial Item 3 -->
-                <div class="flex-shrink-0 w-full md:w-1/2 p-4">
+                <div class="flex-shrink-0 w-full md:w-1/2 p-4 testimonial-item">
                     <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
                         <img src="/img/avatar/tienphat.jpg" alt="Avatar Khách hàng C" class="w-20 h-20 rounded-full mb-4 object-cover">
                         <p class="italic text-gray-600 mb-4">"BDS Daily đã thay đổi cách chúng tôi tiếp cận thị trường. Các báo cáo chuyên sâu giúp chúng tôi đưa ra quyết định đầu tư thông minh và nhanh chóng."</p>
@@ -237,7 +236,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     </div>
                 </div>
                 <!-- Testimonial Item 4 -->
-                <div class="flex-shrink-0 w-full md:w-1/2 p-4">
+                <div class="flex-shrink-0 w-full md:w-1/2 p-4 testimonial-item">
                     <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
                         <img src="/img/avatar/Kieunguen.jpg" alt="Avatar Khách hàng D" class="w-20 h-20 rounded-full mb-4 object-cover">
                         <p class="italic text-gray-600 mb-4">"Dịch vụ hỗ trợ khách hàng của BDS Daily rất tuyệt vời. Mọi thắc mắc đều được giải đáp nhanh chóng và chuyên nghiệp, giúp chúng tôi yên tâm phát triển kinh doanh."</p>
@@ -322,69 +321,90 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
 
 
 <script>
-    // Slider logic
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slider-slide');
-    const totalSlides = slides.length;
+        // Hero Slider logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-slide');
+        const totalSlides = slides.length;
 
-    function showSlide(index) {
-        // Hide all slides
-        slides.forEach(slide => {
-            slide.classList.remove('opacity-100');
-            slide.classList.add('opacity-0');
-        });
-        // Show the current slide
-        slides[index].classList.add('opacity-100');
-        slides[index].classList.remove('opacity-0');
-    }
-
-    function changeSlide(direction) {
-        currentSlide += direction;
-        if (currentSlide >= totalSlides) {
-            currentSlide = 0;
-        } else if (currentSlide < 0) {
-            currentSlide = totalSlides - 1;
+        function showSlide(index) {
+            slides.forEach(slide => {
+                slide.classList.remove('opacity-100');
+                slide.classList.add('opacity-0');
+            });
+            slides[index].classList.add('opacity-100');
+            slides[index].classList.remove('opacity-0');
         }
-        showSlide(currentSlide);
-    }
-    
-    // Auto-play the slider every 5 seconds
-    setInterval(() => {
-        changeSlide(1);
-    }, 5000);
 
-    // Testimonials Slider logic
-    let currentTestimonialIndex = 0;
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+            showSlide(currentSlide);
+        }
+        
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Dashboard Tab logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.dashboard-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('bg-indigo-600', 'text-white');
+                button.classList.add('text-gray-600', 'hover:bg-gray-200');
+            });
+            event.currentTarget.classList.add('bg-indigo-600', 'text-white');
+            event.currentTarget.classList.remove('text-gray-600', 'hover:bg-gray-200');
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstTabButton = document.querySelector('.tab-button');
+            if (firstTabButton) {
+                firstTabButton.classList.add('bg-indigo-600', 'text-white');
+                firstTabButton.classList.remove('text-gray-600', 'hover:bg-gray-200');
+            }
+        });
+
+        // Testimonials Slider logic (Đã được cập nhật để hoạt động trên mobile)
+        let currentTestimonialIndex = 0;
         const testimonialsSlider = document.getElementById('testimonials-slider');
-        const testimonialItems = document.querySelectorAll('#testimonials-slider .flex-shrink-0');
+        const testimonialItems = document.querySelectorAll('#testimonials-slider .testimonial-item');
         const totalTestimonialItems = testimonialItems.length;
-        const itemsPerScreen = 2; // Display 2 items per screen
-
+        
         function updateTestimonialSlider() {
-            const itemWidth = testimonialsSlider.offsetWidth / itemsPerScreen; // Width of one item on screen
-            testimonialsSlider.style.transform = `translateX(-${currentTestimonialIndex * itemWidth}px)`;
+            const itemsPerScreen = window.innerWidth >= 768 ? 2 : 1;
+            const totalSlides = Math.ceil(totalTestimonialItems / itemsPerScreen);
+            const slideWidth = testimonialsSlider.parentElement.offsetWidth;
+
+            if (currentTestimonialIndex >= totalSlides) {
+                currentTestimonialIndex = 0;
+            } else if (currentTestimonialIndex < 0) {
+                currentTestimonialIndex = totalSlides - 1;
+            }
+            
+            testimonialsSlider.style.transform = `translateX(-${currentTestimonialIndex * slideWidth}px)`;
         }
 
         function changeTestimonialSlide(direction) {
             currentTestimonialIndex += direction;
-
-            // Handle looping
-            if (currentTestimonialIndex >= totalTestimonialItems / itemsPerScreen) {
-                currentTestimonialIndex = 0;
-            } else if (currentTestimonialIndex < 0) {
-                currentTestimonialIndex = Math.floor((totalTestimonialItems - 1) / itemsPerScreen);
-            }
             updateTestimonialSlider();
         }
 
-        // Auto-play the testimonial slider every 7 seconds
+        // Tự động chuyển slider sau mỗi 7 giây
         setInterval(() => {
             changeTestimonialSlide(1);
         }, 7000);
 
-        // Update slider on window resize
+        // Cập nhật slider khi thay đổi kích thước màn hình
         window.addEventListener('resize', updateTestimonialSlider);
 
-        // Initial update for testimonial slider
+        // Chạy lần đầu khi trang được tải
         document.addEventListener('DOMContentLoaded', updateTestimonialSlider);
-</script>
+    </script>
