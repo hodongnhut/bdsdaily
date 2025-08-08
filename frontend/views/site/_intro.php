@@ -15,7 +15,7 @@
                             Giải Pháp Dữ Liệu Bất Động Sản Đáng Tin Cậy
                         </h1>
                         <p class="text-sm md:text-lg max-w-lg mx-auto mb-6">
-                            Với 125.000+ dữ liệu nhà phố tại TP.HCM, Vũng Tàu, và Bình Dương.
+                            Với 200.000+ dữ liệu nhà phố tại TP.HCM, Vũng Tàu, và Bình Dương.
                         </p>
                         <a href="#lien-he"
                             class="inline-block bg-indigo-600 text-white font-bold py-2 px-6 rounded-full text-md shadow-lg hover:bg-indigo-700 transition-colors duration-300">
