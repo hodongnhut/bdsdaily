@@ -107,7 +107,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     <li>✔️ Cập nhật tin tức thị trường hàng ngày</li>
                     <li>✔️ Dữ liệu được xác thực liên tục </li>
                     <li>✔️ Sử dụng hệ thống giỏ hàng</li>
-                    <li>✔️ Hỗ trợ Xem Số Chủ Nhà 300 số/ ngày</li>
+                    <li>✔️ Hỗ trợ Xem Số Chủ Nhà 500 số/ ngày</li>
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ App mobile</li>
                     <li>✔️ Hỗ trợ qua Zalo và Email</li>
