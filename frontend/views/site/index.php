@@ -114,6 +114,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     <li>✔️ Báo cáo phân tích thị trường cơ bản</li>
                     <li>✔️ Hỗ trợ kỹ thuật 24/7</li>
                     <li>✔️ Hỗ trợ sài thử 7 ngày</li>
+                    <li>✔️ Bảo Hành Trọn Đời</li>
                 </ul>
                 <a href="#lien-he" class="inline-block w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
                     Đăng Ký Gói Cơ Bản
@@ -134,6 +135,7 @@ $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
                     <li>✔️ Tích hợp AI phân tích dữ liệu chuyên sâu</li>
                     <li>✔️ Đào tạo và tư vấn chiến lược độc quyền</li>
                     <li>✔️ Hỗ trợ ưu tiên 24/7 và bảo trì hệ thống</li>
+                    <li>✔️ Bảo Hành Trọn Đời</li>
                 </ul>
                 <a href="#lien-he" class="inline-block w-full bg-teal-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-teal-600 transition-colors duration-300">
                     Yêu Cầu Tư Vấn
