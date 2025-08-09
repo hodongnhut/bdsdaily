@@ -480,7 +480,7 @@ class Properties extends \yii\db\ActiveRecord
 
     public function getOwnerContacts()
     {
-        return $this->hasMany(OwnerContacts::class, ['property_id' => 'property_id']);
+        return $this->hasMany(OwnerContacts::class, ['property_id' => 'property_id']) ->orderBy(['contact_id' => SORT_DESC]);
     }
 
     public function getLocationTypes()
