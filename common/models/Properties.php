@@ -172,7 +172,7 @@ class Properties extends \yii\db\ActiveRecord
         if (count($model->propertyImages) > 0) {
             foreach ($model->propertyImages as $image) {
                 $fullUrl = rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/');
-                if ($this->imageExists($fullUrl)) {
+                if ($this->imageExistsCurl($fullUrl)) {
                     $images[] = ['image' => $fullUrl];
                 }
             }
@@ -224,12 +224,19 @@ class Properties extends \yii\db\ActiveRecord
     }
 
 
-    public function imageExists($url) {
-        $headers = @get_headers($url, 1);
-        if ($headers && strpos($headers[0], '200') !== false) {
-            return true;
-        }
-        return false;
+    public function imageExistsCurl($url) {
+        $ch = curl_init($url);
+    
+        // Only request headers, not body
+        curl_setopt($ch, CURLOPT_NOBODY, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    
+        curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+    
+        return ($httpCode >= 200 && $httpCode < 300);
     }
 
     public  function formatPriceUnit($number) {
