@@ -226,17 +226,17 @@ class Properties extends \yii\db\ActiveRecord
 
     public function imageExistsCurl($url) {
         $ch = curl_init($url);
-    
-        // Only request headers, not body
-        curl_setopt($ch, CURLOPT_NOBODY, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+
+        curl_setopt($ch, CURLOPT_NOBODY, true);            // Only get headers
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    // Don't output directly
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);    // Follow redirects
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);              // Timeout in seconds
     
         curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
     
-        return ($httpCode >= 200 && $httpCode < 300);
+        return ($status === 200);
     }
 
     public  function formatPriceUnit($number) {
