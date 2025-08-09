@@ -45,3 +45,4 @@ phpunit.phar
 /backend/web/index-test.php
 /backend/web/robots.txt
 /backend/web/downloaded_images
+/backend/web/uploads

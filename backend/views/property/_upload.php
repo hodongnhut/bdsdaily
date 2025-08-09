@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 
 \yii\web\YiiAsset::register($this);
-$baseUrl = 'https://kinglandgroup.vn';
+
 ?>
 
 <div id="so-hong-content" class="tab-content bg-white p-6 rounded-lg shadow-md mt-1">
@@ -40,14 +40,25 @@ $baseUrl = 'https://kinglandgroup.vn';
     <br>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 uploaded-images">
         <?php
+        $baseUrl = 'https://kinglandgroup.vn';
         $images = $model->propertyImages;
         foreach ($images as $image) {
             $imagePath = $image->image_path;
-            if (strpos($imagePath, '/') === 0) {
-                $imageUrl = $baseUrl . $imagePath;
+            if ($image->status_external  === 1) {
+                $urlLocal = 'http://app.bdsdaily.com';
+                if (strpos($imagePath, '/') === 0) {
+                    $imageUrl = $urlLocal. $imagePath;
+                } else {
+                    $imageUrl = $urlLocal. '/' . $imagePath;
+                }
             } else {
-                $imageUrl = $baseUrl . '/' . $imagePath;
+                if (strpos($imagePath, '/') === 0) {
+                    $imageUrl = $baseUrl . $imagePath;
+                } else {
+                    $imageUrl = $baseUrl . '/' . $imagePath;
+                }
             }
+            
             echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container' data-image-id='{$image->image_id}'>";
             echo "<img src='" .$imageUrl. "' alt='" . Html::encode($image->image_path) . "' class='object-cover w-full h-full'>";
             if (!Yii::$app->user->isGuest && in_array(Yii::$app->user->identity->jobTitle->role_code, ['manager', 'super_admin'])) {

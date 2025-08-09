@@ -373,6 +373,7 @@ class PropertyController extends Controller
                 $imageModel->image_path = '/uploads/properties/' . time() . '_' . uniqid() . '.' . $file->extension;
                 $imageModel->image_type = ($type === 'legal') ? 1 : 0;
                 $imageModel->is_main = 0;
+                $imageModel->status_external = 1;
                 $imageModel->sort_order = $sortOrder++;
                 
                 $filePath = Yii::getAlias('@webroot') . $imageModel->image_path;

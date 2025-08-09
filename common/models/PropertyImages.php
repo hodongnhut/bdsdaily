@@ -20,8 +20,9 @@ class PropertyImages extends ActiveRecord
     public function rules()
     {
         return [
+            [['status_external'], 'default', 'value' => 0],
             [['property_id', 'image_path'], 'required'],
-            [['property_id', 'sort_order', 'created_at', 'updated_at'], 'integer'],
+            [['property_id', 'sort_order', 'created_at', 'updated_at', 'status_external'], 'integer'],
             [['is_main', 'image_type'], 'boolean'],
             [['image_path'], 'string', 'max' => 255],
             [['image_type'], 'default', 'value' => 0],
@@ -43,6 +44,7 @@ class PropertyImages extends ActiveRecord
             'sort_order' => 'Sort Order',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'status_external' => 'Status External',
         ];
     }
 
