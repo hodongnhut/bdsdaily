@@ -172,7 +172,9 @@ class Properties extends \yii\db\ActiveRecord
         if (count($model->propertyImages) > 0) {
             foreach ($model->propertyImages as $image) {
                 $fullUrl = rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/');
-                $images[] = ['image' => $fullUrl];
+                if ($this->imageExists($fullUrl)) {
+                    $images[] = ['image' => $fullUrl];
+                }
             }
         }
         
@@ -219,6 +221,15 @@ class Properties extends \yii\db\ActiveRecord
         }
         
         return (float)$number;
+    }
+
+
+    public function imageExists($url) {
+        $headers = @get_headers($url, 1);
+        if ($headers && strpos($headers[0], '200') !== false) {
+            return true;
+        }
+        return false;
     }
 
     public  function formatPriceUnit($number) {
