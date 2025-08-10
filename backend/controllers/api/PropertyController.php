@@ -12,9 +12,10 @@ use common\models\PropertyFavorite;
 use common\models\Districts;
 use common\models\Wards;
 use common\models\Streets;
-use common\models\Advantages;
-use common\models\Disadvantages;
 use yii\web\NotFoundHttpException;
+use common\models\PropertyImages;
+use yii\web\UploadedFile;
+use common\models\PropertyUpdateLog;
 
 class PropertyController extends Controller
 {
@@ -348,8 +349,6 @@ class PropertyController extends Controller
 
         $data = [
             'property' => $model,
-            'advantages' => Advantages::find()->all(),
-            'disadvantages' => Disadvantages::find()->all(),
             'selectAdvantages' => array_column($model->advantages, 'advantage_id'),
             'selectDisadvantages' => array_column($model->disadvantages, 'disadvantage_id'),
             'images' => $images,
@@ -358,6 +357,102 @@ class PropertyController extends Controller
 
         if (!empty($model)) {
             return $this->response(true, 'Get a property Success ', $data);
+        }
+    }
+    
+
+    /**
+     * Uploads images via API.
+     * @return array JSON response with success status, message, and uploaded image details.
+     */
+    public function actionUploadImage()
+    {
+        $response = ['success' => false, 'message' => '', 'images' => []];
+
+        if (Yii::$app->user->isGuest) {
+            $response['message'] = 'Unauthorized';
+            return $response;
+        }
+
+        $files = UploadedFile::getInstancesByName('files');
+        $type = Yii::$app->request->post('type');
+        $propertyId = Yii::$app->request->post('property_id', 0);
+
+        if (empty($files)) {
+            $response['message'] = 'Please select at least one file to upload.';
+            return $response;
+        }
+
+        if (count($files) > 10) {
+            $response['message'] = 'Maximum 10 files allowed. You selected ' . count($files) . ' files.';
+            return $response;
+        }
+
+        if ($propertyId == 0) {
+            $response['message'] = 'Invalid property ID.';
+            return $response;
+        }
+
+        $allowedTypes = ['legal', 'other'];
+        if (!in_array($type, $allowedTypes)) {
+            $response['message'] = 'Invalid image type: ' . $type;
+            return $response;
+        }
+
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $sortOrder = PropertyImages::find()->where(['property_id' => $propertyId])->max('sort_order') + 1;
+
+            foreach ($files as $file) {
+                $allowedExtensions = ['pdf', 'jpg', 'png', 'jpeg', 'webp', 'heic'];
+                if (!in_array(strtolower($file->extension), $allowedExtensions)) {
+                    $response['message'] = 'Invalid file format: ' . $file->name;
+                    return $response;
+                }
+
+                $maxFileSize = 5 * 1024 * 1024; // 5MB
+                if ($file->size > $maxFileSize) {
+                    $response['message'] = 'File too large: ' . $file->name . '. Maximum size is 5MB.';
+                    return $response;
+                }
+
+                $imageModel = new PropertyImages();
+                $imageModel->property_id = $propertyId;
+                $imageModel->image_path = '/uploads/properties/' . time() . '_' . uniqid() . '.' . $file->extension;
+                $imageModel->image_type = ($type === 'legal') ? 1 : 0;
+                $imageModel->is_main = 0;
+                $imageModel->status_external = 1;
+                $imageModel->sort_order = $sortOrder++;
+
+                $filePath = Yii::getAlias('@webroot') . $imageModel->image_path;
+                $directory = dirname($filePath);
+                if (!is_dir($directory)) {
+                    mkdir($directory, 0777, true);
+                }
+
+                if ($file->saveAs($filePath)) {
+                    if (!$imageModel->save()) {
+                        throw new \Exception('Failed to save image metadata: ' . implode(', ', $imageModel->getErrorSummary(true)));
+                    }
+                    $response['images'][] = [
+                        'id' => $imageModel->image_id,
+                        'url' => Yii::$app->urlManager->createAbsoluteUrl($imageModel->image_path),
+                        'name' => $file->name
+                    ];
+                } else {
+                    throw new \Exception('Failed to save file: ' . $file->name);
+                }
+            }
+
+            $transaction->commit();
+            $response['success'] = true;
+            $response['message'] = 'Images uploaded successfully';
+            return $response;
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            Yii::error('Upload image error: ' . $e->getMessage() . "\n" . $e->getTraceAsString(), __METHOD__);
+            $response['message'] = 'Error uploading images: ' . $e->getMessage();
+            return $response;
         }
     }
 
