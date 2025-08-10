@@ -15,7 +15,8 @@ use common\models\Streets;
 use yii\web\NotFoundHttpException;
 use common\models\PropertyImages;
 use yii\web\UploadedFile;
-use common\models\PropertyUpdateLog;
+use common\models\Advantages;
+use common\models\Disadvantages;
 
 class PropertyController extends Controller
 {
@@ -349,6 +350,8 @@ class PropertyController extends Controller
 
         $data = [
             'property' => $model,
+            'advantages' => Advantages::find()->all(),
+            'disadvantages' => Disadvantages::find()->all(),
             'selectAdvantages' => array_column($model->advantages, 'advantage_id'),
             'selectDisadvantages' => array_column($model->disadvantages, 'disadvantage_id'),
             'images' => $images,
