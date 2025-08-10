@@ -156,7 +156,7 @@ class PropertyController extends Controller
         
         $data = array_map(function ($favorite) {
             $property = $favorite->property;
-            $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://app.bdsdaily.com';
+            $imageDomain = Yii::$app->params['imageDomain'] ?? Yii::$app->params['baseUrlDomain'];
 
             $noImage[] = [
                 'image_id' => 1,
@@ -166,12 +166,22 @@ class PropertyController extends Controller
             ];
             $images = [];
             foreach ($property->propertyImages as $image) {
-                $images[] = [
-                    'image_id' => $image->image_id,
-                    'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
-                    'is_main' => $image->is_main,
-                    'sort_order' => $image->sort_order,
-                ];
+                if ($image->status_external === 1) {
+                    $images[] = [
+                        'image_id' => $image->image_id,
+                        'image_path' => rtrim(Yii::$app->params['baseUrlDomain'], '/') . '/' . ltrim($image->image_path, '/'),
+                        'is_main' => $image->is_main,
+                        'sort_order' => $image->sort_order,
+                    ];
+                } else{
+                    $images[] = [
+                        'image_id' => $image->image_id,
+                        'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
+                        'is_main' => $image->is_main,
+                        'sort_order' => $image->sort_order,
+                    ];
+                }
+               
             }
 
             $contacts = [];
