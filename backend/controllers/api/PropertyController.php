@@ -173,7 +173,7 @@ class PropertyController extends Controller
                         'is_main' => $image->is_main,
                         'sort_order' => $image->sort_order,
                     ];
-                } else{
+                } else {
                     $images[] = [
                         'image_id' => $image->image_id,
                         'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
