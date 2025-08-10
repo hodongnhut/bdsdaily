@@ -348,8 +348,10 @@ class PropertyController extends Controller
 
         $data = [
             'property' => $model,
-            'advantages' => array_column($model->advantages, 'advantage_id'),
-            'disadvantages' => array_column($model->disadvantages, 'disadvantage_id'),
+            'advantages' => Advantages::find()->all(),
+            'disadvantages' => Disadvantages::find()->all(),
+            'selectAdvantages' => array_column($model->advantages, 'advantage_id'),
+            'selectDisadvantages' => array_column($model->disadvantages, 'disadvantage_id'),
             'images' => $images,
             'contacts' => $contacts,
         ];
