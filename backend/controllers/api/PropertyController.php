@@ -337,8 +337,8 @@ class PropertyController extends Controller
         }
         $data = [
             'property' => $model,
-            'advantages' => Advantages::find()->all(),
-            'disadvantages' => Disadvantages::find()->all(),
+            'advantages' => $model->propertyInteriors,
+            'disadvantages' => $model->interiors,
             'images' => $images,
             'contacts' => $contacts,
         ];

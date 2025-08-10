@@ -196,7 +196,7 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
                                             ])->dropDownList(
                                                 [1 => 'VND', 2 => 'USD'],
                                                 [
-                                                    'class' => 'h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-orange-500 focus:border-orange-500 sm:text-sm'
+                                                    'class' => 'h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-2 text-gray-500 focus:ring-orange-500 focus:border-orange-500 sm:text-sm'
                                                 ]
                                             ) ?>
                                         </div>
@@ -226,15 +226,25 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
                                         ['prompt' => 'Chọn đơn vị', 'class' => 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-orange-500 focus:border-orange-500 sm:text-sm']
                                     ) ?>
                                 </div>
-
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Ngày hết hạn</label>
-                                    <?= $form->field($rentalContractModel, 'expiry_date', [
-                                        'template' => '{input}{error}'
-                                    ])->textInput([
-                                        'type' => 'date',
-                                        'class' => 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-orange-500 focus:border-orange-500 sm:text-sm',
-                                    ]) ?>
+                                    <div class="relative">
+                                        <?= $form->field($rentalContractModel, 'expiry_date')
+                                            ->widget(\yii\jui\DatePicker::class, [
+                                                'dateFormat' => 'dd/MM/yyyy',
+                                                'options' => [
+                                                    'class' => 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-orange-500 focus:border-orange-500 sm:text-sm',
+                                                    'placeholder' => 'Ngày hết hạn'
+                                                ],
+                                                'clientOptions' => [
+                                                    'changeMonth' => true,
+                                                    'changeYear' => true,
+                                                    'showButtonPanel' => true,
+                                                    'yearRange' => '1900:2099',
+                                                ],
+                                            ])->label(false) ?>
+                                        <i class="fas fa-calendar-alt absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>

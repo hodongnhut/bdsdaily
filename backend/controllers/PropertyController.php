@@ -210,7 +210,6 @@ class PropertyController extends Controller
         
         if ($this->request->isPost && $model->load($this->request->post())) {
             
-
             $rentalContractModel->load($this->request->post());
             if ($rentalContractModel->isNewRecord) {
                 $rentalContractModel->property_id = $model->property_id;
