@@ -19,6 +19,7 @@ if ($model->listing_types_id === 2) {
 
 $advantages = Advantages::find()->all();
 $disadvantages = Disadvantages::find()->all();
+
 $assetTypes = ArrayHelper::map(AssetTypes::find()->where(['<>', 'asset_type_id', 9])->all(), 'asset_type_id', 'type_name');
 $commissionTypes = ArrayHelper::map(CommissionTypes::find()->all(), 'id', 'name');
 $transactionStatuses = ArrayHelper::map(TransactionStatuses::find()->where(['<>', 'transaction_status_id', 0])->all(), 'transaction_status_id', 'status_name');

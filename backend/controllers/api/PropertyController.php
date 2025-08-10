@@ -335,13 +335,15 @@ class PropertyController extends Controller
                 'gender' => $contact->gender ? $contact->gender->name : null,
             ];
         }
+
         $data = [
             'property' => $model,
-            'advantages' => $model->propertyInteriors,
-            'disadvantages' => $model->interiors,
+            'advantages' => array_column($model->advantages, 'advantage_id'),
+            'disadvantages' => array_column($model->disadvantages, 'disadvantage_id'),
             'images' => $images,
             'contacts' => $contacts,
         ];
+        
         if (!empty($model)) {
             return $this->response(true, 'Get a property Success ', $data);
         }
