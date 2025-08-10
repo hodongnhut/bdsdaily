@@ -317,12 +317,22 @@ class PropertyController extends Controller
         $images = [];
         $imageDomain = Yii::$app->params['imageDomain'] ?? 'https://app.bdsdaily.com';
         foreach ($model->propertyImages as $image) {
-            $images[] = [
-                'image_id' => $image->image_id,
-                'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
-                'is_main' => $image->is_main,
-                'sort_order' => $image->sort_order,
-            ];
+            if ($image->status_external  === 1) {
+                $imageDomain = Yii::$app->params['baseUrlDomain'];
+                $images[] = [
+                    'image_id' => $image->image_id,
+                    'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
+                    'is_main' => $image->is_main,
+                    'sort_order' => $image->sort_order,
+                ];
+            } else {
+                $images[] = [
+                    'image_id' => $image->image_id,
+                    'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
+                    'is_main' => $image->is_main,
+                    'sort_order' => $image->sort_order,
+                ];
+            }
         }
 
         $contacts = [];
@@ -343,7 +353,7 @@ class PropertyController extends Controller
             'images' => $images,
             'contacts' => $contacts,
         ];
-        
+
         if (!empty($model)) {
             return $this->response(true, 'Get a property Success ', $data);
         }
