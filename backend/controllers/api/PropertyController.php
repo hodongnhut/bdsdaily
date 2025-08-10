@@ -57,12 +57,22 @@ class PropertyController extends Controller
         foreach ($properties as $property) {
             $images = [];
             foreach ($property->propertyImages as $image) {
-                $images[] = [
-                    'image_id' => $image->image_id,
-                    'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
-                    'is_main' => $image->is_main,
-                    'sort_order' => $image->sort_order,
-                ];
+                if ($image->status_external === 1) {
+                    $images[] = [
+                        'image_id' => $image->image_id,
+                        'image_path' => rtrim(Yii::$app->params['baseUrlDomain'], '/') . '/' . ltrim($image->image_path, '/'),
+                        'is_main' => $image->is_main,
+                        'sort_order' => $image->sort_order,
+                    ];
+                } else {
+                    $images[] = [
+                        'image_id' => $image->image_id,
+                        'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
+                        'is_main' => $image->is_main,
+                        'sort_order' => $image->sort_order,
+                    ];
+                }
+                
             }
 
             $contacts = [];
