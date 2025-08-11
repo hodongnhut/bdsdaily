@@ -225,22 +225,6 @@ class Properties extends \yii\db\ActiveRecord
         return (float)$number;
     }
 
-
-    public function imageExistsCurl($url) {
-        $ch = curl_init($url);
-
-        curl_setopt($ch, CURLOPT_NOBODY, true);            // Only get headers
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    // Don't output directly
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);    // Follow redirects
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);              // Timeout in seconds
-    
-        curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-    
-        return ($status === 200);
-    }
-
     public  function formatPriceUnit($number) {
         if (!is_numeric($number) || $number <= 0) {
             return 'Thỏa thuận';
