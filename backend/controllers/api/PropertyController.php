@@ -17,7 +17,10 @@ use common\models\PropertyImages;
 use yii\web\UploadedFile;
 use common\models\Advantages;
 use common\models\Disadvantages;
-
+use common\models\RentalContracts;
+use common\models\PropertyInteriors;
+use common\models\PropertyAdvantages;
+use common\models\PropertyDisadvantages;
 class PropertyController extends Controller
 {
     public function behaviors()
@@ -150,6 +153,88 @@ class PropertyController extends Controller
         return $this->response(false, 'Invalid input', [
             'errors' => $model->getErrors(),
         ]);
+    }
+
+
+    public function actionUpdate($propertyId)
+    {
+
+        try {
+            $model = $this->findModel($propertyId);
+        } catch (NotFoundHttpException $e) {
+            return $this->response(false, 'Property not found');
+        }
+
+        $data = Yii::$app->request->post();
+        $rentalContractModel = $model->rentalContract ?? new RentalContracts();
+        $rentalContractModel->load($data, '');
+
+        if ($model->load($data, '')) {
+            $isModelValid = $model->validate();
+            $isRentalValid = true;
+            if ($model->has_rental_contract) {
+                $isRentalValid = $rentalContractModel->validate();
+            }
+
+            if ($isModelValid && $isRentalValid) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    if ($model->save(false)) {
+                        if ($model->has_rental_contract) {
+                            if ($rentalContractModel->isNewRecord) {
+                                $rentalContractModel->property_id = $model->property_id;
+                            }
+                            $rentalContractModel->save(false);
+                        } elseif (!$rentalContractModel->isNewRecord) {
+                            $rentalContractModel->delete();
+                        }
+
+                        if ($model->listing_types_id === 2) {
+                            $interiorIds = $data['interiors'] ?? [];
+                            PropertyInteriors::deleteAll(['property_id' => $model->property_id]);
+                            foreach ($interiorIds as $interiorId) {
+                                $relation = new PropertyInteriors();
+                                $relation->property_id = $model->property_id;
+                                $relation->interior_id = $interiorId;
+                                $relation->save(false);
+                            }
+                        }
+
+                        $advantagesIds = $data['advantages'] ?? [];
+                        PropertyAdvantages::deleteAll(['property_id' => $model->property_id]);
+                        foreach ($advantagesIds as $advantageId) {
+                            $advantage = new PropertyAdvantages();
+                            $advantage->property_id = $model->property_id;
+                            $advantage->advantage_id = $advantageId;
+                            $advantage->save(false);
+                        }
+
+                        $disadvantagesIds = $data['disadvantages'] ?? [];
+                        PropertyDisadvantages::deleteAll(['property_id' => $model->property_id]);
+                        foreach ($disadvantagesIds as $disadvantageId) {
+                            $disadvantage = new PropertyDisadvantages();
+                            $disadvantage->property_id = $model->property_id;
+                            $disadvantage->disadvantage_id = $disadvantageId;
+                            $disadvantage->save(false);
+                        }
+
+                        $transaction->commit();
+                        return $this->response(true, 'Property updated successfully', ['property' => $model]);
+                    } else {
+                        $transaction->rollBack();
+                        return $this->response(false, 'Failed to update property');
+                    }
+                } catch (\Exception $e) {
+                    $transaction->rollBack();
+                    return $this->response(false, 'Error updating property: ' . $e->getMessage());
+                }
+            } else {
+                $errors = array_merge($model->getErrors(), $rentalContractModel->getErrors());
+                return $this->response(false, 'Validation errors', ['errors' => $errors]);
+            }
+        }
+
+        return $this->response(false, 'Invalid input', ['errors' => $model->getErrors()]);
     }
 
     public function actionFavorites()
@@ -433,7 +518,7 @@ class PropertyController extends Controller
                     return $response;
                 }
 
-                $maxFileSize = 5 * 1024 * 1024; // 5MB
+                $maxFileSize = 5 * 1024 * 1024;
                 if ($file->size > $maxFileSize) {
                     $response['message'] = 'File too large: ' . $file->name . '. Maximum size is 5MB.';
                     return $response;
