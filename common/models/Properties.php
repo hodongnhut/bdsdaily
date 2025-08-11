@@ -171,10 +171,12 @@ class Properties extends \yii\db\ActiveRecord
 
         if (count($model->propertyImages) > 0) {
             foreach ($model->propertyImages as $image) {
-                $fullUrl = rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/');
-                if ($this->imageExistsCurl($fullUrl)) {
-                    $images[] = ['image' => $fullUrl];
+                if ($image->status_external === 1) {
+                    $fullUrl = rtrim(Yii::$app->params['baseUrlDomain'], '/') . '/' . ltrim($image->image_path, '/');
+                } else {
+                    $fullUrl = rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/');
                 }
+                $images[] = ['image' => $fullUrl];
             }
         }
         
