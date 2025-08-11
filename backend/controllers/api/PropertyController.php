@@ -21,6 +21,7 @@ use common\models\RentalContracts;
 use common\models\PropertyInteriors;
 use common\models\PropertyAdvantages;
 use common\models\PropertyDisadvantages;
+
 class PropertyController extends Controller
 {
     public function behaviors()
