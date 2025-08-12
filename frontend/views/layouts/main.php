@@ -60,10 +60,13 @@ AppAsset::register($this);
 </header>
 
 <main role="main" class="flex-shrink-0">
-    <?= Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    ]) ?>
-    <?= Alert::widget() ?>
+    <div class="container mx-auto max-w-3xl bg-white p-6 my-6 rounded-lg shadow-lg">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= Alert::widget() ?>
+    </div>
+   
     <?= $content ?>
 </main>
 
@@ -79,6 +82,7 @@ AppAsset::register($this);
                 <a href="#du-lieu" class="hover:text-indigo-400">Dữ Liệu</a>
                 <a href="#dich-vu" class="hover:text-indigo-400">Dịch Vụ</a>
                 <a href="#goi-dich-vu" class="hover:text-indigo-400">Gói Dịch Vụ</a>
+                <a href="<?= Yii::getAlias('@web') ?>/privacy-policy.html" class="hover:text-indigo-400">Chính sách bảo mật</a>
                 <a href="#app-mobile" class="hover:text-indigo-400">App Mobile</a>
                 <a href="#zalo" class="hover:text-indigo-400">Zalo B2B</a>
                 <a href="#lien-he" class="hover:text-indigo-400">Liên Hệ</a>

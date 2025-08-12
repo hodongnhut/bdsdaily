@@ -256,4 +256,14 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
+    /**
+     * Displays about page.
+     *
+     * @return mixed
+     */
+    public function actionPrivacyPolicy()
+    {
+        return $this->render('privacy-policy');
+    }
 }
