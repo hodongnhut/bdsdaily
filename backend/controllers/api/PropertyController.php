@@ -240,12 +240,8 @@ class PropertyController extends Controller
 
     public function actionFavorites()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->response(false, 'Unauthorized');
-        }
-        $userId = Yii::$app->user->id;
         $favorites = PropertyFavorite::find()
-            ->where(['user_id' => $userId])
+            ->where(['user_id' => Yii::$app->user->id])
             ->with(['property'])
             ->all();
 
@@ -261,35 +257,39 @@ class PropertyController extends Controller
                 'sort_order' => 0
             ];
             $images = [];
-            foreach ($property->propertyImages as $image) {
-                if ($image->status_external === 1) {
-                    $images[] = [
-                        'image_id' => $image->image_id,
-                        'image_path' => rtrim(Yii::$app->params['baseUrlDomain'], '/') . '/' . ltrim($image->image_path, '/'),
-                        'is_main' => $image->is_main,
-                        'sort_order' => $image->sort_order,
-                    ];
-                } else {
-                    $images[] = [
-                        'image_id' => $image->image_id,
-                        'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
-                        'is_main' => $image->is_main,
-                        'sort_order' => $image->sort_order,
+            if (!empty($property->propertyImages)) {
+                foreach ($property->propertyImages as $image) {
+                    if ($image->status_external === 1) {
+                        $images[] = [
+                            'image_id' => $image->image_id,
+                            'image_path' => rtrim(Yii::$app->params['baseUrlDomain'], '/') . '/' . ltrim($image->image_path, '/'),
+                            'is_main' => $image->is_main,
+                            'sort_order' => $image->sort_order,
+                        ];
+                    } else {
+                        $images[] = [
+                            'image_id' => $image->image_id,
+                            'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
+                            'is_main' => $image->is_main,
+                            'sort_order' => $image->sort_order,
+                        ];
+                    }
+                }
+            }
+            
+            $contacts = [];
+            if (!empty($property->ownerContacts)) {
+                foreach ($property->ownerContacts as $contact) {
+                    $contacts[] = [
+                        'contact_id' => $contact->contact_id,
+                        'contact_name' => $contact->contact_name,
+                        'phone_number' => $contact->phone_number,
+                        'role' => $contact->role ? $contact->role->name : null,
+                        'gender' => $contact->gender ? $contact->gender->name : null,
                     ];
                 }
-               
             }
-
-            $contacts = [];
-            foreach ($property->ownerContacts as $contact) {
-                $contacts[] = [
-                    'contact_id' => $contact->contact_id,
-                    'contact_name' => $contact->contact_name,
-                    'phone_number' => $contact->phone_number,
-                    'role' => $contact->role ? $contact->role->name : null,
-                    'gender' => $contact->gender ? $contact->gender->name : null,
-                ];
-            }
+            
             return [
                 'property_id' => $property->property_id,
                 'title' => $property->title,
