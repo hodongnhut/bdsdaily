@@ -245,6 +245,9 @@ class PropertyController extends Controller
             ->with(['property'])
             ->all();
 
+        if (empty($favorites)) {
+            return $this->response(true, 'Favorite properties is empty', []);
+        }
         
         $data = array_map(function ($favorite) {
             $property = $favorite->property;
