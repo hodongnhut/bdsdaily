@@ -324,7 +324,6 @@ class PropertyController extends Controller
             ];
         }, $favorites);
 
-        $data = array_filter($data);
 
         if (empty($data)) {
             return $this->response(true, 'Favorite properties is empty', []);
