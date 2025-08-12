@@ -239,91 +239,101 @@ class PropertyController extends Controller
     }
 
     public function actionFavorites()
-    {
-        $favorites = PropertyFavorite::find()
-            ->where(['user_id' => Yii::$app->user->id])
-            ->with(['property'])
-            ->all();
+{
+    $favorites = PropertyFavorite::find()
+        ->where(['user_id' => Yii::$app->user->id])
+        ->with(['property'])
+        ->all();
 
-        if (empty($favorites)) {
-            return $this->response(true, 'Favorite properties is empty', []);
+    if (empty($favorites)) {
+        return $this->response(true, 'Favorite properties is empty', []);
+    }
+
+    $data = array_map(function ($favorite) {
+        $property = $favorite->property;
+        if (empty($property)) {
+            return null;
         }
-        
-        $data = array_map(function ($favorite) {
-            $property = $favorite->property;
-            $imageDomain = Yii::$app->params['imageDomain'] ?? Yii::$app->params['baseUrlDomain'];
+        $imageDomain = Yii::$app->params['imageDomain'] ?? Yii::$app->params['baseUrlDomain'];
 
-            $noImage[] = [
+        $noImage = [
+            [
                 'image_id' => 1,
-                'image_path'=> 'https://app.bdsdaily.com/img/no-image.webp',
+                'image_path' => 'https://app.bdsdaily.com/img/no-image.webp',
                 'is_main' => 1,
                 'sort_order' => 0
-            ];
-            $images = [];
-            if (!empty($property->propertyImages)) {
-                foreach ($property->propertyImages as $image) {
-                    if ($image->status_external === 1) {
-                        $images[] = [
-                            'image_id' => $image->image_id,
-                            'image_path' => rtrim(Yii::$app->params['baseUrlDomain'], '/') . '/' . ltrim($image->image_path, '/'),
-                            'is_main' => $image->is_main,
-                            'sort_order' => $image->sort_order,
-                        ];
-                    } else {
-                        $images[] = [
-                            'image_id' => $image->image_id,
-                            'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
-                            'is_main' => $image->is_main,
-                            'sort_order' => $image->sort_order,
-                        ];
-                    }
-                }
-            }
-            
-            $contacts = [];
-            if (!empty($property->ownerContacts)) {
-                foreach ($property->ownerContacts as $contact) {
-                    $contacts[] = [
-                        'contact_id' => $contact->contact_id,
-                        'contact_name' => $contact->contact_name,
-                        'phone_number' => $contact->phone_number,
-                        'role' => $contact->role ? $contact->role->name : null,
-                        'gender' => $contact->gender ? $contact->gender->name : null,
+            ]
+        ];
+        $images = [];
+        if (!empty($property->propertyImages)) {
+            foreach ($property->propertyImages as $image) {
+                if ($image->status_external === 1) {
+                    $images[] = [
+                        'image_id' => $image->image_id,
+                        'image_path' => rtrim(Yii::$app->params['baseUrlDomain'], '/') . '/' . ltrim($image->image_path, '/'),
+                        'is_main' => $image->is_main,
+                        'sort_order' => $image->sort_order,
+                    ];
+                } else {
+                    $images[] = [
+                        'image_id' => $image->image_id,
+                        'image_path' => rtrim($imageDomain, '/') . '/' . ltrim($image->image_path, '/'),
+                        'is_main' => $image->is_main,
+                        'sort_order' => $image->sort_order,
                     ];
                 }
             }
-            
-            return [
-                'property_id' => $property->property_id,
-                'title' => $property->title,
-                'listing' =>$property->listingType->name,
-                'property_type' => $property->propertyType ? $property->propertyType->type_name : null,
-                'location_type' => $property->locationType ? $property->locationType->type_name : null,
-                'price' => $property->price,
-                'final_price' => $property->final_price,
-                'area_total' => $property->area_total,
-                'area_length' => $property->area_length,
-                'area_width' => $property->area_width,
-                'street_name' => $property->street_name,
-                'ward_commune' => $property->ward_commune,
-                'district_county' => $property->district_county,
-                'city' => $property->city,
-                'created_at' => $property->created_at,
-                'updated_at' => $property->updated_at,
-                'transaction_status' => $property->transactionStatus ? $property->transactionStatus->status_name : null,
-                'property_type' => $property->propertyType ? $property->propertyType->type_name : null,
-                'direction' => $property->direction ? $property->direction->name : null,
-                'asset_type' => $property->assetType ? $property->assetType->type_name : null,
-                'images' => count($images) > 0 ? $images : $noImage,
-                'owner_contacts' => $contacts,
-                'red_book' => $property->getRedbook()
-            ];
-        }, $favorites);
+        }
 
-        return $this->response(true, 'Favorite properties retrieved successfully', data: [
-            'properties' => $data,
-        ]);
+        $contacts = [];
+        if (!empty($property->ownerContacts)) {
+            foreach ($property->ownerContacts as $contact) {
+                $contacts[] = [
+                    'contact_id' => $contact->contact_id,
+                    'contact_name' => $contact->contact_name,
+                    'phone_number' => $contact->phone_number,
+                    'role' => $contact->role ? $contact->role->name : null,
+                    'gender' => $contact->gender ? $contact->gender->name : null,
+                ];
+            }
+        }
+
+        return [
+            'property_id' => $property->property_id,
+            'title' => $property->title,
+            'listing' => $property->listingType->name,
+            'property_type' => $property->propertyType ? $property->propertyType->type_name : null,
+            'location_type' => $property->locationType ? $property->locationType->type_name : null,
+            'price' => $property->price,
+            'final_price' => $property->final_price,
+            'area_total' => $property->area_total,
+            'area_length' => $property->area_length,
+            'area_width' => $property->area_width,
+            'street_name' => $property->street_name,
+            'ward_commune' => $property->ward_commune,
+            'district_county' => $property->district_county,
+            'city' => $property->city,
+            'created_at' => $property->created_at,
+            'updated_at' => $property->updated_at,
+            'transaction_status' => $property->transactionStatus ? $property->transactionStatus->status_name : null,
+            'direction' => $property->direction ? $property->direction->name : null,
+            'asset_type' => $property->assetType ? $property->assetType->type_name : null,
+            'images' => count($images) > 0 ? $images : $noImage,
+            'owner_contacts' => $contacts,
+            'red_book' => $property->getRedbook()
+        ];
+    }, $favorites);
+
+    $data = array_filter($data);
+
+    if (empty($data)) {
+        return $this->response(true, 'Favorite properties is empty', []);
     }
+
+    return $this->response(true, 'Favorite properties retrieved successfully', data: [
+        'properties' => $data,
+    ]);
+}
 
     // API to add a favorite
     public function actionAddFavorite()
