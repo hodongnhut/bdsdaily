@@ -60,13 +60,6 @@ AppAsset::register($this);
 </header>
 
 <main role="main" class="flex-shrink-0">
-    <div class="container mx-auto max-w-3xl bg-white p-6 my-6 rounded-lg shadow-lg">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-    </div>
-   
     <?= $content ?>
 </main>
 

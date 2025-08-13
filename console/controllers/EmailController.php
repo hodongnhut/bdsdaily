@@ -29,7 +29,7 @@ class EmailController extends Controller
                 'name' => 'Test User',
                 'email' => $email,
             ])
-                ->setFrom(['no-reply@bdsdaily.com' => 'BDSDaily'])
+                ->setFrom(['nhuthd@bdsdaily.com' => 'BDSDaily'])
                 ->setTo($email)
                 ->setSubject('Giới thiệu BDSdaily - Nền tảng Bất động sản Dành cho Sales')
                 ->send();
