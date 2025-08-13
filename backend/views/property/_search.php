@@ -244,7 +244,7 @@ foreach ($advancedFields as $field) {
                 [],
                 [
                     'prompt' => 'Chọn Phường / Xã',
-                    'class' => 'block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm'
+                    'class' => 'form-select border border-gray-300 rounded-md py-1 px-2 focus:ring-blue-500 focus:border-blue-500 w-full text-sm'
                 ]
             )->label('<span class="text-red-500">*</span> Phường / Xã', ['class' => 'text-sm font-medium text-gray-700']) ?>
            
