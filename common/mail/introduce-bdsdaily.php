@@ -27,9 +27,9 @@ use yii\helpers\Html;
 
         <!-- Main Content -->
         <div class="mt-6">
-            <p class="text-gray-600 mb-4">Kính gửi <?= Html::encode($name ?: 'Quý Sales') ?>,</p>
+            <p class="text-gray-600 mb-4">Kính gửi anh/chị <?= Html::encode($name ?: 'Quý Sales') ?>,</p>
             <p class="text-gray-600 mb-4">
-                Bạn đang tìm kiếm công cụ để tối ưu hóa công việc kinh doanh bất động sản? <strong>BDSdaily</strong> là giải pháp dành cho bạn! Chúng tôi cung cấp <strong>giỏ hàng bất động sản đã được xác minh</strong>, bao gồm thông tin giá, diện tích, vị trí, và số điện thoại chủ nhà, giúp bạn tiết kiệm thời gian và tăng tỷ lệ chốt giao dịch.
+                Bạn đang tìm kiếm công cụ để tối ưu hóa công việc kinh doanh bất động sản? <strong>BDSdaily</strong> là giải pháp dành cho anh/chị! Chúng tôi cung cấp <strong>giỏ hàng bất động sản đã được xác minh</strong>, bao gồm thông tin giá, diện tích, vị trí, và số điện thoại chủ nhà, giúp bạn tiết kiệm thời gian và tăng tỷ lệ chốt giao dịch.
             </p>
             <h2 class="text-xl font-semibold text-gray-800 mt-4">Tại sao chọn BDSdaily?</h2>
             <ul class="list-disc pl-5 text-gray-600 mb-4">

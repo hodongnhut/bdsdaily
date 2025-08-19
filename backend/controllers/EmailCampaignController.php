@@ -52,9 +52,9 @@ class EmailCampaignController extends Controller
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $currentDay = date('N'); 
+        // echo $currentDay; 
         $currentHour = date('H');
-
-        // Find campaigns scheduled for current day and hour
+        // echo $currentHour; die;
         $campaigns = EmailCampaign::find()
             ->where(['send_day' => $currentDay, 'send_hour' => $currentHour, 'status' => 'on'])
             ->all();
@@ -70,8 +70,15 @@ class EmailCampaignController extends Controller
 
     private function pushToQueue($campaignId)
     {
+        $rabbitMqConfig = Yii::$app->params['rabbitmq'];
+        
+        $connection = new AMQPStreamConnection(
+            $rabbitMqConfig['host'],
+            $rabbitMqConfig['port'],
+            $rabbitMqConfig['username'],
+            $rabbitMqConfig['password']
+        );
 
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
         $channel = $connection->channel();
 
         $channel->queue_declare('email_queue', false, true, false, false);
@@ -81,10 +88,11 @@ class EmailCampaignController extends Controller
 
         $offset = 0;
         $limit = 500;
-        while ($recipients = SalesContact::find()->select(['email'])->limit($limit)->offset($offset)->all()) {
+        while ($recipients = SalesContact::find()->select(['email', 'name'])->limit($limit)->offset($offset)->all()) {
             foreach ($recipients as $recipient) {
                 $data = [
                     'campaign_id' => $campaign->id,
+                    'name' => $recipient->name,
                     'recipient_email' => $recipient->email,
                     'subject' => $campaign->subject,
                     'content' => $campaign->content,
@@ -99,49 +107,6 @@ class EmailCampaignController extends Controller
         $connection->close();
     }
 
-    // Worker to process email queue
-    public function actionProcessQueue()
-    {
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-        $channel = $connection->channel();
-        $channel->queue_declare('email_queue', false, true, false, false);
-
-        echo " [*] Waiting for messages. To exit press CTRL+C\n";
-
-        $callback = function ($msg) {
-            $data = json_decode($msg->body, true);
-            // Send email
-            $this->sendEmail($data['recipient_email'], $data['subject'], $data['content']);
-            echo " [x] Sent email to {$data['recipient_email']}\n";
-            $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-        };
-
-        $channel->basic_qos(null, 1, null);
-        $channel->basic_consume('email_queue', '', false, false, false, false, $callback);
-
-        while ($channel->is_consuming()) {
-            $channel->wait();
-        }
-
-        $channel->close();
-        $connection->close();
-    }
-
-    private function sendEmail($to, $subject, $content)
-    {
-        $sent = Yii::$app->mailer->compose()
-            ->setTo($to)
-            ->setSubject($subject)
-            ->setHtmlBody($content)
-            ->send();
-
-        $log = new EmailLog();
-        $log->campaign_id = $data['campaign_id'];
-        $log->email = $to;
-        $log->status = $sent ? 'sent' : 'failed';
-        $log->sent_at = date('Y-m-d H:i:s');
-        $log->save();
-    }
 
 
     public function actionIndex()
