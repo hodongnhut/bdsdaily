@@ -61,6 +61,15 @@ AppAsset::register($this);
                     <i class="fas fa-users text-xl"></i>
                     <span>Quản Lý Nhân Viên</span>
                 </a>
+
+                <a href="<?= \yii\helpers\Url::to(['/sales-contact']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'users' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Quản Lý Nhân Viên">
+                    <i class="fas fa-paper-plane text-xl"></i>
+                    <span>Email khách hàng</span>
+                </a>
+                <a href="<?= \yii\helpers\Url::to(['/email-campaign']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'email-campaign' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Quản Lý Nhân Viên">
+                    <i class="fas fa-envelope text-xl"></i>
+                    <span>Email Campaigns</span>
+                </a>
             <?php endif; ?>
             
         </nav>
