@@ -22,12 +22,12 @@ $this->registerMetaTag([
 
 $this->registerMetaTag([
     'property' => 'og:title',
-    'content' => 'Phần mềm bất động sản nhà phố BDSDaily'
+    'content' => 'BDSDaily - Phần Mềm Bất Động Sản Nhà Phố'
 ]);
 
 $this->registerMetaTag([
     'property' => 'og:site_name',
-    'content' => 'Phần mềm bất động sản nhà phố BDSDaily'
+    'content' => 'BDSDaily - Phần Mềm Bất Động Sản Nhà Phố'
 ]);
 
 $this->registerMetaTag([
