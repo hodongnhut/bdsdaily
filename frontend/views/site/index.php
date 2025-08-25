@@ -3,6 +3,42 @@
 /** @var yii\web\View $this */
 
 $this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
+
+
+$this->registerMetaTag([
+    'name' => 'keywords',
+    'content' => 'phần mềm nhà phố, phần mềm giỏ hàng nhà phố, phần mềm BDSDaily, phan mem gio hang nha pho, phan mem nha pho, phần mềm bất động sản nhà phố, phần mềm quản lý giỏ hàng nhà phố, phan mem bds nha pho'
+]);
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => 'Phần mềm bất động sản BDSDaily giành riêng cho nhà phố, Giải pháp chuẩn hóa từ quản lý Nhân sự, Quản lý KPI Kinh Doanh, Quản lý sản phẩm giỏ hàng, trang bị công cụ tiện ích bản đồ quy hoạch, marketing ...  tối ưu cho mô hình kinh doanh bất động sản nhà phố'
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:description',
+    'content' => 'Phần mềm bất động sản BDSDaily giành riêng cho nhà phố, Giải pháp chuẩn hóa từ quản lý Nhân sự, Quản lý KPI Kinh Doanh, Quản lý sản phẩm giỏ hàng, trang bị công cụ tiện ích bản đồ quy hoạch, marketing ...  tối ưu cho mô hình kinh doanh bất động sản nhà phố'
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:title',
+    'content' => 'Phần mềm bất động sản nhà phố BDSDaily'
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:site_name',
+    'content' => 'Phần mềm bất động sản nhà phố BDSDaily'
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:image',
+    'content' => 'https://bdsdaily.com/img/logo.webp'
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:url',
+    'content' => 'https://bdsdaily.com/'
+]);
 ?>
 <?= $this->render('_intro') ?>
 
