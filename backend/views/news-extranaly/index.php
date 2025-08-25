@@ -10,11 +10,11 @@ use yii\grid\GridView;
 /** @var common\models\NewsExtranalySearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'News Extranalies';
+$this->title = 'Tin Tức SEO';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
-    <div class="text-lg font-semibold text-gray-800">Chủ Đề SEO</div>
+    <div class="text-lg font-semibold text-gray-800">Tin Tức SEO</div>
     <div class="relative flex items-center space-x-4">
         <button
             id="userMenuButton"
@@ -44,10 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <main class="flex-1 p-6 overflow-auto">
     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create News Extranaly', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tạo mới', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -59,7 +58,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'title',
             'slug',
             'description:ntext',
