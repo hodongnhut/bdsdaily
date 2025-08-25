@@ -34,8 +34,8 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Tìm Kiem51', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Đặ Lại', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton('Tìm Kiếm', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Đặt Lại', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
