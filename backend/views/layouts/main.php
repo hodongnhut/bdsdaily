@@ -70,6 +70,10 @@ AppAsset::register($this);
                     <i class="fas fa-envelope text-xl"></i>
                     <span>Email Campaigns</span>
                 </a>
+                <a href="<?= \yii\helpers\Url::to(['/seo-topic']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'email-campaign' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Chủ để SEO ">
+                    <i class="fas fa-tag text-xl"></i>
+                    <span>Chủ Đề SEO</span>
+                </a>
             <?php endif; ?>
             
         </nav>

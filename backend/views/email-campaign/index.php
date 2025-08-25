@@ -54,7 +54,15 @@ $this->title = 'Email Campaigns';
             'send_day' => [
                 'attribute' => 'send_day',
                 'value' => function ($model) {
-                    $days = [1 => 'Monday', 4 => 'Thursday'];
+                    $days = [ 
+                        1 => 'Thứ Hai',
+                        2 => 'Thứ Ba',
+                        3 => 'Thứ Tư',
+                        4 => 'Thứ Năm',
+                        5 => 'Thứ Sáu',
+                        6 => 'Thứ Bảy',
+                        7 => 'Chủ Nhật'
+                    ];
                     return $days[$model->send_day] ?? $model->send_day;
                 },
             ],
