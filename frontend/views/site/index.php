@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'BDS Daily - Giải Pháp Dữ Liệu Bất Động Sản B2B';
+$this->title = 'BDSDaily - Phần Mềm Bất Động Sản Nhà Phố';
 
 
 $this->registerMetaTag([
