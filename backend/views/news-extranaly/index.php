@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use common\widgets\CustomLinkPager;
 
 /** @var yii\web\View $this */
 /** @var common\models\NewsExtranalySearch $searchModel */
@@ -54,22 +55,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'headerRowOptions' => ['class' => 'bg-gray-50'],
+        'rowOptions' => ['class' => 'bg-white'],
+        'layout' => "{items}\n",
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'title',
             'slug',
             'description:ntext',
-            'content:ntext',
-            //'keywords:ntext',
-            //'news_keywords:ntext',
-            //'thumb_image',
-            //'tag',
-            //'author',
-            //'status',
-            //'created_at',
-            //'updated_at',
+            'author',
+            'status',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, NewsExtranaly $model, $key, $index, $column) {
@@ -78,5 +74,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+    <?= CustomLinkPager::widget([
+            'pagination' => $dataProvider->pagination,
+            'options' => ['class' => ''],
+            'maxButtonCount' => 5,
+            'firstPageLabel' => false,
+            'lastPageLabel' => false,
+            'prevPageLabel' => '<i class="fas fa-chevron-left"></i>',
+            'nextPageLabel' => '<i class="fas fa-chevron-right"></i>',
+        ]);
+    ?>
     </div>
 </main>
