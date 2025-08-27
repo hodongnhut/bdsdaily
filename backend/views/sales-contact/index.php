@@ -73,7 +73,7 @@ $this->title = 'Email Khách Hàng';
                         $phone = $model->phone;
                         $zaloUrl = "https://zalo.me/0" . preg_replace('/\D/', '', $phone);
                 
-                        return Html::encode($phone) . ' ' .
+                        return '0'.Html::encode($phone) . ' ' .
                             Html::a(
                                 Html::img('/img/zalo.png', [
                                     'alt' => 'Zalo',
