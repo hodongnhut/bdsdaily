@@ -66,7 +66,25 @@ $this->title = 'Email Khách Hàng';
                 'name',
                 'company_status',
                 'email:email',
-                'phone',
+                [
+                    'attribute' => 'phone',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        $phone = $model->phone;
+                        $zaloUrl = "https://zalo.me/0" . preg_replace('/\D/', '', $phone);
+                
+                        return Html::encode($phone) . ' ' .
+                            Html::a(
+                                Html::img('/img/zalo.png', [
+                                    'alt' => 'Zalo',
+                                    'class' => 'zalo-icon',
+                                    'style' => 'width:20px;height:20px;vertical-align:middle;'
+                                ]),
+                                $zaloUrl,
+                                ['class' => 'zalo-anchor', 'target' => '_blank', 'title' => 'Chat on Zalo']
+                            );
+                    },
+                ],
                 'address:ntext',
                 [
                     'class' => ActionColumn::className(),
