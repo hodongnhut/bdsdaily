@@ -172,6 +172,7 @@ $this->registerMetaTag([
                     <li>✔️ Đào tạo và tư vấn chiến lược độc quyền</li>
                     <li>✔️ Hỗ trợ tích hợp Email Marketing</li>
                     <li>✔️ Hỗ trợ tích hợp ZALO Marketing</li>
+                    <li>✔️ Hỗ trợ SEO Website bằng AI</li>
                     <li>✔️ Hỗ trợ ưu tiên 24/7 và bảo trì hệ thống</li>
                     <li>✔️ Bảo Hành Trọn Đời</li>
                 </ul>
