@@ -96,6 +96,24 @@ class EmailCampaignController extends Controller
             return;
         }
 
+        $sentToday = EmailLog::find()
+            ->where([
+                'campaign_id' => $campaign->id,
+                'status' => 'sent'
+            ])
+            ->andWhere(['like', 'sent_at', date('Y-m-d')])
+            ->count();
+
+        $remainingLimit = ($campaign->limit ?? 100) - $sentToday;
+
+        if ($remainingLimit <= 0) {
+            Yii::info("Daily limit reached for campaign ID {$campaign->id}. Sent: {$sentToday}/{$campaign->daily_limit}", __METHOD__);
+            $channel->close();
+            $connection->close();
+            return ['queued' => 0, 'message' => 'Daily limit reached'];
+        }
+
+
         // Get emails already sent for this campaign today
         $sentEmails = EmailLog::find()
             ->select('email')
@@ -103,8 +121,8 @@ class EmailCampaignController extends Controller
             ->andWhere(['like', 'sent_at', date('Y-m-d')])
             ->column();
 
-        // Select 50-100 random contacts
-        $limit = $campaign->limit ?? 100;
+
+        $limit = min($remainingLimit, 100);
         $recipients = SalesContact::find()
             ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
             ->where(['not in', 'email', $sentEmails])
