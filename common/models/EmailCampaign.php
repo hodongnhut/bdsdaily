@@ -38,6 +38,7 @@ class EmailCampaign extends \yii\db\ActiveRecord
             [['send_day'], 'integer', 'min' => 1, 'max' => 7], // 1: Monday, 7: Sunday
             [['send_hour'], 'integer', 'min' => 0, 'max' => 23], // 0-23 hours
             [['status'], 'in', 'range' => ['on', 'off']], // Status: on or off
+            [['limit'], 'integer'], // 0-23 hours
         ];
     }
 
@@ -54,6 +55,7 @@ class EmailCampaign extends \yii\db\ActiveRecord
             'send_hour' => 'Giờ Gửi',
             'status' => 'Trạng Thái',
             'created_at' => 'Ngày tạo',
+            'limit' => 'Số Email gửi 1 ngày',
         ];
     }
 

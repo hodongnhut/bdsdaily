@@ -95,6 +95,8 @@ $this->title = 'Tạo Mẫu Email Marketing';
                 'off' => 'Tắt',
             ], ['prompt' => 'Chọn Trạng Thái']) ?>
 
+            <?= $form->field($model, 'limit')->textInput(['maxlength' => true]) ?>    
+
             <div class="form-group">
                 <?= Html::submitButton('<i class="fas fa-save mr-2"></i> Tạo', ['class' => 'btn btn-primary']) ?>
             </div>

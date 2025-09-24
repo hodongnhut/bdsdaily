@@ -11,35 +11,37 @@ $this->params['breadcrumbs'][] = ['label' => 'Sales Contacts', 'url' => ['index'
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="sales-contact-view">
+<main class="flex-1 p-6 overflow-auto">
+    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+        <p>
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        </p>
+
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'id',
+                'name',
+                'company_status',
+                'email:email',
+                'phone',
+                'zalo',
+                'area',
+                'address:ntext',
+                'created_at',
+                'updated_at',
             ],
         ]) ?>
-    </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'company_status',
-            'email:email',
-            'phone',
-            'zalo',
-            'area',
-            'address:ntext',
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
-
-</div>
+    </div>
+</main>

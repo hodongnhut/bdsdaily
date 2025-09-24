@@ -1,15 +1,14 @@
 <?php
-// File: backend/controllers/EmailCampaignController.php
 namespace backend\controllers;
 
 use Yii;
 use yii\web\Controller;
-use common\models\EmailCampaign;
 use common\models\EmailLog;
 use common\models\SalesContact;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
+use common\models\EmailCampaign;
 use yii\web\NotFoundHttpException;
+use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 class EmailCampaignController extends Controller
 {
@@ -68,45 +67,126 @@ class EmailCampaignController extends Controller
         return ['status' => 'success', 'queued_campaigns' => $queued];
     }
 
+    /**
+     * Pushes emails for a campaign to the RabbitMQ queue.
+     */
     private function pushToQueue($campaignId)
     {
         $rabbitMqConfig = Yii::$app->params['rabbitmq'];
         
-        $connection = new AMQPStreamConnection(
-            $rabbitMqConfig['host'],
-            $rabbitMqConfig['port'],
-            $rabbitMqConfig['username'],
-            $rabbitMqConfig['password']
-        );
-
-        $channel = $connection->channel();
-
-        $channel->queue_declare('email_queue', false, true, false, false);
-
-
-        $campaign = EmailCampaign::findOne($campaignId);
-
-        $offset = 0;
-        $limit = 500;
-        while ($recipients = SalesContact::find()->select(['email', 'name'])->limit($limit)->offset($offset)->all()) {
-            foreach ($recipients as $recipient) {
-                $data = [
-                    'campaign_id' => $campaign->id,
-                    'name' => $recipient->name,
-                    'recipient_email' => $recipient->email,
-                    'subject' => $campaign->subject,
-                    'content' => $campaign->content,
-                ];
-                $msg = new AMQPMessage(json_encode($data), ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
-                $channel->basic_publish($msg, '', 'email_queue');
-            }
-            $offset += $limit;
+        try {
+            $connection = new AMQPStreamConnection(
+                $rabbitMqConfig['host'],
+                $rabbitMqConfig['port'],
+                $rabbitMqConfig['username'],
+                $rabbitMqConfig['password']
+            );
+            $channel = $connection->channel();
+            $channel->queue_declare('email_queue', false, true, false, false);
+        } catch (\Exception $e) {
+            Yii::error("Failed to connect to RabbitMQ: {$e->getMessage()}", __METHOD__);
+            return;
         }
 
-        $channel->close();
-        $connection->close();
+        $campaign = EmailCampaign::findOne($campaignId);
+        if (!$campaign) {
+            Yii::error("Campaign ID {$campaignId} not found.", __METHOD__);
+            $channel->close();
+            $connection->close();
+            return;
+        }
+
+        // Get emails already sent for this campaign today
+        $sentEmails = EmailLog::find()
+            ->select('email')
+            ->where(['campaign_id' => $campaign->id])
+            ->andWhere(['like', 'sent_at', date('Y-m-d')])
+            ->column();
+
+        // Select 50-100 random contacts
+        $limit = $campaign->limit ?? 100;
+        $recipients = SalesContact::find()
+            ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
+            ->where(['not in', 'email', $sentEmails])
+            ->orderBy('RAND()')
+            ->limit($limit)
+            ->all();
+
+        if (empty($recipients)) {
+            Yii::warning("No contacts available for campaign ID {$campaign->id}.", __METHOD__);
+            $channel->close();
+            $connection->close();
+            return;
+        }
+
+        foreach ($recipients as $recipient) {
+            $data = [
+                'campaign_id' => $campaign->id,
+                'name' => $recipient->name,
+                'recipient_email' => $recipient->email,
+                'company_status' => $recipient->company_status,
+                'phone' => $recipient->phone,
+                'phone1' => $recipient->phone1 ?? '',
+                'zalo' => $recipient->zalo,
+                'area' => $recipient->area,
+                'address' => $recipient->address,
+                'subject' => $campaign->subject,
+                'content' => $campaign->content,
+            ];
+            try {
+                $msg = new AMQPMessage(json_encode($data), ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
+                $channel->basic_publish($msg, '', 'email_queue');
+                Yii::info("Queued email for {$recipient->email} in campaign ID {$campaign->id}", __METHOD__);
+            } catch (\Exception $e) {
+                Yii::error("Failed to queue email for {$recipient->email}: {$e->getMessage()}", __METHOD__);
+            }
+        }
+
+        try {
+            $channel->close();
+            $connection->close();
+        } catch (\Exception $e) {
+            Yii::error("Error closing RabbitMQ connection: {$e->getMessage()}", __METHOD__);
+        }
     }
 
+
+     /**
+     * Previews the email template for a campaign.
+     */
+    public function actionPreview($id, $contact_id = null)
+    {
+        $campaign = $this->findModel($id);
+        $contact = $contact_id ? SalesContact::findOne($contact_id) : new SalesContact([
+            'name' => 'Sample Name',
+            'email' => 'sample@example.com',
+            'company_status' => 'Sample Company',
+            'phone' => '1234567890',
+            'phone1' => '0987654321',
+            'zalo' => 'sample_zalo',
+            'area' => 'Sample Area',
+            'address' => 'Sample Address',
+        ]);
+
+        // Render the email template
+        $content = $this->renderPartial('@common/mail/introduce-bdsdaily', [
+            'name' => $contact->name,
+            'email' => $contact->email,
+            'content' => $campaign->content,
+            'company_status' => $contact->company_status,
+            'phone' => $contact->phone,
+            'phone1' => $contact->phone1,
+            'zalo' => $contact->zalo,
+            'area' => $contact->area,
+            'address' => $contact->address,
+        ]);
+
+        return $this->render('preview', [
+            'campaign' => $campaign,
+            'contact' => $contact,
+            'content' => $content,
+        ]);
+    }
 
 
     public function actionIndex()

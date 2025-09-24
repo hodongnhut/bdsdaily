@@ -1,8 +1,9 @@
 <?php
 use yii\helpers\Html;
-use yii\grid\GridView;
 
-$this->title = 'Email Logs';
+$this->title = 'Preview Email for Campaign: ' . Html::encode($campaign->subject);
+$this->params['breadcrumbs'][] = ['label' => 'Email Campaigns', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
     <div class="text-lg font-semibold text-gray-800">Xem Bản Tin Nội Bộ</div>
@@ -33,20 +34,18 @@ $this->title = 'Email Logs';
     </div>
 </header>
 <main class="flex-1 p-6 overflow-auto">
-    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= GridView::widget([
-        'dataProvider' => new \yii\data\ActiveDataProvider([
-            'query' => \common\models\EmailLog::find(),
-        ]),
-        'columns' => [
-            'id',
-            'campaign_id',
-            'email',
-            'status',
-            'sent_at:datetime',
-        ],
-    ]); ?>
+    <div class="email-campaign-preview">
+        <h1><?= Html::encode($this->title) ?></h1>
+        <h3>Contact: <?= Html::encode($contact->name) ?> (<?= Html::encode($contact->email) ?>)</h3>
+        <div style="border: 1px solid #ccc; padding: 20px; background: #f9f9f9;">
+            <h4>Subject: <?= Html::encode($campaign->subject) ?></h4>
+            <div><?= $content ?></div>
+        </div>
+        <p>
+            <?= Html::a('Back to Campaigns', ['index'], ['class' => 'btn btn-primary']) ?>
+            <?php if ($contact->id): ?>
+                <?= Html::a('Test Send', ['test-send', 'id' => $campaign->id, 'contact_id' => $contact->id], ['class' => 'btn btn-success']) ?>
+            <?php endif; ?>
+        </p>
     </div>
 </main>

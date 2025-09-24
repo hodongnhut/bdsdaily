@@ -36,10 +36,12 @@ $this->title = 'Email Campaigns';
 <main class="flex-1 p-6 overflow-auto">
     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
         <p class="text-sm text-gray-500 mb-2">Màn hình chính /<?= Html::encode($this->title) ?></p>
-        <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+        <div class="flex space-x-4 items-right mb-6">
             <h2 class="text-2xl font-bold text-gray-800 mb-4 sm:mb-0">Danh Sách Mẫu Email</h2>
-            <?= Html::a('<i class="fas fa-plus mr-2"></i> Tạo Mẫu', ['create'], ['class' => 'bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
+            <?= Html::a('<i class="fas fa-plus mr-2"></i> Tạo Mẫu', ['create'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
+            <?= Html::a('<i class="fas fa-eye mr-2"></i> Logs', ['logs'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
         </div>
+       
 
         <?= GridView::widget([
         'dataProvider' => new \yii\data\ActiveDataProvider([
@@ -75,8 +77,20 @@ $this->title = 'Email Campaigns';
             'created_at:datetime',
             [
                     'class' => 'yii\grid\ActionColumn',
-                    'template' => '{update} {delete} {toggle}',
+                    'template' => '{preview} {update} {delete} {toggle}',
                     'buttons' => [
+                        'preview' => function ($url, $model) {
+                            return Html::a(
+                                '<i class="fas fa-eye text-primary text-xl"></i>',
+                                ['preview', 'id' => $model->id],
+                                [
+                                    'title' => 'Xem trước',
+                                    'data-pjax' => '0',
+                                    'encode' => false,
+                                    'class' => 'inline-block px-2',
+                                ]
+                            );
+                        },
                         'toggle' => function ($url, $model) {
                             $icon = $model->status === 'on' 
                                 ? '<i class="fa fa-toggle-on text-success text-xl"></i>' 
