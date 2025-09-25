@@ -96,6 +96,7 @@ class EmailCampaignController extends Controller
             return;
         }
 
+        // Kiểm tra số email đã gửi trong ngày cho chiến dịch
         $sentToday = EmailLog::find()
             ->where([
                 'campaign_id' => $campaign->id,
@@ -104,24 +105,23 @@ class EmailCampaignController extends Controller
             ->andWhere(['like', 'sent_at', date('Y-m-d')])
             ->count();
 
-        $remainingLimit = ($campaign->limit ?? 100) - $sentToday;
+        $dailyLimit = ($campaign->limit ?? 100); // Giới hạn mặc định là 100
+        $remainingLimit = $dailyLimit - $sentToday;
 
         if ($remainingLimit <= 0) {
-            Yii::info("Daily limit reached for campaign ID {$campaign->id}. Sent: {$sentToday}/{$campaign->daily_limit}", __METHOD__);
+            Yii::info("Daily limit reached for campaign ID {$campaign->id}. Sent: {$sentToday}/{$dailyLimit}", __METHOD__);
             $channel->close();
             $connection->close();
             return ['queued' => 0, 'message' => 'Daily limit reached'];
         }
 
-
-        // Get emails already sent for this campaign today
+        // Lấy tất cả email đã gửi cho chiến dịch này (không giới hạn ngày)
         $sentEmails = EmailLog::find()
             ->select('email')
-            ->where(['campaign_id' => $campaign->id])
-            ->andWhere(['like', 'sent_at', date('Y-m-d')])
+            ->where(['campaign_id' => $campaign->id, 'status' => 'sent'])
             ->column();
 
-
+        // Chọn các liên hệ chưa nhận email từ chiến dịch này
         $limit = min($remainingLimit, 100);
         $recipients = SalesContact::find()
             ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
