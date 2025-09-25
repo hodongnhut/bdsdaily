@@ -96,11 +96,11 @@ class EmailCampaignController extends Controller
             return;
         }
 
-        // Kiểm tra số email đã gửi trong ngày cho chiến dịch
+        // Kiểm tra số email đã gửi THÀNH CÔNG trong ngày cho chiến dịch (để giữ giới hạn hàng ngày)
         $sentToday = EmailLog::find()
             ->where([
                 'campaign_id' => $campaign->id,
-                'status' => 'sent'
+                'status' => 'sent'  // Chỉ đếm 'sent' để tính remainingLimit, vì failed không tính vào quota
             ])
             ->andWhere(['like', 'sent_at', date('Y-m-d')])
             ->count();
@@ -115,23 +115,23 @@ class EmailCampaignController extends Controller
             return ['queued' => 0, 'message' => 'Daily limit reached'];
         }
 
-        // Lấy tất cả email đã gửi cho chiến dịch này (không giới hạn ngày)
-        $sentEmails = EmailLog::find()
+        // Lấy TẤT CẢ email đã từng được thử gửi (cả 'sent' và 'failed') cho chiến dịch này
+        $allAttemptedEmails = EmailLog::find()
             ->select('email')
-            ->where(['campaign_id' => $campaign->id, 'status' => 'sent'])
+            ->where(['campaign_id' => $campaign->id])  // Không lọc status, lấy hết
             ->column();
 
-        // Chọn các liên hệ chưa nhận email từ chiến dịch này
+        // Chọn các liên hệ chưa từng được thử gửi (email không có trong allAttemptedEmails)
         $limit = min($remainingLimit, 100);
         $recipients = SalesContact::find()
             ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
-            ->where(['not in', 'email', $sentEmails])
+            ->where(['not in', 'email', $allAttemptedEmails])
             ->orderBy('RAND()')
             ->limit($limit)
             ->all();
 
         if (empty($recipients)) {
-            Yii::warning("No contacts available for campaign ID {$campaign->id}.", __METHOD__);
+            Yii::warning("No new contacts available for campaign ID {$campaign->id}.", __METHOD__);
             $channel->close();
             $connection->close();
             return;
