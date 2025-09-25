@@ -109,9 +109,9 @@
  /* Adjust main content area to prevent content from being under sidebar on mobile */
  .flex-1.flex.flex-col {
      /* On mobile, if sidebar is fixed, content doesn't need margin.
-       If sidebar pushes content, then margin is needed.
-       Given the `fixed` position of aside on mobile, content should flow normally.
-       We just need to ensure the toggle button doesn't overlap content. */
+      If sidebar pushes content, then margin is needed.
+      Given the `fixed` position of aside on mobile, content should flow normally.
+      We just need to ensure the toggle button doesn't overlap content. */
      padding-top: 4rem;
      /* To account for fixed toggle button */
  }
@@ -524,33 +524,6 @@
      margin-top: 5px;
  }
 
- .contact-entry {
-     display: flex;
-     align-items: center;
- }
-
- .contact-info {
-     display: flex;
-     align-items: center;
-     flex-wrap: nowrap;
- }
-
- .phone-display {
-     margin-left: 0.5rem;
- }
-
- .zalo-link {
-     display: inline-flex;
-     align-items: center;
-     margin-left: 0.5rem;
- }
-
- .zalo-icon {
-     width: 20px;
-     height: 20px;
-     object-fit: contain;
- }
-
- .error-message {
-     margin-left: 0.5rem;
+ .thead-fixed tr .first-width {
+     width: 48px;
  }
