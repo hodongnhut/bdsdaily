@@ -6,7 +6,7 @@ $this->title = 'Email Campaigns';
 ?>
 <!-- Header -->
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
-    <div class="text-lg font-semibold text-gray-800">Xem Bản Tin Nội Bộ</div>
+    <div class="text-lg font-semibold text-gray-800">Danh Sách Mẫu Email</div>
     <div class="relative flex items-center space-x-4">
         <button
             id="userMenuButton"
