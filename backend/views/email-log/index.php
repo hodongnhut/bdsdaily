@@ -1,11 +1,22 @@
 <?php
+
+use common\models\EmailLog;
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
+/** @var yii\web\View $this */
+/** @var common\models\EmailLogSearch $searchModel */
+/** @var yii\data\ActiveDataProvider $dataProvider */
+
 $this->title = 'Email Logs';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<!-- Header -->
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
-    <div class="text-lg font-semibold text-gray-800">Xem Bản Tin Nội Bộ</div>
+    <div class="text-lg font-semibold text-gray-800"><?= Html::encode($this->title) ?></div>
     <div class="relative flex items-center space-x-4">
         <button
             id="userMenuButton"
@@ -34,20 +45,32 @@ $this->title = 'Email Logs';
 </header>
 <main class="flex-1 p-6 overflow-auto">
     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-    <h1><?= Html::encode($this->title) ?></h1>
+
+        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+
+        <br>
+
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+
+                'id',
+                'campaign_id',
+                'email:email',
+                'status',
+                'sent_at',
+                [
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, EmailLog $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'id' => $model->id]);
+                    }
+                ],
+            ],
+        ]); ?>
 
 
-    <?= GridView::widget([
-        'dataProvider' => new \yii\data\ActiveDataProvider([
-            'query' => \common\models\EmailLog::find(),
-        ]),
-        'columns' => [
-            'id',
-            'campaign_id',
-            'email',
-            'status',
-            'sent_at:datetime',
-        ],
-    ]); ?>
     </div>
+
 </main>
