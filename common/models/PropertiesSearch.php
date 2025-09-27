@@ -206,12 +206,7 @@ class PropertiesSearch extends Properties
             ->andWhere([
                 'or',
                 ['like', 'properties.title', $this->keyword],
-                ['like', 'properties.description', $this->keyword],
-                ['like', 'properties.house_number', $this->keyword], // số nhà
-                ['like', 'properties.street_name', $this->keyword], // Đường Phố
-                ['like', 'properties.region', $this->keyword], //Khu Vực
-                ['like', 'properties.district_county', $this->keyword],
-                ['like', 'owner_contacts.phone_number', $this->keyword],
+                ['=', 'owner_contacts.phone_number', $this->keyword],
             ]);
         }
         
