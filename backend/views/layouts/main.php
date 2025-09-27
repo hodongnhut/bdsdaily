@@ -74,7 +74,7 @@ AppAsset::register($this);
                 </a>
 
                 <a href="<?= \yii\helpers\Url::to(['/zalo-marketing']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'email-campaign' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Chủ để SEO ">
-                    <img src="/img/zalo.png" alt="Zalo" class="zalo-icon-nav text-xl">
+                    <img src="/img/zalo.png" alt="Zalo" class="zalo-icon text-xl">
                     <span>Zalo Marketing</span>
                 </a>
             <?php endif; ?>
