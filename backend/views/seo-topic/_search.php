@@ -28,7 +28,14 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'title') ?>
         </div>
         <div class="col-md-6">
-            <?= $form->field($model, 'status') ?>
+        <?= $form->field($model, 'status')->dropDownList(
+                [
+                    '' => 'All',
+                    '1' => 'Completed',
+                    '0' => 'Not Yet',
+                ],
+                ['prompt' => 'Select Status']
+            ) ?>
         </div>
     </div>
 
