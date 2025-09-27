@@ -59,8 +59,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'id',
-                'campaign_id',
+                [
+                    'attribute' => 'campaign_id',
+                    'label' => 'Tiêu Đề',
+                    'value' => function ($model) {
+                        return $model->campaign ? Html::encode($model->campaign->subject) : 'N/A';
+                    },
+                ],
                 'email:email',
                 'status',
                 'sent_at',
@@ -73,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]); ?>
 
-<?= CustomLinkPager::widget([
+        <?= CustomLinkPager::widget([
             'pagination' => $dataProvider->pagination,
             'options' => ['class' => ''],
             'maxButtonCount' => 5,
@@ -84,7 +89,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
     ?>
 
-
     </div>
-
 </main>

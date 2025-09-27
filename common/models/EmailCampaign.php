@@ -59,4 +59,15 @@ class EmailCampaign extends \yii\db\ActiveRecord
         ];
     }
 
+
+    /**
+     * Gets query for [[EmailLogs]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEmailLogs()
+    {
+        return $this->hasMany(EmailLog::class, ['campaign_id' => 'id']);
+    }
+
 }

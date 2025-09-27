@@ -20,4 +20,14 @@ class EmailLog extends ActiveRecord
             [['sent_at'], 'safe'],
         ];
     }
+
+    /**
+     * Gets query for [[EmailCampaign]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCampaign()
+    {
+        return $this->hasOne(EmailCampaign::class, ['id' => 'campaign_id']);
+    }
 }
