@@ -36,6 +36,19 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
             Thêm Dữ Liệu Nhà Đất [Mã: <?= $model->property_id ?> - Loại Giao Dịch: <?= $model->listingType->name ?>]</h2>
     </div>
     <div class="relative flex items-center space-x-4">
+    <?php
+        if (!empty($model->external_id) || $model->status_review === 0 ) {
+            if (in_array(Yii::$app->user->identity->jobTitle->role_code ?? '', ['manager', 'super_admin']) && $model->status_review === 0) { ?>
+                <?= Html::a('<i class="fas fa-check"></i> Duyệt', ['property/review', 'property_id' => $model->property_id], [
+                    'class' => 'px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500',
+                    'title' => 'Duyệt bài',
+                    'data' => [
+                        'method' => 'post',
+                        'confirm' => 'Vui lòng Kiểm tra thông tin nhập 1 lần nữa . Nếu bạn chắt chắn thì duyệt tin!',
+                    ],
+                ]); ?>
+        <?php }  ?>
+    <?php }  ?>
     <div class="flex space-x-2">
         <?= Html::submitButton('<i class="fas fa-save"></i> Lưu Lại', [
             'onclick' => 'submitPropertyForm()',

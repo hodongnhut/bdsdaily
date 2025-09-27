@@ -100,6 +100,21 @@ class PropertyController extends Controller
         ]);
     }
 
+    public function actionReview($property_id)
+    {
+        $model = Properties::findOne($property_id);
+        if ($model && in_array(Yii::$app->user->identity->jobTitle->role_code, ['manager', 'super_admin'])) {
+            $model->status_review = 1;
+            if ($model->save(false)) {
+                Yii::$app->session->setFlash('success', 'Duyệt tin thành công.');
+            } else {
+                Yii::$app->session->setFlash('error', 'Duyệt tin thất bại.');
+            }
+        }
+        return $this->redirect(['view', 'property_id' => $model->property_id]);
+    }
+
+
     /**
      * Displays a single Properties model.
      * @param int $property_id Property ID
