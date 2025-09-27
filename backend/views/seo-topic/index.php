@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
 
     <p>
-        <?= Html::a('Tạo chủ đề', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tạo chủ đề', ['create'], ['class' => 'btn btn-success mb-[5px]']) ?>
     </p>
 
     <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
