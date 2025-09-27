@@ -16,14 +16,18 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <div class="row">
-        <div class="col-md-4">
-            <?= $form->field($model, 'campaign_id') ?>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <?= $form->field($model, 'email') ?>
         </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'status') ?>
+        <div class="col-md-6">
+        <?= $form->field($model, 'status')->dropDownList(
+                [
+                    '' => 'All',
+                    'failed' => 'Failed',
+                    'sent' => 'Sent',
+                ],
+                ['prompt' => 'Select Status']
+            ) ?>
         </div>
     </div>
 
