@@ -67,13 +67,10 @@ AppAsset::register($this);
                     <i class="fas fa-envelope text-xl"></i>
                     <span>Email Marketing</span>
                 </a>
-                <a href="<?= \yii\helpers\Url::to(['/seo-topic']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'email-campaign' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Chủ để SEO ">
-                    <i class="fas fa-tag text-xl"></i>
-                    <span>Chủ Đề SEO</span>
-                </a>
+
                 <a href="<?= \yii\helpers\Url::to(['/news-extranaly']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'email-campaign' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Chủ để SEO ">
                     <i class="fas fa-newspaper text-xl"></i>
-                    <span>Tin Tức SEO</span>
+                    <span>Website Marketing</span>
                 </a>
             <?php endif; ?>
             

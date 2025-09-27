@@ -48,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Tạo mới', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Danh Sách Chủ Đề SEO', ['./seo-topic'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
