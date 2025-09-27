@@ -40,7 +40,7 @@ $this->title = 'Email Campaigns';
             <h2 class="text-2xl font-bold text-gray-800 mb-4 sm:mb-0">Danh Sách Mẫu Email</h2>
             <?= Html::a('<i class="fas fa-plus mr-2"></i> Danh Sách Email', ['./sales-contact'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
             <?= Html::a('<i class="fas fa-plus mr-2"></i> Tạo Mẫu', ['create'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
-            <?= Html::a('<i class="fas fa-eye mr-2"></i> Logs', ['./email-log'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
+            <?= Html::a('<i class="fas fa-eye mr-2"></i> Logs Email Đã Gửi', ['./email-log'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
         </div>
        
 
