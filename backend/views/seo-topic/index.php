@@ -62,7 +62,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'title',
-            'status',
+            [
+                'attribute' => 'status',
+                'label' => 'Trạng Thái',
+                'value' => function ($model) {
+                    return $model->status === 1 ? 'Hoàn Thành' : ($model->status === 0 ? 'Chưa Hoàn Thành' : 'N/A');
+                },
+            ],
             'created_at',
             [
                 'class' => ActionColumn::className(),
