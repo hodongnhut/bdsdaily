@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use common\widgets\CustomLinkPager;
 
 /** @var yii\web\View $this */
 /** @var common\models\EmailLogSearch $searchModel */
@@ -52,7 +53,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
+            'headerRowOptions' => ['class' => 'bg-gray-50'],
+            'rowOptions' => ['class' => 'bg-white'],
+            'layout' => "{items}\n",
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
@@ -69,6 +72,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ]); ?>
+
+<?= CustomLinkPager::widget([
+            'pagination' => $dataProvider->pagination,
+            'options' => ['class' => ''],
+            'maxButtonCount' => 5,
+            'firstPageLabel' => false,
+            'lastPageLabel' => false,
+            'prevPageLabel' => '<i class="fas fa-chevron-left"></i>',
+            'nextPageLabel' => '<i class="fas fa-chevron-right"></i>',
+        ]);
+    ?>
 
 
     </div>
