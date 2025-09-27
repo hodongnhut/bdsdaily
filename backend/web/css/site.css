@@ -555,6 +555,12 @@
      object-fit: contain;
  }
 
+ .zalo-icon-nav {
+     width: 25px;
+     height: 25px;
+     object-fit: contain;
+ }
+
  .error-message {
      margin-left: 0.5rem;
  }
