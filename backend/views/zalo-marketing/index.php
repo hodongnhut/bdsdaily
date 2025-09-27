@@ -343,56 +343,6 @@ $this->title = "Zalo Marketing";
                     </div>
                 </div>
             </div>
-
-            <div id="settings-page" class="page-content">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h5 class="mb-0">Cấu hình hệ thống</h5>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <fieldset class="border p-3 mb-3">
-                                <legend class="float-none w-auto px-2 h6">Zalo Config</legend>
-                                <div class="mb-3"><label for="zaloToken" class="form-label">Access
-                                        Token</label><input type="password" class="form-control" id="zaloToken"
-                                        value="••••••••••••••"></div>
-                                <div class="mb-3"><label for="proxyList" class="form-label">Proxy
-                                        List</label><textarea class="form-control" id="proxyList"
-                                        rows="3"></textarea></div>
-                            </fieldset>
-                            <fieldset class="border p-3 mb-3">
-                                <legend class="float-none w-auto px-2 h6">RabbitMQ</legend>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3"><label for="rmqHost"
-                                            class="form-label">Host</label><input type="text" class="form-control"
-                                            id="rmqHost" value="localhost"></div>
-                                    <div class="col-md-6 mb-3"><label for="rmqPort"
-                                            class="form-label">Port</label><input type="text" class="form-control"
-                                            id="rmqPort" value="5672"></div>
-                                    <div class="col-md-6 mb-3"><label for="rmqUser"
-                                            class="form-label">Username</label><input type="text"
-                                            class="form-control" id="rmqUser" value="guest"></div>
-                                    <div class="col-md-6 mb-3"><label for="rmqPass"
-                                            class="form-label">Password</label><input type="password"
-                                            class="form-control" id="rmqPass" value="guest"></div>
-                                </div>
-                            </fieldset>
-                            <fieldset class="border p-3 mb-3">
-                                <legend class="float-none w-auto px-2 h6">n8n</legend>
-                                <div class="mb-3"><label for="n8nWebhook" class="form-label">Webhook
-                                        URL</label><input type="url" class="form-control" id="n8nWebhook"
-                                        value="https://n8n.example.com/webhook/..."></div>
-                                <div class="mb-3"><label for="n8nApiKey" class="form-label">API Key</label><input
-                                        type="password" class="form-control" id="n8nApiKey"
-                                        value="••••••••••••••••"></div>
-                            </fieldset>
-                            <button type="submit" class="btn btn-success"><i class="fas fa-save me-2"></i> Lưu thay
-                                đổi</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
         </main>
     </div>
 
