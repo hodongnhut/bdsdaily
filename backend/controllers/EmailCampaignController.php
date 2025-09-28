@@ -59,11 +59,13 @@ class EmailCampaignController extends Controller
             ->all();
 
         $queued = [];
-        foreach ($campaigns as $campaign) {
-            $this->pushToQueue($campaign->id);
-            $queued[] = $campaign->id;
+        if (!empty($campaigns)) {
+            foreach ($campaigns as $campaign) {
+                $this->pushToQueue($campaign->id);
+                $queued[] = $campaign->id;
+            }
         }
-
+        
         return ['status' => 'success', 'queued_campaigns' => $queued];
     }
 
@@ -105,7 +107,7 @@ class EmailCampaignController extends Controller
             ->andWhere(['like', 'sent_at', date('Y-m-d')])
             ->count();
 
-        $dailyLimit = ($campaign->limit ?? 100); // Giới hạn mặc định là 100
+        $dailyLimit = ($campaign->limit ?? 100);
         $remainingLimit = $dailyLimit - $sentToday;
 
         if ($remainingLimit <= 0) {
@@ -118,7 +120,7 @@ class EmailCampaignController extends Controller
         // Lấy tất cả email đã gửi cho chiến dịch này (không giới hạn ngày)
         $sentEmails = EmailLog::find()
             ->select('email')
-            ->where(['campaign_id' => $campaign->id, 'status' => 'sent'])
+            ->where(['campaign_id' => $campaign->id])
             ->column();
 
         // Chọn các liên hệ chưa nhận email từ chiến dịch này
