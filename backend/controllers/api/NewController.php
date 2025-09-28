@@ -2,12 +2,13 @@
 namespace backend\controllers\api;
 
 use Yii;
+use yii\web\Response;
 use yii\rest\Controller;
-use common\models\NewsExtranaly as News;
+use common\models\SeoTopics;
+use yii\filters\ContentNegotiator;
 use yii\web\NotFoundHttpException;
 use yii\filters\auth\HttpBearerAuth;
-use yii\filters\ContentNegotiator;
-use yii\web\Response;
+use common\models\NewsExtranaly as News;
 
 class NewController extends Controller
 {
@@ -23,7 +24,7 @@ class NewController extends Controller
             'view' => ['GET'],
             'create' => ['POST'],
             'update' => ['PUT', 'PATCH'],
-            'delete' => ['DELETE'],
+            'delete' => ['POST'],
         ];
     }
 
@@ -56,10 +57,13 @@ class NewController extends Controller
      */
     public function actionIndex()
     {
-        $news = News::find()->all();
+        $topics = SeoTopics::find()
+            ->where(['status' => 0])
+            ->limit(20)
+            ->all();
         return [
             'status' => 'success',
-            'data' => $news,
+            'data' => $topics,
         ];
     }
 
