@@ -12,7 +12,7 @@ $this->title = 'Đăng Nhập';
 <div class="w-full max-w-md bg-white rounded-lg shadow-xl p-8 space-y-6 md:p-10">
     <div class="text-center">
         <div
-            class="mx-auto h-16 w-16 bg-blue-600 rounded-full flex items-center justify-center text-white mb-4 shadow-md">
+            class="mx-auto h-16 w-16 bg-red-600 rounded-full flex items-center justify-center text-white mb-4 shadow-md">
             <i class="fas fa-lock text-3xl"></i>
         </div>
         <h2 class="text-3xl font-extrabold text-gray-900 mb-2"><?= Html::encode($this->title) ?></h2>
@@ -96,7 +96,7 @@ $this->title = 'Đăng Nhập';
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton('Đăng Nhập', ['class' => 'btn btn-primary w-100 py-2', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Đăng Nhập', ['class' => 'bg-red-600 text-white w-100 py-2', 'name' => 'login-button']) ?>
         </div>
 
         <div class="form-group text-center">

@@ -84,6 +84,13 @@ return [
                         'GET index'  => 'index',
                     ],
                 ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/new',
+                    'extraPatterns' => [
+                        'GET index'  => 'index',
+                    ],
+                ],
                 'POST api/post/add-property-history/<property_id:\d+>' => 'api/post/add-property-history',
                 'GET api/post/view-property/<external_id:[\w-]+>' => 'api/post/view-property',
                 'POST api/post/create-property' => 'api/post/create-property',
