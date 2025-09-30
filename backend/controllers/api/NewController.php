@@ -48,7 +48,7 @@ class NewController extends Controller
         ];
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'except' => ['index', 'view', 'update', 'delete'],
+            'except' => ['index', 'view', 'update', 'delete', 'create'],
         ];
         return $behaviors;
     }
