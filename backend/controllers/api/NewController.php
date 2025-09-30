@@ -59,7 +59,7 @@ class NewController extends Controller
     {
         $topics = SeoTopics::find()
             ->where(['status' => 0])
-            ->limit(20)
+            ->limit(5)
             ->all();
         return [
             'status' => 'success',
