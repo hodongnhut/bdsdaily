@@ -46,25 +46,13 @@ class NewController extends Controller
         $behaviors['corsFilter'] = [
             'class' => \yii\filters\Cors::class,
         ];
-        // Optional: Add authentication if needed
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'except' => ['index', 'view'], // Public actions
+            'except' => ['index', 'view', 'update', 'delete'],
         ];
         return $behaviors;
     }
 
-    /**
-     * Disables CSRF validation for the actionUpdateStatus method.
-     */
-    public function beforeAction($action)
-    {
-        if (in_array($action->id, ['index', 'update-status', 'view', 'create'])) {
-            Yii::$app->controller->enableCsrfValidation = false;
-        }
-
-        return parent::beforeAction($action);
-    }
 
     public function actionIndex()
     {
@@ -75,7 +63,7 @@ class NewController extends Controller
         return $topics;
     }
 
-    public function actionUpdateStatus($id)
+    public function actionUpdate($id)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $topic = SeoTopics::findOne($id);
