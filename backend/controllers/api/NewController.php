@@ -1,17 +1,20 @@
 <?php
+
 namespace backend\controllers\api;
 
 use Yii;
-use yii\web\Response;
+
 use yii\rest\Controller;
+use common\models\NewsExtranaly as TblNews;
 use common\models\SeoTopics;
 use yii\filters\ContentNegotiator;
 use yii\web\NotFoundHttpException;
 use yii\filters\auth\HttpBearerAuth;
-use common\models\NewsExtranaly as News;
+use yii\web\Response;
 
 class NewController extends Controller
 {
+
     public $enableCsrfValidation = false;
 
     /**
@@ -52,113 +55,96 @@ class NewController extends Controller
     }
 
     /**
-     * Lists all news items.
-     * @return array
+     * Disables CSRF validation for the actionUpdateStatus method.
      */
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['index', 'update-status', 'view'])) {
+            Yii::$app->controller->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex()
     {
-        $topics = SeoTopics::find()
-            ->where(['status' => 0])
-            ->limit(5)
-            ->all();
-        return [
-            'status' => 'success',
-            'data' => $topics,
-        ];
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $topics = SeoTopics::find()->where(['status' => 0])->limit(5)->all();
+
+        Yii::error('Returned Topics: ' . print_r($topics, true), __METHOD__);
+        return $topics;
     }
 
-    /**
-     * Displays a single news item by ID.
-     * @param int $id
-     * @return array
-     * @throws NotFoundHttpException
-     */
+    public function actionUpdateStatus($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $topic = SeoTopics::findOne($id);
+
+        if ($topic === null) {
+            throw new NotFoundHttpException('Topic not found');
+        }
+
+        $topic->status = 1;
+
+        if ($topic->save()) {
+            return [
+                'status' => 'success',
+                'message' => 'Status updated to 1',
+                'data' => $topic
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'message' => 'Failed to update status'
+            ];
+        }
+    }
+
     public function actionView($id)
     {
-        $news = $this->findModel($id);
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        
+        $topic = SeoTopics::findOne($id);
+
+        if ($topic === null) {
+            throw new NotFoundHttpException('Topic not found');
+        }
+
         return [
             'status' => 'success',
-            'data' => $news,
+            'data' => $topic
         ];
     }
 
-    /**
-     * Creates a new news item.
-     * @return array
-     */
     public function actionCreate()
     {
-        $model = new News();
-        $model->load(Yii::$app->request->post(), '');
-        
-        if ($model->save()) {
-            Yii::$app->response->setStatusCode(201); // Created
-            return [
-                'status' => 'success',
-                'data' => $model,
-            ];
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $model = new TblNews();
+
+        $rawBody = Yii::$app->request->getRawBody();
+        $data = json_decode($rawBody, true);
+    
+        if ($model->load($data, '') && $model->validate()) {
+            if ($model->save()) {
+                return [
+                    'status' => 'success',
+                    'message' => 'News created successfully',
+                    'news' => $model,
+                ];
+            } else {
+                return [
+                    'status' => 'error',
+                    'message' => 'Failed to create News',
+                    'errors' => $model->errors,
+                ];
+            }
         } else {
-            Yii::$app->response->setStatusCode(422); // Unprocessable Entity
             return [
                 'status' => 'error',
+                'message' => 'Invalid data',
                 'errors' => $model->errors,
             ];
         }
     }
 
-    /**
-     * Updates an existing news item by ID.
-     * @param int $id
-     * @return array
-     * @throws NotFoundHttpException
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-        $model->load(Yii::$app->request->post(), '');
-        
-        if ($model->save()) {
-            return [
-                'status' => 'success',
-                'data' => $model,
-            ];
-        } else {
-            Yii::$app->response->setStatusCode(422);
-            return [
-                'status' => 'error',
-                'errors' => $model->errors,
-            ];
-        }
-    }
-
-    /**
-     * Deletes a news item by ID.
-     * @param int $id
-     * @return array
-     * @throws NotFoundHttpException
-     */
-    public function actionDelete($id)
-    {
-        $model = $this->findModel($id);
-        $model->delete();
-        
-        return [
-            'status' => 'success',
-            'message' => 'News item deleted successfully.',
-        ];
-    }
-
-    /**
-     * Finds the News model by ID.
-     * @param int $id
-     * @return News
-     * @throws NotFoundHttpException
-     */
-    protected function findModel($id)
-    {
-        if (($model = News::findOne($id)) !== null) {
-            return $model;
-        }
-        throw new NotFoundHttpException('The requested news item does not exist.');
-    }
 }
