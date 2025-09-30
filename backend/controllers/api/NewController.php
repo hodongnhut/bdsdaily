@@ -59,7 +59,7 @@ class NewController extends Controller
      */
     public function beforeAction($action)
     {
-        if (in_array($action->id, ['index', 'update-status', 'view'])) {
+        if (in_array($action->id, ['index', 'update-status', 'view', 'create'])) {
             Yii::$app->controller->enableCsrfValidation = false;
         }
 
