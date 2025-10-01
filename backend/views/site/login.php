@@ -101,8 +101,8 @@ $this->title = 'Đăng Nhập';
 
         <div class="form-group text-center">
             <div class="border-t border-gray-700 pt-6 text-sm text-gray-400">
-                Bản Quyền Thuộc Về Công Ty <a href="https://stonenetworktech.com/"
-                        target="_blank" rel="nofollow noopener" title="StoneNetworkTech">StoneNetworkTech</a>
+                Bản Quyền Thuộc Về Công Ty <a href="https://bdsdaily.com/"
+                        target="_blank" rel="nofollow noopener" title="StoneNetworkTech">BDSDaily</a>
                 </div>
         </div>
 
