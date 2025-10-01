@@ -89,7 +89,7 @@ $this->title = 'Bản Đồ Quy Hoạch TP.HCM';
         _decl=false;
 </script>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/script.min.js"></script>
-<script type="text/javascript" src="https://app.bdsdaily.com/js/map/rocker.helper.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.helper.js"></script>
 <!-- MapLibre GL JS and Turf.js -->
 <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
@@ -3350,8 +3350,8 @@ hp_HeadCode([
     </section>
 </main>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/Translator.js"></script>
-<script type="text/javascript" src="https://app.bdsdaily.com/js/map/rocker.all.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.all.js"></script>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/jquery.history.js"></script>
-<script type="text/javascript" src="https://app.bdsdaily.com/js/map/rocker.dtl.js"></script>
-<script type="text/javascript" src="https://app.bdsdaily.com/js/map/rocker.fm.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.dtl.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.fm.js"></script>
 </div>
