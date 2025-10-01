@@ -83,7 +83,7 @@ $this->title = 'Bản Đồ Quy Hoạch TP.HCM';
         _Device = "3",
         IsLocal = "",
         ctk="ntc",
-        cth="8dfe862724c7c8b2c5e737c45c26ef9f",
+        cth="8dfe862724c7c8b2c5e737c45c26ef9f1",
         IsDevShow = "",
         IsDevelop = "",
         _decl=false;
@@ -110,7 +110,7 @@ hp_HeadCode([
 ],"js");
 </script>
     <section id="MainPageContainer" data-action="ZoningMapVer2" class="MainPageContainer  Page-ZoningMapVer2 View  ">
-        <!-- <script src="https://app.tapdoantoancau.com/refer/ast/js/afterAjax.js?v=2025.0.3.1"></script> -->
+
         <div class="AreaContent">
             <script type="text/javascript">BodyCollaped()</script>
             <style>
