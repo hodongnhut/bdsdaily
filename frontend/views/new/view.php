@@ -132,7 +132,7 @@ $randomImage = $images[array_rand($images)];
                                 </div>
                                 <div class="desc">
                                     <p class="comment">
-                                        Biển đêm bốn mùa hạt giống trời được nuôi dưỡng. Cảm ơn các bạn đã chia sẻ.
+                                        Bài viết của bạn hay quá . Đúng cái mình đang cần. cảm ơn bạn.
                                     </p>
                                     <div class="d-flex justify-content-between">
                                         <div class="d-flex align-items-center">
@@ -157,8 +157,7 @@ $randomImage = $images[array_rand($images)];
                                 </div>
                                 <div class="desc">
                                     <p class="comment">
-                                        Lý thuyết về các lớp phân tầng và sự hình thành các vì sao sẽ giúp chúng ta hiểu
-                                        rõ hơn về vũ trụ.
+                                        Muốn triển khai đội ngũ làm chưa biết bắt đầu từ đâu. hên đọc dc bài này
                                     </p>
                                     <div class="d-flex justify-content-between">
                                         <div class="d-flex align-items-center">
@@ -183,8 +182,7 @@ $randomImage = $images[array_rand($images)];
                                 </div>
                                 <div class="desc">
                                     <p class="comment">
-                                        Đây là một trong những kiến thức quan trọng giúp chúng ta hiểu về sự hình thành
-                                        vũ trụ.
+                                        Em đang tìm hiểu về mảng này. không ngờ lại đọc được bài này
                                     </p>
                                     <div class="d-flex justify-content-between">
                                         <div class="d-flex align-items-center">
