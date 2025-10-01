@@ -140,7 +140,7 @@ $this->registerMetaTag([
                 <p class="text-4xl font-bold text-indigo-600 mb-4">0 Đồng <span class="text-base font-normal">/tháng</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>
-                        ✔️ <a href="https://www.facebook.com/groups/753117670978352" target="_blank" rel="noopener noreferrer">
+                        ✔️ <a href="#" target="_blank" rel="noopener noreferrer">
                             Đăng Bài Miễn Phí Trên Nhóm Facebook "BẤT ĐỘNG SẢN TP.HCM"
                             </a>
                     </li>
