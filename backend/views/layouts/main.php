@@ -41,12 +41,12 @@ AppAsset::register($this);
                 <span>Màn hình chính</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/news']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'post' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Bản tin nội bộ">
-                <i class="fas fa-newspaper text-xl"></i>
+                <i class="fas fa-dashcube text-xl"></i>
                 <span>Bản tin nội bộ</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/property']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'index' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Dữ liệu Nhà Đất">
                 <i class="fas fa-home text-xl"></i>
-                <span>Dữ liệu Nhà Đất</span>
+                <span>Dữ Liệu Nhà Đất</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/property/my-favorites']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'my-favorites' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="My Favorites">
                 <i class="fas fa-heartbeat text-xl"></i>
