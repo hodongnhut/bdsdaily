@@ -12,6 +12,18 @@ use yii\widgets\ListView;
 
 $this->title = 'News Extranalies';
 $this->params['breadcrumbs'][] = $this->title;
+
+
+$this->registerMetaTag([
+    'name' => 'robots',
+    'content' => 'index, follow'
+]);
+
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => "Cập nhật thông tin bất động sản mới nhất tại Việt Nam. Tin thị trường bất động sản, tin nhà đất cập nhật nhanh nhất, chính xác nhất."
+]);
 ?>
 
 <section class="blog_area section_padding">
