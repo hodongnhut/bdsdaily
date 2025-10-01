@@ -191,9 +191,9 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/s
         ],
         [
             'attribute' => 'title',
-            'label' => '#',
+            'label' => 'Tổng quan',
             'contentOptions' => ['class' => 'w-[90px] px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell'],
-            'headerOptions' => ['class' => 'w-[90px] px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-yellow-500 hover:bg-yellow-600 text-white hidden md:table-cell'],
+            'headerOptions' => ['class' => 'w-[90px] px-6 py-3 text-left text-xs capitalize font-medium text-gray-500 tracking-wider bg-yellow-500 hover:bg-yellow-600 text-white hidden md:table-cell'],
             'format' => 'raw',
             'value' => function ($model) {
                 // Process title for house number fallback
