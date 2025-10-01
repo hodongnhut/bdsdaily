@@ -10,7 +10,7 @@ use yii\widgets\ListView;
 /** @var common\models\NewsExtranalySearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'News Extranalies';
+$this->title = 'BDSDaily Tin tức';
 $this->params['breadcrumbs'][] = $this->title;
 
 
