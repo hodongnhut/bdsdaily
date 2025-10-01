@@ -38,14 +38,14 @@ AppAsset::register($this);
             <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" alt="Bất Động Sản Daily" class="h-14 w-auto">
         </a>
         <div class="hidden md:flex space-x-6 text-sm font-medium">
-            <a href="#gioi-thieu" class="text-gray-600 hover:text-indigo-600">Giới Thiệu</a>
-            <a href="#du-lieu" class="text-gray-600 hover:text-indigo-600">Dữ Liệu Của Chúng Tôi</a>
-            <a href="#dich-vu" class="text-gray-600 hover:text-indigo-600">Dịch Vụ</a>
-            <a href="#goi-dich-vu" class="text-gray-600 hover:text-indigo-600">Gói Dịch Vụ</a>
-            <a href="#app-mobile" class="text-gray-600 hover:text-indigo-600">App Mobile</a>
-            <a href="#zalo" class="text-gray-600 hover:text-indigo-600">Zalo B2B</a>
-            <a href="/tin-tuc.html" class="text-gray-600 hover:text-indigo-600">Daily News</a>
-            <a href="#lien-he"
+            <a href="https://bdsdaily.com/#gioi-thieu" class="text-gray-600 hover:text-indigo-600">Giới Thiệu</a>
+            <a href="https://bdsdaily.com/#du-lieu" class="text-gray-600 hover:text-indigo-600">Dữ Liệu Của Chúng Tôi</a>
+            <a href="https://bdsdaily.com/#dich-vu" class="text-gray-600 hover:text-indigo-600">Dịch Vụ</a>
+            <a href="https://bdsdaily.com/#goi-dich-vu" class="text-gray-600 hover:text-indigo-600">Gói Dịch Vụ</a>
+            <a href="https://bdsdaily.com/#app-mobile" class="text-gray-600 hover:text-indigo-600">App Mobile</a>
+            <a href="https://bdsdaily.com/#zalo" class="text-gray-600 hover:text-indigo-600">Zalo B2B</a>
+            <a href="https://bdsdaily.com/tin-tuc.html" class="text-gray-600 hover:text-indigo-600">Daily News</a>
+            <a href="https://bdsdaily.com/#lien-he"
                 class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full transition-colors duration-300">Liên
                 Hệ</a>
         </div>
