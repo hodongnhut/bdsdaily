@@ -103,7 +103,7 @@
                 </li>
                 <li>
                     <a href="#">
-                        <img class="img-fluid" src="ihttps://bdsdaily.com/img/post/post_9.png" alt="">
+                        <img class="img-fluid" src="https://bdsdaily.com/img/post/post_9.png" alt="">
                     </a>
                 </li>
                 <li>
