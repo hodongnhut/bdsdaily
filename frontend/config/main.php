@@ -40,7 +40,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'privacy-policy.html' => 'site/privacy-policy'
+                'privacy-policy.html' => 'site/privacy-policy',
+                'tin-tuc.html' => 'new'
+
             ],
         ],
     ],
