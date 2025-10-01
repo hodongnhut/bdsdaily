@@ -56,7 +56,7 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/s
     <div class="text-lg font-semibold text-gray-800">
         <div class="flex space-x-2">
             <a href="<?= Url::to(['/property']) ?>" class="px-4 py-2 rounded-lg bg-white text-blue-600 shadow-md flex items-center space-x-1.5 text-sm">
-                <i class="fas fa-database fa-sm"></i>
+                <i class="fas fa-home fa-sm"></i>
                 <span>Dữ Liệu Nhà Đất</span>
             </a>
         </div>
