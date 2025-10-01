@@ -66,7 +66,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'slug',
             'description:ntext',
             'author',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($model) {
+                    return $model->status == 1 ? 'Active' : 'Disable';
+                },
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, NewsExtranaly $model, $key, $index, $column) {
