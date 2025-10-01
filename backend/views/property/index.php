@@ -458,7 +458,7 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/s
                     ]);
                 },
                 'update' => function ($url, $model) {
-                    return Html::a('<i class="fas fa-pencil-alt"></i>', $url, [
+                    return Html::a('<i class="fas fa-pencil-square"></i>', $url, [
                         'class' => 'text-blue-600 hover:text-blue-800 mx-1',
                         'title' => 'Cập Nhật',
                     ]);
