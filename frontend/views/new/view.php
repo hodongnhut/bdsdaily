@@ -32,23 +32,6 @@ $images = [
 $randomImage = $images[array_rand($images)];
 
 ?>
-<!-- breadcrumb start-->
-<div class="slider-area hero-height2">
-    <div class="slider-active">
-        <div class="single-slider">
-            <div class="slider-cap-wrapper">
-                <div class="hero-caption">
-                    <h1 data-animation="fadeInUp" data-delay=".2s"><?= Html::encode($this->title) ?></h1>
-                    <p data-animation="fadeInUp" data-delay=".6s"></p>
-                </div>
-                <div class="hero-img hero-img2 position-relative">
-                    <img src="assets/img/hero/hero3.jpg" alt data-animation="fadeInRight" data-transition-duration="5s">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!--================Blog Area =================-->
 <section class="blog_area single-post-area section_padding">
     <div class="container">
