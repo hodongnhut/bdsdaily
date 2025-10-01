@@ -41,8 +41,8 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'privacy-policy.html' => 'site/privacy-policy',
-                'tin-tuc.html' => 'new'
-
+                '<slug>-tin-tuc.html' => 'new/view',
+                'tin-tuc.html' => 'new',
             ],
         ],
     ],

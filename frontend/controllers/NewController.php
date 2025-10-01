@@ -53,10 +53,10 @@ class NewController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($slug)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModelSlug($slug),
         ]);
     }
 
@@ -126,6 +126,22 @@ class NewController extends Controller
     protected function findModel($id)
     {
         if (($model = NewsExtranaly::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Finds the NewsExtranaly model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
+     * @return NewsExtranaly the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModelSlug($slug)
+    {
+        if (($model = NewsExtranaly::findOne(['slug' => $slug])) !== null) {
             return $model;
         }
 
