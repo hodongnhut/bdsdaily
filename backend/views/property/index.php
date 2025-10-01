@@ -220,7 +220,7 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/s
                 if (!empty($model->propertyImages)) {
                     $icon = Html::tag('i', '', ['class' => 'fas fa-images text-lg']);
                     $imageIcon = Html::tag('div', $icon, [
-                        'class' => 'bg-blue-600 text-white p-1 h-7 w-7 rounded-md flex items-center justify-center',
+                        'class' => 'bg-red-600 text-white p-1 h-7 w-7 rounded-md flex items-center justify-center',
                         'title' => count($model->propertyImages) . ' hình ảnh',
                     ]);
 
