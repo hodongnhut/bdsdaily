@@ -111,7 +111,7 @@ $randomImage = $images[array_rand($images)];
 
                 <div class="blog-author">
                     <div class="media align-items-center">
-                        <img src="img/blog/author.png" alt="">
+                        <img src="https://bdsdaily.com/img/logo_footer.webp" alt="">
                         <div class="media-body">
                             <a href="#">
                                 <h4>Admin</h4>
