@@ -96,7 +96,7 @@ AppAsset::register($this);
             <div class="phone-vr">
                 <div class="phone-vr-circle-fill"></div>
                 <div class="phone-vr-img-circle">
-                    <a target="_blank" href="https://zalo.me/0845528 ">
+                    <a target="_blank" href="https://zalo.me/0845528145 ">
                         <img alt="Zalo" src="https://bdsdaily.com/img/zalo.png">
                     </a>
                 </div>
