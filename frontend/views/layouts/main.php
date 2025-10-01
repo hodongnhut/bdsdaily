@@ -97,7 +97,7 @@ AppAsset::register($this);
                 <div class="phone-vr-circle-fill"></div>
                 <div class="phone-vr-img-circle">
                     <a target="_blank" href="https://zalo.me/0845528 ">
-                        <img alt="Zalo" src="https://tingtingpos.com/img/zalo.png">
+                        <img alt="Zalo" src="https://bdsdaily.com/img/zalo.png">
                     </a>
                 </div>
             </div>
@@ -107,7 +107,7 @@ AppAsset::register($this);
                 <div class="phone-vr-circle-fill"></div>
                 <div class="phone-vr-img-circle">
                     <a href="tel:0845528145">
-                        <img alt="Phone" src="https://tingtingpos.com/img/phone.png">
+                        <img alt="Phone" src="https://bdsdaily.com/img/phone.png">
                     </a>
                 </div>
             </div>
