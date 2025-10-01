@@ -83,32 +83,32 @@
             <ul class="instagram_row flex-wrap">
                 <li>
                     <a href="#">
-                        <img class="img-fluid" src="img/post/post_5.png" alt="">
+                        <img class="img-fluid" src="https://bdsdaily.com/img/post/post_5.png" alt="">
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img class="img-fluid" src="img/post/post_6.png" alt="">
+                        <img class="img-fluid" src="https://bdsdaily.com/img/post/post_6.png" alt="">
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img class="img-fluid" src="img/post/post_7.png" alt="">
+                        <img class="img-fluid" src="https://bdsdaily.com/img/post/post_7.png" alt="">
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img class="img-fluid" src="img/post/post_8.png" alt="">
+                        <img class="img-fluid" src="https://bdsdaily.com/img/post/post_8.png" alt="">
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img class="img-fluid" src="img/post/post_9.png" alt="">
+                        <img class="img-fluid" src="ihttps://bdsdaily.com/mg/post/post_9.png" alt="">
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img class="img-fluid" src="img/post/post_10.png" alt="">
+                        <img class="img-fluid" src="https://bdsdaily.com/img/post/post_10.png" alt="">
                     </a>
                 </li>
             </ul>

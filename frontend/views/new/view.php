@@ -128,7 +128,7 @@ $randomImage = $images[array_rand($images)];
                         <div class="single-comment justify-content-between d-flex">
                             <div class="user justify-content-between d-flex">
                                 <div class="thumb">
-                                    <img src="img/comment/comment_1.png" alt="">
+                                    <img src="https://bdsdaily.com/img/comment/comment_1.png" alt="">
                                 </div>
                                 <div class="desc">
                                     <p class="comment">
@@ -153,7 +153,7 @@ $randomImage = $images[array_rand($images)];
                         <div class="single-comment justify-content-between d-flex">
                             <div class="user justify-content-between d-flex">
                                 <div class="thumb">
-                                    <img src="img/comment/comment_2.png" alt="">
+                                    <img src="https://bdsdaily.com/img/comment/comment_2.png" alt="">
                                 </div>
                                 <div class="desc">
                                     <p class="comment">
@@ -179,7 +179,7 @@ $randomImage = $images[array_rand($images)];
                         <div class="single-comment justify-content-between d-flex">
                             <div class="user justify-content-between d-flex">
                                 <div class="thumb">
-                                    <img src="img/comment/comment_3.png" alt="">
+                                    <img src="https://bdsdaily.com/img/comment/comment_3.png" alt="">
                                 </div>
                                 <div class="desc">
                                     <p class="comment">
