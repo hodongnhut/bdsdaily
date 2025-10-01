@@ -364,7 +364,7 @@ $this->registerMetaTag([
                 </svg>
                 <div>
                     <h3 class="text-xl font-bold">Email</h3>
-                    <p class="text-sm">nhuthd@bdsdaily.com</p>
+                    <p class="text-sm">support@bdsdaily.com</p>
                 </div>
             </div>
             <!-- Phone -->
@@ -374,7 +374,7 @@ $this->registerMetaTag([
                 </svg>
                 <div>
                     <h3 class="text-xl font-bold">Số Điện Thoại</h3>
-                    <p class="text-sm">+84 934 880 855</p>
+                    <p class="text-sm">0845 528 145</p>
                 </div>
             </div>
         </div>
