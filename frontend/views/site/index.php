@@ -1,3 +1,4 @@
+<div class="flex items-center justify-center h-screen bg-gray-100">
 <div class="text-center p-10 bg-white rounded-2xl shadow-lg max-w-md">
     <svg xmlns="http://www.w3.org/2000/svg" 
          class="h-20 w-20 mx-auto text-yellow-500 mb-6" 
@@ -12,4 +13,5 @@
     <button class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
       Liên hệ với chúng tôi
     </button>
+  </div>
   </div>
