@@ -106,6 +106,7 @@ return [
                 'ban-do-quy-hoach' => 'site/map',
                 'ban-do-quy-hoach-ho-chi-minh' => 'site/map-ho-chi-minh',
                 'mobile-map' => 'site/mobile-map',
+                'map/<path:.+>' => 'map/proxy',
                 'property/<action:[\w-]+>' => 'property/<action>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

@@ -110,7 +110,6 @@ hp_HeadCode([
 ],"js");
 </script>
     <section id="MainPageContainer" data-action="ZoningMapVer2" class="MainPageContainer  Page-ZoningMapVer2 View  ">
-
         <div class="AreaContent">
             <script type="text/javascript">BodyCollaped()</script>
             <style>
@@ -2974,7 +2973,7 @@ hp_HeadCode([
                 
                 
                     const initializeMap = () => {
-                        const baseUrlMap = "https://files.rockervietnam.com/ZoningMapVer2";
+                        const baseUrlMap = "/map";
                 
                         const mapStyle = {
                             version: 8,
