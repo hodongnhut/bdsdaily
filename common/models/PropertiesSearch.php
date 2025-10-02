@@ -202,12 +202,15 @@ class PropertiesSearch extends Properties
         $query->andFilterWhere(['=', 'properties.district_county', $this->district_county]);
 
         if (!empty($this->keyword)) {
-            $query->leftJoin('owner_contacts', 'owner_contacts.property_id = properties.property_id')
-            ->andWhere([
-                'or',
-                ['like', 'properties.title', $this->keyword],
-                ['=', 'owner_contacts.phone_number', $this->keyword],
-            ]);
+            $query->leftJoin('owner_contacts', 'owner_contacts.property_id = properties.property_id');
+            $condition = ['or'];
+            if (is_numeric($this->keyword)) {
+                $condition[] = ['=', 'properties.house_number', $this->keyword];
+            } else {
+                $condition[] = ['like', 'properties.title', $this->keyword];
+            }
+            $condition[] = ['=', 'owner_contacts.phone_number', $this->keyword];
+            $query->andWhere($condition);
         }
         
         if (!empty($this->date_from)) {

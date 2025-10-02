@@ -45,7 +45,7 @@ AppAsset::register($this);
                 <span>Bản tin nội bộ</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/property']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'index' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Dữ liệu Nhà Đất">
-                <i class="fas fa-home text-xl"></i>
+                <i class="fas fa-house text-xl"></i>
                 <span>Dữ Liệu Nhà Đất</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/property/my-favorites']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'my-favorites' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="My Favorites">
@@ -58,7 +58,7 @@ AppAsset::register($this);
             </a>
             <?php if (!Yii::$app->user->isGuest && in_array(Yii::$app->user->identity->jobTitle->role_code, ['manager', 'super_admin'])): ?>
                 <a href="<?= \yii\helpers\Url::to(['/property/users']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'users' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Quản Lý Nhân Viên">
-                    <i class="fas fa-user text-xl"></i>
+                    <i class="fas fa-users text-xl"></i>
                     <span>Nhân Viên</span>
                 </a>
                
