@@ -331,7 +331,7 @@ $this->registerMetaTag([
             Hãy liên hệ với chúng tôi ngay hôm nay để nhận tư vấn miễn phí và khám phá sức mạnh của dữ liệu bất động
             sản.
         </p>
-        <a href="mailto:support@bdsdaily.com"
+        <a href="mailto:bdsdaily247@gmail.com"
             class="inline-block bg-white text-indigo-600 font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-gray-100 transition-colors duration-300">
             Liên Hệ Ngay
         </a>
@@ -364,7 +364,7 @@ $this->registerMetaTag([
                 </svg>
                 <div>
                     <h3 class="text-xl font-bold">Email</h3>
-                    <p class="text-sm">support@bdsdaily.com</p>
+                    <p class="text-sm">bdsdaily247@gmail.com</p>
                 </div>
             </div>
             <!-- Phone -->
