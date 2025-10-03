@@ -43,39 +43,44 @@ class EmailLogSearch extends EmailLog
     {
         $query = EmailLog::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
                 'defaultOrder' => [
-                    'sent_at' => SORT_DESC
-                ]
+                    'sent_at' => SORT_DESC,
+                ],
             ],
-            
         ]);
 
         $this->load($params, $formName);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
+        // filter theo id, campaign_id
         $query->andFilterWhere([
             'id' => $this->id,
             'campaign_id' => $this->campaign_id,
-            'sent_at' => $this->sent_at,
         ]);
 
-        $query->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'status', $this->status]);
+        // filter email
+        $query->andFilterWhere(['like', 'email', $this->email]);
 
+        // filter status (chính xác, không dùng LIKE)
+        if (!empty($this->status)) {
+            $query->andFilterWhere(['status' => $this->status]);
+        }
+
+        // filter sent_at theo ngày (yyyy-mm-dd)
         if (!empty($this->sent_at)) {
             $date = date('Y-m-d', strtotime($this->sent_at));
-            $query->andFilterWhere(['between', 'sent_at', $date . " 00:00:00", $date . " 23:59:59"]);
+            $query->andFilterWhere([
+                'between',
+                'sent_at',
+                $date . ' 00:00:00',
+                $date . ' 23:59:59'
+            ]);
         }
 
         return $dataProvider;
