@@ -152,7 +152,7 @@ $this->registerMetaTag([
                     <li>✔️ Nhận tin tức cập nhật miễn phí từ Website</li>
                     <li>✔️ Nhận tin tức cập nhật miễn phí từ Youtube</li>
                     <li>✔️ Nhận hỗ trợ check quy hoạch miễn phí </li>
-                    <li>✔️ Tư vấn thiết kế APP - Website miễn phí</li>
+                    <li>✔️ Tư vấn thiết kế APP - Website BDS miễn phí</li>
                     <li>✔️ Tư vấn SEO Miễn Phí</li>
                     <li>✔️ Tư Vấn Tên miền - Hosting - Email Miễn Phí</li>
                     <li>✔️ Báo cáo phân tích thị trường cơ bản</li>
