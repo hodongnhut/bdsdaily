@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 use yii\bootstrap5\Html;
-$this->title = 'Bản Đồ Quy Hoạch TP.HCM';
+$this->title = 'Bản Đồ Quy Hoạch Thành Phố Hồ Chí Minh';
 ?> 
 <!-- Header -->
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
