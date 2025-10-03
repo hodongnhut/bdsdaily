@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\grid\GridView;
 Use common\models\Directions;
 use common\models\LandType;
 use common\models\Interiors;
@@ -19,7 +20,6 @@ if ($model->listing_types_id === 2) {
 
 $advantages = Advantages::find()->all();
 $disadvantages = Disadvantages::find()->all();
-
 $assetTypes = ArrayHelper::map(AssetTypes::find()->where(['<>', 'asset_type_id', 9])->all(), 'asset_type_id', 'type_name');
 $commissionTypes = ArrayHelper::map(CommissionTypes::find()->all(), 'id', 'name');
 $transactionStatuses = ArrayHelper::map(TransactionStatuses::find()->where(['<>', 'transaction_status_id', 0])->all(), 'transaction_status_id', 'status_name');
@@ -36,26 +36,26 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
             Thêm Dữ Liệu Nhà Đất [Mã: <?= $model->property_id ?> - Loại Giao Dịch: <?= $model->listingType->name ?>]</h2>
     </div>
     <div class="relative flex items-center space-x-4">
-    <?php
-        if (!empty($model->external_id) || $model->status_review === 0 ) {
-            if (in_array(Yii::$app->user->identity->jobTitle->role_code ?? '', ['manager', 'super_admin']) && $model->status_review === 0) { ?>
-                <?= Html::a('<i class="fas fa-check"></i> Duyệt', ['property/review', 'property_id' => $model->property_id], [
-                    'class' => 'px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500',
-                    'title' => 'Duyệt bài',
-                    'data' => [
-                        'method' => 'post',
-                        'confirm' => 'Vui lòng Kiểm tra thông tin nhập 1 lần nữa . Nếu bạn chắt chắn thì duyệt tin!',
-                    ],
-                ]); ?>
+        <?php
+            if (!empty($model->external_id) || $model->status_review === 0 ) {
+                if (in_array(Yii::$app->user->identity->jobTitle->role_code ?? '', ['manager', 'super_admin']) && $model->status_review === 0) { ?>
+                    <?= Html::a('<i class="fas fa-check"></i> Duyệt', ['property/review', 'property_id' => $model->property_id], [
+                        'class' => 'px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500',
+                        'title' => 'Duyệt bài',
+                        'data' => [
+                            'method' => 'post',
+                            'confirm' => 'Vui lòng Kiểm tra thông tin nhập 1 lần nữa . Nếu bạn chắt chắn thì duyệt tin!',
+                        ],
+                    ]); ?>
+            <?php }  ?>
         <?php }  ?>
-    <?php }  ?>
-    <div class="flex space-x-2">
-        <?= Html::submitButton('<i class="fas fa-save"></i> Lưu Lại', [
-            'onclick' => 'submitPropertyForm()',
-            'class' => 'px-4 py-2 bg-orange-600 text-white rounded-md shadow-sm hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500'
-        ]) ?>
-        <?= Html::a('<i class="fas fa-arrow-left"></i> Quay lại', Yii::$app->request->referrer ?: ['index'], ['class' => 'px-4 py-2 bg-gray-200 text-gray-800 rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500']) ?>
-    </div>
+        <div class="flex space-x-2">
+            <?= Html::submitButton('<i class="fas fa-save"></i> Lưu Lại', [
+                'onclick' => 'submitPropertyForm()',
+                'class' => 'px-4 py-2 bg-orange-600 text-white rounded-md shadow-sm hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500'
+            ]) ?>
+            <?= Html::a('<i class="fas fa-arrow-left"></i> Quay lại', Yii::$app->request->referrer ?: ['index'], ['class' => 'px-4 py-2 bg-gray-200 text-gray-800 rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500']) ?>
+        </div>
         <button
             id="userMenuButton"
             class="w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center shadow-md transition-colors duration-200"
@@ -144,7 +144,7 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="price" class="block text-sm font-medium text-gray-700 mb-1 required">Giá</label>
+                        <label for="price" class="block text-sm font-medium text-gray-700 mb-1 required">Giá chào</label>
                         <?= $form->field($model, 'price', [
                             'template' => '{input}{error}',
                         ])->textInput([
@@ -197,12 +197,13 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
                                             'template' => '{input}{error}'
                                         ])->textInput([
                                             'type' => 'number',
+                                            'id' => 'rent-price',
                                             'min' => 0,
                                             'class' => 'block w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-orange-500 focus:border-orange-500 sm:text-sm pr-24', // Thêm padding phải (pr-24)
-                                            'placeholder' => 'Ví dụ: 15000000',
                                             'value' => $rentalContractModel->rent_price ? (float)$rentalContractModel->rent_price : null,
                                             'oninput' => "if(this.value < 0) this.value = 0;",
                                         ]) ?>
+                                        
 
                                         <div class="absolute inset-y-0 right-0 flex items-center">
                                             <?= $form->field($rentalContractModel, 'currency_id', [
@@ -210,11 +211,12 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
                                             ])->dropDownList(
                                                 [1 => 'VND', 2 => 'USD'],
                                                 [
-                                                    'class' => 'h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-2 text-gray-500 focus:ring-orange-500 focus:border-orange-500 sm:text-sm'
+                                                    'class' => 'h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-orange-500 focus:border-orange-500 sm:text-sm'
                                                 ]
                                             ) ?>
                                         </div>
                                     </div>
+                                    <p id="rent-price-display" class="inline-block mt-2 px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-orange-700"></p>
                                 </div>
 
                                 <div>
@@ -240,25 +242,15 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
                                         ['prompt' => 'Chọn đơn vị', 'class' => 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-orange-500 focus:border-orange-500 sm:text-sm']
                                     ) ?>
                                 </div>
+
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Ngày hết hạn</label>
-                                    <div class="relative">
-                                        <?= $form->field($rentalContractModel, 'expiry_date')
-                                            ->widget(\yii\jui\DatePicker::class, [
-                                                'dateFormat' => 'dd/MM/yyyy',
-                                                'options' => [
-                                                    'class' => 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-orange-500 focus:border-orange-500 sm:text-sm',
-                                                    'placeholder' => 'Ngày hết hạn'
-                                                ],
-                                                'clientOptions' => [
-                                                    'changeMonth' => true,
-                                                    'changeYear' => true,
-                                                    'showButtonPanel' => true,
-                                                    'yearRange' => '1900:2099',
-                                                ],
-                                            ])->label(false) ?>
-                                        <i class="fas fa-calendar-alt absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                    </div>
+                                    <?= $form->field($rentalContractModel, 'expiry_date', [
+                                        'template' => '{input}{error}'
+                                    ])->textInput([
+                                        'type' => 'date',
+                                        'class' => 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-orange-500 focus:border-orange-500 sm:text-sm',
+                                    ]) ?>
                                 </div>
                             </div>
                         </div>
@@ -824,6 +816,7 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
 
         const priceInput = document.getElementById('price');
         const priceDisplay = document.getElementById('price-display');
+        const rentPriceDisplay = document.getElementById('rent-price-display');
 
         function formatVNCurrency(number) {
             if (isNaN(number) || number <= 0) {
@@ -866,6 +859,7 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
 
         setupPriceFormatting('price', 'price-display');
         setupPriceFormatting('final_price', 'final-price-display');
+        setupPriceFormatting('rent-price', 'rent-price-display');
 
         if (rentalCheckbox && rentalDetailsContainer) {
             function toggleRentalDetails() {
