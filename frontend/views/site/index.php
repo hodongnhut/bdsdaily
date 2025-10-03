@@ -265,6 +265,70 @@ $this->registerMetaTag([
         </div>
     </div>
 </section>
+<section id="document" class="py-20">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Mẫu Hợp Đồng Mua Bán, Cọc, Cho Thuê ...</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <svg class="w-12 h-12 mx-auto text-indigo-600 mb-4" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0h6m-6 0v-6a2 2 0 012-2h2a2 2 0 012 2v6m0 0V9a2 2 0 00-2-2h-2a2 2 0 00-2 2v10M9 21h6">
+                    </path>
+                </svg>
+                <h4 class="text-lg font-bold mb-2">MẪU HỢP ĐỒNG ĐẶT CỌC BDS</h4>
+                <p class="text-sm text-gray-600">Linh động điền thông tin, được thiết kế phù hợp với nhiều phát sinh trong lúc đặt cọc mua bán</p>
+                <a href="https://bdsdaily.com/pdf/Hop-dong-dat-coc-mua-nha_3108085012.pdf" class="inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-green-600 transition-colors duration-300">
+                    Tải Về
+                </a>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <svg class="w-12 h-12 mx-auto text-indigo-600 mb-4" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8c-2.485 0-4.5 2.015-4.5 4.5S9.515 17 12 17s4.5-2.015 4.5-4.5S14.485 8 12 8z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15M4.5 12h15">
+                    </path>
+                </svg>
+                <h4 class="text-lg font-bold mb-2">MẪU HỢP ĐỒNG MUA BÁN BDS</h4>
+                <p class="text-sm text-gray-600">Linh động điền thông tin, được thiết kế phù hợp với nhiều phát sinh trong lúc đặt cọc mua bán</p>
+                <a href="https://bdsdaily.com/pdf/Hop-dong-mua-ban-nha-dat_3005191758.pdf" class="inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-green-600 transition-colors duration-300">
+                    Tải Về
+                </a>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <svg class="w-12 h-12 mx-auto text-indigo-600 mb-4" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.485 9.49 5 8 5c-3.141 0-4.5 3.003-4.5 4.5S4.859 14 8 14c1.49 0 2.832-.485 4-1.253M12 6.253c1.168-.768 2.51-1.253 4-1.253 3.141 0 4.5 3.003 4.5 4.5S19.141 14 16 14c-1.49 0-2.832-.485-4-1.253m0-6.747v13">
+                    </path>
+                </svg>
+                <h4 class="text-lg font-bold mb-2">MẪU HỢP ĐỒNG THUÊ NHÀ</h4>
+                <p class="text-sm text-gray-600">Giúp tiết kiệm thời gian, được thiết kế phù hợp với nhiều phát sinh trong lúc đặt cọc cho thuê nhà</p>
+                <a href="https://bdsdaily.com/pdf/hop-dong-thue-nha.pdf" class="inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-green-600 transition-colors duration-300">
+                    Tải Về
+                </a>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <svg class="w-12 h-12 mx-auto text-indigo-600 mb-4" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8c1.657 0 3-1.343 3-3s-1.343-3-3-3S9 3.343 9 5s1.343 3 3 3z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 14c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 21c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"></path>
+                </svg>
+                <h4 class="text-lg font-bold mb-2">MẪU HỢP ĐỒNG GÓP VỐN MUA ĐẤT </h4>
+                <p class="text-sm text-gray-600">Giúp tiết kiệm thời gian, được thiết kế phù hợp với nhiều phát sinh trong lúc góp vốn mua đất </p>
+                <a href="https://bdsdaily.com/pdf/mau-hop-dong-gop-von-mua-dat.pdf" class="inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-green-600 transition-colors duration-300">
+                    Tải Về
+                </a>
+            </div>
+        </div>
+    </div>
+
+</section>
 
 <section id="khach-hang" class="py-20 bg-white">
     <div class="container mx-auto px-6 text-center">
