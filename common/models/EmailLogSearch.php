@@ -47,6 +47,12 @@ class EmailLogSearch extends EmailLog
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'sent_at' => SORT_DESC
+                ]
+            ],
+            
         ]);
 
         $this->load($params, $formName);
@@ -66,6 +72,11 @@ class EmailLogSearch extends EmailLog
 
         $query->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'status', $this->status]);
+
+        if (!empty($this->sent_at)) {
+            $date = date('Y-m-d', strtotime($this->sent_at));
+            $query->andFilterWhere(['between', 'sent_at', $date . " 00:00:00", $date . " 23:59:59"]);
+        }
 
         return $dataProvider;
     }

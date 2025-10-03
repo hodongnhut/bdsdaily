@@ -16,11 +16,11 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <?= $form->field($model, 'email') ?>
         </div>
-        <div class="col-md-6">
-        <?= $form->field($model, 'status')->dropDownList(
+        <div class="col-md-4">
+            <?= $form->field($model, 'status')->dropDownList(
                 [
                     '' => 'All',
                     'failed' => 'Failed',
@@ -28,6 +28,12 @@ use yii\widgets\ActiveForm;
                 ],
                 ['prompt' => 'Select Status']
             ) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'sent_at')->widget(\yii\jui\DatePicker::class, [
+                'dateFormat' => 'yyyy-MM-dd',
+                'options' => ['class' => 'form-control']
+            ]) ?>
         </div>
     </div>
 
