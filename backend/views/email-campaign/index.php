@@ -76,6 +76,7 @@ $this->title = 'Email Campaigns';
                 },
             ],
             'created_at:datetime',
+            'limit',
             [
                     'class' => 'yii\grid\ActionColumn',
                     'template' => '{preview} {update} {delete} {toggle}',

@@ -55,7 +55,7 @@ class EmailCampaign extends \yii\db\ActiveRecord
             'send_hour' => 'Giờ Gửi',
             'status' => 'Trạng Thái',
             'created_at' => 'Ngày tạo',
-            'limit' => 'Số Email gửi 1 ngày',
+            'limit' => 'Giới hạn',
         ];
     }
 
