@@ -145,7 +145,7 @@ $this->registerMetaTag([
                             </a>
                     </li>
                     <li>
-                    ✔️ <a href="#" target="_blank" rel="noopener noreferrer">
+                    ✔️ <a href="https://zalo.me/0845528145" target="_blank" rel="noopener noreferrer">
                         Nhận tin Miễn Phí qua Zalo Group "BDSDaily"
                         </a>
                     </li>
