@@ -42,6 +42,7 @@ AppAsset::register($this);
             <a href="https://bdsdaily.com/#du-lieu" class="text-gray-600 hover:text-indigo-600">Dữ Liệu Của Chúng Tôi</a>
             <a href="https://bdsdaily.com/#dich-vu" class="text-gray-600 hover:text-indigo-600">Dịch Vụ</a>
             <a href="https://bdsdaily.com/#goi-dich-vu" class="text-gray-600 hover:text-indigo-600">Gói Dịch Vụ</a>
+            <a href="https://bdsdaily.com/#document" class="hover:text-indigo-400">Tài Liệu</a>
             <a href="https://bdsdaily.com/#app-mobile" class="text-gray-600 hover:text-indigo-600">App Mobile</a>
             <a href="https://bdsdaily.com/#zalo" class="text-gray-600 hover:text-indigo-600">Zalo B2B</a>
             <a href="https://bdsdaily.com/#lien-he"
