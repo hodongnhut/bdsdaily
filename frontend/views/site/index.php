@@ -146,10 +146,15 @@ $this->registerMetaTag([
                     </li>
                     <li>
                     ✔️ <a href="#" target="_blank" rel="noopener noreferrer">
-                        Nhận tin Miễn Phí qua Zalo "BDSDaily"
+                        Nhận tin Miễn Phí qua Zalo Group "BDSDaily"
                         </a>
                     </li>
-                    <li>✔️ Nhân tin tức cập nhật miễn phí từ Website</li>
+                    <li>✔️ Nhận tin tức cập nhật miễn phí từ Website</li>
+                    <li>✔️ Nhận tin tức cập nhật miễn phí từ Youtube</li>
+                    <li>✔️ Nhận hỗ trợ check quy hoạch miễn phí </li>
+                    <li>✔️ Tư vấn thiết kế APP - Website miễn phí</li>
+                    <li>✔️ Tư vấn SEO Miễn Phí</li>
+                    <li>✔️ Tư Vấn Tên miền - Hosting - Email Miễn Phí</li>
                     <li>✔️ Báo cáo phân tích thị trường cơ bản</li>
                     <li>✔️ Hỗ trợ kỹ thuật 24/7</li>
                     <li>✔️ Bảo Hành Trọn Đời</li>
@@ -170,7 +175,7 @@ $this->registerMetaTag([
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ App mobile</li>
                     <li>✔️ Hỗ trợ qua Zalo và Email</li>
-                    <li>✔️ Báo cáo phân tích thị trường cơ bản</li>
+                    <li>✔️ Báo cáo phân tích thị trường nâng cao</li>
                     <li>✔️ Hỗ trợ kỹ thuật 24/7</li>
                     <li>✔️ Hỗ trợ sài thử 7 ngày</li>
                     <li>✔️ Bảo Hành Trọn Đời</li>
