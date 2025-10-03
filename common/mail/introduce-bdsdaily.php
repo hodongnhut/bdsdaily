@@ -70,7 +70,7 @@ use yii\helpers\Html;
                     <a href="https://bdsdaily.com/unsubscribe?email=<?= urlencode($email) ?>" style="color: #2563eb; text-decoration: underline;">Hủy đăng ký nhận email</a> |
                     <a href="https://bdsdaily.com/privacy-policy.php" style="color: #2563eb; text-decoration: underline;">Chính sách Quyền riêng tư</a>
                 </p>
-                <p style="margin: 0;">Liên hệ: <a href="mailto:nhuthd@bdsdaily.com" style="color: #2563eb; text-decoration: underline;">nhuthd@bdsdaily.com</a> | +84 934 880 855</p>
+                <p style="margin: 0;">Liên hệ: <a href="mailto:bdsdaily247@gmail.com" style="color: #2563eb; text-decoration: underline;">bdsdaily247@gmail.com</a> | +84 845 528 145</p>
             </td>
         </tr>
     </table>
