@@ -54,7 +54,8 @@ class EmailCampaignController extends Controller
                 'name' => $name,
                 'email' => $email,
             ])
-            ->setFrom(['nhuthd@bdsdaily.com' => 'BDSDaily'])
+           // ->setFrom(['nhuthd@bdsdaily.com' => 'BDSDaily'])
+            ->setFrom(['bdsdaily247@gmail.com' => 'BDSDaily'])
             ->setTo($email)
             ->setSubject($subject)
             ->send();
@@ -75,5 +76,17 @@ class EmailCampaignController extends Controller
         $log->status = $result ? 'sent' : 'failed';
         $log->sent_at = date('Y-m-d H:i:s');
         $log->save();
+    }
+
+    public function actionTestMail()
+    {
+        Yii::$app->mailer->compose()
+            ->setFrom('bdsdaily247@gmail.com')
+            ->setTo('hodongnhut@gmail.com')
+            ->setSubject('Test Gmail SMTP')
+            ->setTextBody('Hello, đây là mail test từ Yii2 Gmail SMTP!')
+            ->send();
+
+        return "Đã gửi mail!";
     }
 }
