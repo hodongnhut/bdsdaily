@@ -40,6 +40,7 @@ class EmailLogController extends Controller
     {
         $searchModel = new EmailLogSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+
         $chartData = $this->getChartData(); 
 
         return $this->render('index', [
@@ -61,7 +62,7 @@ class EmailLogController extends Controller
         // 2. Truy vấn dữ liệu: gom nhóm theo ngày và trạng thái
         $queryData = EmailLog::find()
             ->select([
-                'log_date' => new \yii\db\Expression('DATE(FROM_UNIXTIME(sent_at))'),
+                'log_date' => new \yii\db\Expression('DATE(sent_at)'),
                 'status',
                 'count' => new \yii\db\Expression('COUNT(*)'),
             ])
