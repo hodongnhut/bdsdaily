@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 $this->title = 'Email Campaigns';
+$this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js', ['position' => \yii\web\View::POS_HEAD]);
 ?>
 <!-- Header -->
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
