@@ -101,3 +101,59 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.um
     ?>
     </div>
 </main>
+<?php 
+// JavaScript để vẽ biểu đồ
+$dataJson = json_encode($chartData);
+$js = <<<JS
+    const chartData = $dataJson;
+    const ctx = document.getElementById('postChart');
+
+    new Chart(ctx, {
+        type: 'line', // Biểu đồ đường thường phù hợp cho thống kê theo thời gian
+        data: {
+            labels: chartData.labels,
+            datasets: [
+                {
+                    label: 'Số Bài Đã Đăng',
+                    data: chartData.postCounts,
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3 // Độ cong của đường biểu diễn
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Số lượng Bài viết'
+                    },
+                    ticks: {
+                        // Đảm bảo trục y hiển thị số nguyên
+                        callback: function(value) {if (value % 1 === 0) {return value;}}
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Ngày'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Số lượng Bài viết được tạo trong 7 ngày'
+                }
+            }
+        }
+    });
+JS;
+$this->registerJs($js, \yii\web\View::POS_END);
+?>
