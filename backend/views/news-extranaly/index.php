@@ -15,7 +15,7 @@ $this->title = 'Tin Tức SEO';
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js', ['position' => \yii\web\View::POS_HEAD]);
 ?>
-?>
+
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
     <div class="text-lg font-semibold text-gray-800">Tin Tức SEO</div>
     <div class="relative flex items-center space-x-4">
