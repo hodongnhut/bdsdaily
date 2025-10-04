@@ -40,12 +40,69 @@ class NewsExtranalyController extends Controller
     {
         $searchModel = new NewsExtranalySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $chartData = $this->getChartData(); 
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'chartData' => $chartData,
         ]);
     }
+
+    /**
+     * Lấy dữ liệu thống kê số lượng bài viết được tạo trong 7 ngày gần nhất.
+     * @return array
+     */
+    protected function getChartData()
+    {
+        // 1. Tính toán ngày bắt đầu (7 ngày trước, tính từ 00:00:00)
+        $sevenDaysAgo = date('Y-m-d 00:00:00', strtotime('-7 days'));
+        
+        // 2. Truy vấn dữ liệu: gom nhóm theo ngày
+        // Giả định cột created_at là kiểu DATETIME/TIMESTAMP (dựa trên Model rules())
+        $queryData = NewsExtranaly::find()
+            ->select([
+                'log_date' => new \yii\db\Expression('DATE(created_at)'),
+                'count' => new \yii\db\Expression('COUNT(*)'),
+            ])
+            ->where(['>=', 'created_at', $sevenDaysAgo])
+            ->groupBy(['log_date'])
+            ->asArray()
+            ->all();
+
+        $allDates = [];
+
+        // Khởi tạo 7 ngày gần nhất với số lượng bài viết = 0
+        for ($i = 6; $i >= 0; $i--) {
+            $date = date('Y-m-d', strtotime("-$i days"));
+            $allDates[$date] = 0;
+        }
+
+        // Điền dữ liệu đã query vào mảng
+        foreach ($queryData as $row) {
+            $date = $row['log_date'];
+            $count = (int) $row['count'];
+            
+            if (isset($allDates[$date])) {
+                $allDates[$date] = $count;
+            }
+        }
+
+        // Định dạng dữ liệu cuối cùng
+        $chartData = [
+            'labels' => array_keys($allDates),
+            'postCounts' => array_values($allDates), // Lấy mảng số lượng bài viết
+        ];
+        
+        // Chuyển định dạng ngày Y-m-d thành d/m (ví dụ: 01/10) cho dễ nhìn
+        $chartData['labels'] = array_map(function($date) {
+            return date('d/m', strtotime($date));
+        }, $chartData['labels']);
+
+        return $chartData;
+    }
+
+    
 
     /**
      * Displays a single NewsExtranaly model.

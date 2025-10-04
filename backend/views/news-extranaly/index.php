@@ -13,6 +13,8 @@ use common\widgets\CustomLinkPager;
 
 $this->title = 'Tin Tức SEO';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js', ['position' => \yii\web\View::POS_HEAD]);
+?>
 ?>
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
     <div class="text-lg font-semibold text-gray-800">Tin Tức SEO</div>
@@ -51,7 +53,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Danh Sách Chủ Đề SEO', ['./seo-topic'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <br>
+    <h2 class="text-xl font-bold text-gray-700 mb-4">Thống kê Bài Viết 7 Ngày Gần Nhất</h2>
+    <div class="mb-6 border p-4 rounded-lg">
+        <div style="max-width: 100%; height: 350px;">
+            <canvas id="postChart"></canvas>
+        </div>
+    </div>
+    <br>
     <br><hr><br>
 
     <?= GridView::widget([
