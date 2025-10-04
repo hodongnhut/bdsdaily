@@ -5,30 +5,28 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\helpers\Url;
-use common\models\NewsExtranaly as News; // change to your models
+use common\models\NewsExtranaly as Post;
 
 class SitemapController extends Controller
 {
-    // We don't need layout for XML output
     public $layout = false;
 
     public function actionIndex()
     {
-        // Return raw XML
         Yii::$app->response->format = Response::FORMAT_RAW;
         Yii::$app->response->headers->set('Content-Type', 'application/xml; charset=utf-8');
-        Yii::$app->response->headers->set('Cache-Control', 'max-age=86400, public'); // cache 1 day
 
         $urls = [];
 
-        // 1) Add homepage & static pages
+        // 🏠 Homepage
         $urls[] = [
-            'loc' => Url::to(['/site/index'], true),
+            'loc' => Url::to('/', true),
             'lastmod' => date('Y-m-d'),
             'changefreq' => 'daily',
             'priority' => '1.0',
         ];
 
+        // 📄 Static pages (optional)
         $urls[] = [
             'loc' => Url::to(['/site/about'], true),
             'lastmod' => date('Y-m-d'),
@@ -36,8 +34,12 @@ class SitemapController extends Controller
             'priority' => '0.5',
         ];
 
+        // 📰 Dynamic Posts
+        $posts = Post::find()
+            ->where(['status' => 1])
+            ->orderBy(['updated_at' => SORT_DESC])
+            ->all();
 
-        $posts = News::find()->where(['status' => 1])->all();
         foreach ($posts as $post) {
             $lastmod = $post->updated_at;
             if (is_numeric($lastmod)) {
@@ -54,22 +56,25 @@ class SitemapController extends Controller
             ];
         }
 
+
         $xml = new \XMLWriter();
         $xml->openMemory();
         $xml->startDocument('1.0', 'UTF-8');
         $xml->startElement('urlset');
         $xml->writeAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 
-        foreach ($urls as $u) {
+        foreach ($urls as $url) {
             $xml->startElement('url');
-            $xml->writeElement('loc', $u['loc']);
-            if (!empty($u['lastmod'])) $xml->writeElement('lastmod', $u['lastmod']);
-            if (!empty($u['changefreq'])) $xml->writeElement('changefreq', $u['changefreq']);
-            if (!empty($u['priority'])) $xml->writeElement('priority', $u['priority']);
-            $xml->endElement(); // url
+            $xml->writeElement('loc', $url['loc']);
+            $xml->writeElement('lastmod', $url['lastmod']);
+            $xml->writeElement('changefreq', $url['changefreq']);
+            $xml->writeElement('priority', $url['priority']);
+            $xml->endElement();
         }
 
         $xml->endElement(); // urlset
+        $xml->endDocument();
+
         return $xml->outputMemory();
     }
 }
