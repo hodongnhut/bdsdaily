@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
 
     <p>
+        <?= Html::a('Website Makerting', ['./news-extranaly'], ['class' => 'btn btn-success mb-[5px]']) ?>
         <?= Html::a('Tạo chủ đề', ['create'], ['class' => 'btn btn-success mb-[5px]']) ?>
         <?= Html::a('Import', ['import'], ['class' => 'btn btn-success mb-[5px]']) ?>
     </p>
