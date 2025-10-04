@@ -159,7 +159,7 @@ $this->registerMetaTag([
                     <li>✔️ Hỗ trợ kỹ thuật 24/7</li>
                     <li>✔️ Bảo Hành Trọn Đời</li>
                 </ul>
-                <a href="#lien-he" class="inline-block w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
+                <a href="https://zalo.me/0845528145" class="inline-block w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
                     Đăng Ký Gói Cơ Bản
                 </a>
             </div>
@@ -180,7 +180,7 @@ $this->registerMetaTag([
                     <li>✔️ Hỗ trợ sài thử 7 ngày</li>
                     <li>✔️ Bảo Hành Trọn Đời</li>
                 </ul>
-                <a href="#lien-he" class="inline-block w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
+                <a href="https://zalo.me/0845528145" class="inline-block w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
                     Đăng Ký Gói Cơ Bản
                 </a>
             </div>
@@ -204,7 +204,7 @@ $this->registerMetaTag([
                     <li>✔️ Hỗ trợ ưu tiên 24/7 và bảo trì hệ thống</li>
                     <li>✔️ Bảo Hành Trọn Đời</li>
                 </ul>
-                <a href="#lien-he" class="inline-block w-full bg-teal-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-teal-600 transition-colors duration-300">
+                <a href="https://zalo.me/0845528145" class="inline-block w-full bg-teal-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-teal-600 transition-colors duration-300">
                     Yêu Cầu Tư Vấn
                 </a>
             </div>
