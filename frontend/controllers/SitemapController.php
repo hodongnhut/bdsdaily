@@ -46,6 +46,13 @@ class SitemapController extends Controller
             'priority' => '0.5',
         ];
 
+        $urls[] = [
+            'loc' => Url::to(['/privacy-policy.html'], true),
+            'lastmod' => date('Y-m-d'),
+            'changefreq' => 'yearly',
+            'priority' => '0.4',
+        ];
+
 
         $posts = Post::find()->where(['status' => 1])->all();
         foreach ($posts as $post) {
