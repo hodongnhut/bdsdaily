@@ -43,6 +43,7 @@ return [
                 'privacy-policy.html' => 'site/privacy-policy',
                 '<slug>-tin-tuc.html' => 'new/view',
                 'tin-tuc.html' => 'new',
+                'sitemap.xml' => 'sitemap/index',
             ],
         ],
     ],
