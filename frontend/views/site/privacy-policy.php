@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h2 class="text-xl font-semibold text-gray-800 mt-6">7. Quyền của người dùng</h2>
     <p class="text-gray-600">
-        - <strong>Sales:</strong> Bạn có thể truy cập, chỉnh sửa, hoặc yêu cầu xóa dữ liệu cá nhân bằng cách liên hệ qua email <a href="mailto:nhuthd@bdsdaily.com" class="text-blue-600 hover:underline">nhuthd@bdsdaily.com</a>.<br>
+        - <strong>Sales:</strong> Bạn có thể truy cập, chỉnh sửa, hoặc yêu cầu xóa dữ liệu cá nhân bằng cách liên hệ qua email <a href="mailto:bdsdaily247@gmail.com" class="text-blue-600 hover:underline">bdsdaily247@gmail.com</a>.<br>
         - <strong>Chủ nhà:</strong> Bạn có quyền yêu cầu xóa số điện thoại hoặc thông tin liên hệ của mình.<br>
         - Chúng tôi sẽ phản hồi yêu cầu trong vòng 7 ngày làm việc.
     </p>
@@ -83,8 +83,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h2 class="text-xl font-semibold text-gray-800 mt-6">8. Thông tin liên hệ</h2>
     <p class="text-gray-600">Nếu có câu hỏi về quyền riêng tư, vui lòng liên hệ:</p>
     <ul class="list-disc pl-5 text-gray-600">
-        <li>Email: <a href="mailto:nhuthd@bdsdaily.com" class="text-blue-600 hover:underline">nhuthd@bdsdaily.com</a></li>
-        <li>Số điện thoại: +84 934 880 855</li>
+        <li>Email: <a href="mailto:bdsdaily247@gmail.com" class="text-blue-600 hover:underline">bdsdaily247@gmail.com</a></li>
+        <li>Số điện thoại: +84 845 528 145</li>
     </ul>
 
     <h2 class="text-xl font-semibold text-gray-800 mt-6">9. Cập nhật chính sách</h2>
