@@ -9,16 +9,28 @@ use common\models\NewsExtranaly as Post;
 
 class SitemapController extends Controller
 {
+    public $enableCsrfValidation = false;
     public $layout = false;
+
+    public function beforeAction($action)
+    {
+        if (YII_ENV_DEV) {
+            Yii::$app->log->targets = [];
+        }
+        return parent::beforeAction($action);
+    }
 
     public function actionIndex()
     {
         Yii::$app->response->format = Response::FORMAT_RAW;
         Yii::$app->response->headers->set('Content-Type', 'application/xml; charset=utf-8');
 
+        ob_clean(); // 🧹 remove any accidental output buffer
+        ob_start();
+
         $urls = [];
 
-        // 🏠 Homepage
+        // Homepage
         $urls[] = [
             'loc' => Url::to('/', true),
             'lastmod' => date('Y-m-d'),
@@ -26,7 +38,7 @@ class SitemapController extends Controller
             'priority' => '1.0',
         ];
 
-        // 📄 Static pages (optional)
+        // Example static page
         $urls[] = [
             'loc' => Url::to(['/site/about'], true),
             'lastmod' => date('Y-m-d'),
@@ -34,19 +46,12 @@ class SitemapController extends Controller
             'priority' => '0.5',
         ];
 
-        // 📰 Dynamic Posts
-        $posts = Post::find()
-            ->where(['status' => 1])
-            ->orderBy(['updated_at' => SORT_DESC])
-            ->all();
 
+        $posts = Post::find()->where(['status' => 1])->all();
         foreach ($posts as $post) {
-            $lastmod = $post->updated_at;
-            if (is_numeric($lastmod)) {
-                $lastmod = date('Y-m-d', $lastmod);
-            } else {
-                $lastmod = substr($lastmod, 0, 10);
-            }
+            $lastmod = is_numeric($post->updated_at)
+                ? date('Y-m-d', $post->updated_at)
+                : substr($post->updated_at, 0, 10);
 
             $urls[] = [
                 'loc' => Url::to(['/' . $post->slug . '-tin-tuc.html'], true),
@@ -56,25 +61,32 @@ class SitemapController extends Controller
             ];
         }
 
-
+        // Build XML
         $xml = new \XMLWriter();
         $xml->openMemory();
         $xml->startDocument('1.0', 'UTF-8');
         $xml->startElement('urlset');
         $xml->writeAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 
-        foreach ($urls as $url) {
+        foreach ($urls as $u) {
             $xml->startElement('url');
-            $xml->writeElement('loc', $url['loc']);
-            $xml->writeElement('lastmod', $url['lastmod']);
-            $xml->writeElement('changefreq', $url['changefreq']);
-            $xml->writeElement('priority', $url['priority']);
+            $xml->writeElement('loc', $u['loc']);
+            $xml->writeElement('lastmod', $u['lastmod']);
+            $xml->writeElement('changefreq', $u['changefreq']);
+            $xml->writeElement('priority', $u['priority']);
             $xml->endElement();
         }
 
         $xml->endElement(); // urlset
         $xml->endDocument();
 
-        return $xml->outputMemory();
+        $content = trim($xml->outputMemory());
+
+        // 🚫 ensure no BOM or leading whitespace
+        $content = preg_replace('/^\xEF\xBB\xBF/', '', $content);
+
+        ob_end_clean();
+
+        return $content;
     }
 }
