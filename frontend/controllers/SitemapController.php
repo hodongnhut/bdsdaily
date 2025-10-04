@@ -38,13 +38,6 @@ class SitemapController extends Controller
             'priority' => '1.0',
         ];
 
-        // Example static page
-        $urls[] = [
-            'loc' => Url::to(['/site/about'], true),
-            'lastmod' => date('Y-m-d'),
-            'changefreq' => 'monthly',
-            'priority' => '0.5',
-        ];
 
         $urls[] = [
             'loc' => Url::to(['/privacy-policy.html'], true),
