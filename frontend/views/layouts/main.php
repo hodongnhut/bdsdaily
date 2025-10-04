@@ -45,6 +45,7 @@ AppAsset::register($this);
             <a href="https://bdsdaily.com/#document" class="text-gray-600 hover:text-indigo-600">Tài Liệu</a>
             <a href="https://bdsdaily.com/#app-mobile" class="text-gray-600 hover:text-indigo-600">App Mobile</a>
             <a href="https://bdsdaily.com/#zalo" class="text-gray-600 hover:text-indigo-600">Zalo B2B</a>
+            <a href="https://bdsdaily.com/tin-tuc.html" class="text-gray-600 hover:text-indigo-600">Daily News</a>
             <a href="https://bdsdaily.com/#lien-he"
                 class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full transition-colors duration-300">Liên
                 Hệ</a>
