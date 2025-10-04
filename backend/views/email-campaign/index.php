@@ -42,77 +42,132 @@ $this->title = 'Email Campaigns';
             <?= Html::a('<i class="fas fa-plus mr-2"></i> Tạo Mẫu', ['create'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
             <?= Html::a('<i class="fas fa-eye mr-2"></i> Logs Email Đã Gửi', ['./email-log'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
         </div>
-       
+
+        <h2 class="text-lg font-bold text-gray-700 mb-4">Thống kê Email 7 Ngày Gần Nhất</h2>
+        <div class="mb-6 border p-4 rounded-lg">
+            <div style="max-width: 100%; height: 400px;">
+                <canvas id="emailChart"></canvas>
+            </div>
+        </div>   
+
 
         <?= GridView::widget([
-        'dataProvider' => new \yii\data\ActiveDataProvider([
-            'query' => \common\models\EmailCampaign::find(),
-        ]),
-        'headerRowOptions' => ['class' => 'bg-gray-50'],
-        'rowOptions' => ['class' => 'bg-white'],
-        'layout' => "{items}\n{pager}",
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'subject',
-            'send_day' => [
-                'attribute' => 'send_day',
-                'value' => function ($model) {
-                    $days = [ 
-                        1 => 'Thứ Hai',
-                        2 => 'Thứ Ba',
-                        3 => 'Thứ Tư',
-                        4 => 'Thứ Năm',
-                        5 => 'Thứ Sáu',
-                        6 => 'Thứ Bảy',
-                        7 => 'Chủ Nhật'
-                    ];
-                    return $days[$model->send_day] ?? $model->send_day;
-                },
-            ],
-            'send_hour' => [
-                'attribute' => 'send_hour',
-                'value' => function ($model) {
-                    return $model->send_hour . ':00';
-                },
-            ],
-            'created_at:datetime',
-            'limit',
-            [
-                    'class' => 'yii\grid\ActionColumn',
-                    'template' => '{preview} {update} {delete} {toggle}',
-                    'buttons' => [
-                        'preview' => function ($url, $model) {
-                            return Html::a(
-                                '<i class="fas fa-eye text-primary text-xl"></i>',
-                                ['preview', 'id' => $model->id],
-                                [
-                                    'title' => 'Xem trước',
-                                    'data-pjax' => '0',
-                                    'encode' => false,
-                                    'class' => 'inline-block px-2',
-                                ]
-                            );
-                        },
-                        'toggle' => function ($url, $model) {
-                            $icon = $model->status === 'on' 
-                                ? '<i class="fa fa-toggle-on text-success text-xl"></i>' 
-                                : '<i class="fa fa-toggle-off text-muted text-xl"></i>';
-                
-                            return Html::a(
-                                $icon,
-                                ['toggle-status', 'id' => $model->id],
-                                [
-                                    'title' => $model->status === 'on' ? 'Tắt' : 'Bật',
-                                    'data-pjax' => '0',
-                                    'encode' => false,
-                                ]
-                            );
-                        },
+            'dataProvider' => new \yii\data\ActiveDataProvider([
+                'query' => \common\models\EmailCampaign::find(),
+            ]),
+            'headerRowOptions' => ['class' => 'bg-gray-50'],
+            'rowOptions' => ['class' => 'bg-white'],
+            'layout' => "{items}\n{pager}",
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                'subject',
+                'send_day' => [
+                    'attribute' => 'send_day',
+                    'value' => function ($model) {
+                        $days = [ 
+                            1 => 'Thứ Hai',
+                            2 => 'Thứ Ba',
+                            3 => 'Thứ Tư',
+                            4 => 'Thứ Năm',
+                            5 => 'Thứ Sáu',
+                            6 => 'Thứ Bảy',
+                            7 => 'Chủ Nhật'
+                        ];
+                        return $days[$model->send_day] ?? $model->send_day;
+                    },
+                ],
+                'send_hour' => [
+                    'attribute' => 'send_hour',
+                    'value' => function ($model) {
+                        return $model->send_hour . ':00';
+                    },
+                ],
+                'created_at:datetime',
+                'limit',
+                [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{preview} {update} {delete} {toggle}',
+                        'buttons' => [
+                            'preview' => function ($url, $model) {
+                                return Html::a(
+                                    '<i class="fas fa-eye text-primary text-xl"></i>',
+                                    ['preview', 'id' => $model->id],
+                                    [
+                                        'title' => 'Xem trước',
+                                        'data-pjax' => '0',
+                                        'encode' => false,
+                                        'class' => 'inline-block px-2',
+                                    ]
+                                );
+                            },
+                            'toggle' => function ($url, $model) {
+                                $icon = $model->status === 'on' 
+                                    ? '<i class="fa fa-toggle-on text-success text-xl"></i>' 
+                                    : '<i class="fa fa-toggle-off text-muted text-xl"></i>';
+                    
+                                return Html::a(
+                                    $icon,
+                                    ['toggle-status', 'id' => $model->id],
+                                    [
+                                        'title' => $model->status === 'on' ? 'Tắt' : 'Bật',
+                                        'data-pjax' => '0',
+                                        'encode' => false,
+                                    ]
+                                );
+                            },
+                        ],
                     ],
                 ],
-            ],
-        ]); ?>
+            ]); ?>
     </div>
-
-    
 </main>
+<?php 
+// JavaScript để vẽ biểu đồ
+$dataJson = json_encode($chartData);
+$js = <<<JS
+    const chartData = $dataJson;
+    const ctx = document.getElementById('emailChart');
+
+    new Chart(ctx, {
+        type: 'bar', // Biểu đồ cột
+        data: {
+            labels: chartData.labels,
+            datasets: [
+                {
+                    label: 'Thành Công',
+                    data: chartData.successData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Thất Bại',
+                    data: chartData.failureData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, // Quan trọng để đặt chiều cao/chiều rộng
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Số lượng Email'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+            }
+        }
+    });
+JS;
+$this->registerJs($js, \yii\web\View::POS_END);
+?>

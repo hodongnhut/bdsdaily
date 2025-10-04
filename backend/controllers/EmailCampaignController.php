@@ -238,7 +238,76 @@ class EmailCampaignController extends Controller
     public function actionIndex()
     {
         $campaigns = EmailCampaign::find()->all();
-        return $this->render('index', ['campaigns' => $campaigns]);
+        $chartData = $this->getChartData(); 
+        return $this->render('index', [
+            'campaigns' => $campaigns,
+            'chartData' => $chartData,
+        ]);
+    }
+
+    /**
+     * Lấy dữ liệu thống kê email thành công/thất bại trong 7 ngày gần nhất.
+     * @return array
+     */
+    protected function getChartData()
+    {
+        // 1. Tính toán ngày bắt đầu (7 ngày trước, tính từ 00:00:00)
+        $sevenDaysAgo = strtotime('-7 days midnight');
+
+        // 2. Truy vấn dữ liệu: gom nhóm theo ngày và trạng thái
+        $queryData = EmailLog::find()
+            ->select([
+                'log_date' => new \yii\db\Expression('DATE(sent_at)'),
+                'status',
+                'count' => new \yii\db\Expression('COUNT(*)'),
+            ])
+            ->where(['>=', 'sent_at', $sevenDaysAgo])
+            ->groupBy(['log_date', 'status'])
+            ->asArray()
+            ->all();
+
+        $allDates = [];
+
+        // Khởi tạo 7 ngày gần nhất
+        for ($i = 6; $i >= 0; $i--) {
+            $date = date('Y-m-d', strtotime("-$i days"));
+            $allDates[$date] = [
+                'success' => 0,
+                'failure' => 0,
+            ];
+        }
+
+        // Điền dữ liệu đã query vào mảng
+        foreach ($queryData as $row) {
+            $date = $row['log_date'];
+            $status = strtolower($row['status']); 
+            $count = (int) $row['count'];
+
+            if (isset($allDates[$date])) {
+                // Giả định trạng thái thành công là 'sent' hoặc 'success'
+                if ($status === 'sent' || $status === 'success') { 
+                    $allDates[$date]['success'] += $count;
+                } 
+                // Giả định trạng thái thất bại là 'failed' hoặc 'error'
+                else if ($status === 'failed' || $status === 'error') { 
+                    $allDates[$date]['failure'] += $count;
+                }
+            }
+        }
+
+        // Định dạng dữ liệu cuối cùng
+        $chartData = [
+            'labels' => array_keys($allDates),
+            'successData' => array_column($allDates, 'success'),
+            'failureData' => array_column($allDates, 'failure'),
+        ];
+        
+        // Chuyển định dạng ngày Y-m-d thành d/m (ví dụ: 01/10) cho dễ nhìn
+        $chartData['labels'] = array_map(function($date) {
+            return date('d/m', strtotime($date));
+        }, $chartData['labels']);
+
+        return $chartData;
     }
 
      /**

@@ -50,7 +50,7 @@ class EmailLogController extends Controller
         ]);
     }
 
-     /**
+    /**
      * Lấy dữ liệu thống kê email thành công/thất bại trong 7 ngày gần nhất.
      * @return array
      */
