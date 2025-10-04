@@ -228,11 +228,13 @@ $this->registerMetaTag([
                     giờ hết.
                 </p>
                 <div class="flex justify-center space-x-4 mx-auto px-6 text-center">
-                    <a href="#"
+                    <a href="javascript:void(0);"
+                        onclick="alert('Vui lòng đăng ký gói Member để được sài ứng dụng!')"
                         class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:bg-indigo-700 transition-colors duration-300">
                         Tải Về Cho iOS
                     </a>
-                    <a href="#"
+                    <a href="javascript:void(0);"
+                        onclick="alert('Vui lòng đăng ký gói Member để được sài ứng dụng!')"
                         class="inline-block bg-gray-800 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:bg-gray-700 transition-colors duration-300">
                         Tải Về Cho Android
                     </a>
