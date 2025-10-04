@@ -218,10 +218,10 @@ $this->registerMetaTag([
         <div class="md:flex md:items-center md:space-x-12">
             <div class="md:w-1/2">
                 <img src="/img/slider1.webp"
-                    alt="BDS Daily Mobile App" class="rounded-xl shadow-lg mb-8 md:mb-0">
+                    alt="BDSDaily Mobile App" class="rounded-xl shadow-lg mb-8 md:mb-0">
             </div>
             <div class="md:w-1/2 text-center md:text-left">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Ứng Dụng Di Động BDS Daily</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Ứng Dụng Di Động BDSDaily</h2>
                 <p class="text-lg text-gray-600 max-w-xl mx-auto md:mx-0 mb-8">
                     Truy cập kho dữ liệu khổng lồ của chúng tôi mọi lúc, mọi nơi ngay trên chiếc điện thoại của bạn.
                     Cập nhật thông tin thị trường, quản lý danh sách sản phẩm và kết nối với đối tác dễ dàng hơn bao
@@ -342,7 +342,7 @@ $this->registerMetaTag([
                 <div class="flex-shrink-0 w-full md:w-1/2 p-4 testimonial-item">
                     <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
                         <img src="img/avatar/Samland.jpg" alt="Avatar Nguyễn Văn A" class="w-20 h-20 rounded-full mb-4 object-cover">
-                        <p class="italic text-gray-600 mb-4">"Dữ liệu của BDS Daily đã giúp chúng tôi định hướng chiến lược
+                        <p class="italic text-gray-600 mb-4">"Dữ liệu của BDSDaily đã giúp chúng tôi định hướng chiến lược
                             đầu tư một cách hiệu quả hơn bao giờ hết. Thông tin chính xác và kịp thời là chìa khóa thành
                             công."</p>
                         <div class="font-semibold text-gray-800">- Ông Tứ Land, Sàn giao dịch Bất động sản Tứ Land</div>
@@ -352,7 +352,7 @@ $this->registerMetaTag([
                 <div class="flex-shrink-0 w-full md:w-1/2 p-4 testimonial-item">
                     <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
                         <img src="img/avatar/thanhthuy.jpg" alt="Avatar Nguyễn Thị Thanh Thúy" class="w-20 h-20 rounded-full mb-4 object-cover">
-                        <p class="italic text-gray-600 mb-4">"Chúng tôi đã tích hợp API của BDS Daily vào hệ thống của mình
+                        <p class="italic text-gray-600 mb-4">"Chúng tôi đã tích hợp API của BDSDaily vào hệ thống của mình
                             và nhận thấy hiệu suất làm việc của đội ngũ môi giới tăng lên đáng kể. Một dịch vụ tuyệt vời!"
                         </p>
                         <div class="font-semibold text-gray-800">- Bà Nguyễn Thị Thanh Thúy, Công ty CP Đầu tư Địa ốc Bến Thành</div>
@@ -362,7 +362,7 @@ $this->registerMetaTag([
                 <div class="flex-shrink-0 w-full md:w-1/2 p-4 testimonial-item">
                     <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
                         <img src="/img/avatar/tienphat.jpg" alt="Avatar Khách hàng C" class="w-20 h-20 rounded-full mb-4 object-cover">
-                        <p class="italic text-gray-600 mb-4">"BDS Daily đã thay đổi cách chúng tôi tiếp cận thị trường. Các báo cáo chuyên sâu giúp chúng tôi đưa ra quyết định đầu tư thông minh và nhanh chóng."</p>
+                        <p class="italic text-gray-600 mb-4">"BDSDaily đã thay đổi cách chúng tôi tiếp cận thị trường. Các báo cáo chuyên sâu giúp chúng tôi đưa ra quyết định đầu tư thông minh và nhanh chóng."</p>
                         <div class="font-semibold text-gray-800">- Ông Tiến Phát, Chuyên gia Đầu tư</div>
                     </div>
                 </div>
@@ -370,7 +370,7 @@ $this->registerMetaTag([
                 <div class="flex-shrink-0 w-full md:w-1/2 p-4 testimonial-item">
                     <div class="bg-gray-50 p-8 rounded-xl shadow-md flex flex-col items-center text-center">
                         <img src="/img/avatar/Kieunguen.jpg" alt="Avatar Khách hàng D" class="w-20 h-20 rounded-full mb-4 object-cover">
-                        <p class="italic text-gray-600 mb-4">"Dịch vụ hỗ trợ khách hàng của BDS Daily rất tuyệt vời. Mọi thắc mắc đều được giải đáp nhanh chóng và chuyên nghiệp, giúp chúng tôi yên tâm phát triển kinh doanh."</p>
+                        <p class="italic text-gray-600 mb-4">"Dịch vụ hỗ trợ khách hàng của BDSDaily rất tuyệt vời. Mọi thắc mắc đều được giải đáp nhanh chóng và chuyên nghiệp, giúp chúng tôi yên tâm phát triển kinh doanh."</p>
                         <div class="font-semibold text-gray-800">- Bà Kiều Ngân, Trưởng phòng Kinh doanh</div>
                     </div>
                 </div>
@@ -412,7 +412,7 @@ $this->registerMetaTag([
     <div class="container mx-auto px-6 text-center text-white">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Về Chúng Tôi & Liên Hệ</h2>
         <p class="text-lg max-w-2xl mx-auto mb-8">
-            BDS Daily là nền tảng hàng đầu cung cấp giải pháp dữ liệu bất động sản toàn diện, giúp các nhà đầu tư và doanh nghiệp đưa ra quyết định sáng suốt. Chúng tôi cam kết mang đến những thông tin chính xác, kịp thời và những công nghệ đột phá để tối ưu hóa hiệu quả kinh doanh của bạn.
+            BDSDaily là nền tảng hàng đầu cung cấp giải pháp dữ liệu bất động sản toàn diện, giúp các nhà đầu tư và doanh nghiệp đưa ra quyết định sáng suốt. Chúng tôi cam kết mang đến những thông tin chính xác, kịp thời và những công nghệ đột phá để tối ưu hóa hiệu quả kinh doanh của bạn.
         </p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left mt-12 max-w-4xl mx-auto">
             <!-- Address -->
