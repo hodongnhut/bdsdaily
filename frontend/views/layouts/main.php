@@ -82,6 +82,7 @@ AppAsset::register($this);
                 <a href="#app-mobile" class="hover:text-indigo-400">App Mobile</a>
                 <a href="#zalo" class="hover:text-indigo-400">Zalo B2B</a>
                 <a href="#lien-he" class="hover:text-indigo-400">Liên Hệ</a>
+                <a href="https://bdsdaily.com/tin-tuc.html" class="hover:text-indigo-400">Daily News</a>
             </div>
         </div>
         <div class="border-t border-gray-700 pt-6 text-sm text-gray-400">
