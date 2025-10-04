@@ -13,6 +13,8 @@ use common\widgets\CustomLinkPager;
 
 $this->title = 'Email Logs';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js', ['position' => \yii\web\View::POS_HEAD]);
 ?>
 
 <!-- Header -->
@@ -46,6 +48,13 @@ $this->params['breadcrumbs'][] = $this->title;
 </header>
 <main class="flex-1 p-6 overflow-auto">
     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+
+        <h2 class="text-lg font-bold text-gray-700 mb-4">Thống kê Email 7 Ngày Gần Nhất</h2>
+        <div class="mb-6 border p-4 rounded-lg">
+            <div style="max-width: 100%; height: 400px;">
+                <canvas id="emailChart"></canvas>
+            </div>
+        </div>
 
         <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -91,3 +100,53 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
 </main>
+<?php 
+// JavaScript để vẽ biểu đồ
+$dataJson = json_encode($chartData);
+$js = <<<JS
+    const chartData = $dataJson;
+    const ctx = document.getElementById('emailChart');
+
+    new Chart(ctx, {
+        type: 'bar', // Biểu đồ cột
+        data: {
+            labels: chartData.labels,
+            datasets: [
+                {
+                    label: 'Thành Công',
+                    data: chartData.successData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Thất Bại',
+                    data: chartData.failureData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, // Quan trọng để đặt chiều cao/chiều rộng
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Số lượng Email'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+            }
+        }
+    });
+JS;
+$this->registerJs($js, \yii\web\View::POS_END);
+?>
