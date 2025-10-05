@@ -41,7 +41,7 @@ AppAsset::register($this);
                 <span>Màn hình chính</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/news']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'post' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Bản tin nội bộ">
-                <i class="fas fa-plus-circle text-xl"></i>
+                <i class="fas newspaper text-xl"></i>
                 <span>Bản tin nội bộ</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/property']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'index' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Dữ liệu Nhà Đất">
