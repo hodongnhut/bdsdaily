@@ -53,7 +53,7 @@ AppAsset::register($this);
                 <span>BĐS Yêu Thích</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/ban-do-quy-hoach']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'map' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="BĐ Quy Hoạch">
-                <i class="fas fa-map-marker text-xl"></i>
+                <i class="fas fa-map text-xl"></i>
                 <span>Bản Đồ  Quy Hoạch</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/sales-contact']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'map' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="BĐ Quy Hoạch">
