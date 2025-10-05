@@ -53,13 +53,13 @@ class SalesContact extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'company_status' => 'Company Status',
+            'name' => 'Tên',
+            'company_status' => 'Định Danh',
             'email' => 'Email',
-            'phone' => 'Phone',
+            'phone' => 'Số Điện Thoại',
             'zalo' => 'Zalo',
             'area' => 'Area',
-            'address' => 'Address',
+            'address' => 'Địa Chỉ',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
