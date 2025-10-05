@@ -2,33 +2,49 @@
 
 namespace backend\controllers;
 
+use Yii;
 use common\models\SalesContact;
 use common\models\SalesContactSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl; 
 /**
  * SalesContactController implements the CRUD actions for SalesContact model.
  */
 class SalesContactController extends Controller
 {
-    /**
-     * @inheritDoc
+     /**
+     * {@inheritdoc}
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'], 
+                        'matchCallback' => function ($rule, $action) {
+                            $user = Yii::$app->user;
+                            $identity = $user->identity;
+                            
+                            if (isset($identity->jobTitle->role_code)) {
+                                return in_array($identity->jobTitle->role_code, ['manager', 'super_admin']);
+                            }
+                            return false;
+                        }
                     ],
                 ],
-            ]
-        );
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
     }
 
     /**
