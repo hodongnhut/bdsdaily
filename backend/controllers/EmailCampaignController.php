@@ -139,7 +139,7 @@ class EmailCampaignController extends Controller
                // 'campaign_id' => $campaign->id,
                 'status' => 'sent'
             ])
-            //->andWhere(['like', 'sent_at', date('Y-m-d')])
+            ->andWhere(['like', 'sent_at', date('Y-m-d')])
             ->count();
 
         $dailyLimit = ($campaign->limit ?? 100);
