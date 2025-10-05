@@ -163,6 +163,8 @@ class EmailCampaignController extends Controller
         $recipients = SalesContact::find()
             ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
             ->where(['not in', 'email', $sentEmails])
+            ->andWhere(['IS NOT', 'email', null]) 
+            ->andWhere(['<>', 'email', ''])
             ->orderBy('RAND()')
             ->limit($limit)
             ->all();
