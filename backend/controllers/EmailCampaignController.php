@@ -158,7 +158,6 @@ class EmailCampaignController extends Controller
             ->where(['campaign_id' => $campaign->id])
             ->column();
 
-        // Chọn các liên hệ chưa nhận email từ chiến dịch này
         $limit = min($remainingLimit, 100);
         $recipients = SalesContact::find()
             ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
