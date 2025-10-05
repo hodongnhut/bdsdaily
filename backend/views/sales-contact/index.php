@@ -11,7 +11,7 @@ use common\widgets\CustomLinkPager;
 /** @var common\models\SalesContactSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Email Khách Hàng';
+$this->title = 'Danh Bạ Môi Giới';
 ?>
 
 
@@ -47,10 +47,6 @@ $this->title = 'Email Khách Hàng';
 <main class="flex-1 p-6 overflow-auto">
     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
         <p class="text-sm text-gray-500 mb-2">Màn hình chính /<?= Html::encode($this->title) ?></p>
-        <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 sm:mb-0">Danh Sách Email</h2>
-            <?= Html::a('<i class="fas fa-plus mr-2"></i> Create Campaign', ['create'], ['class' => 'bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
-        </div>
 
         <?php echo $this->render('_search', ['model' => $searchModel]); ?>
         <br>
@@ -86,12 +82,12 @@ $this->title = 'Email Khách Hàng';
                     },
                 ],
                 'address:ntext',
-                [
-                    'class' => ActionColumn::className(),
-                    'urlCreator' => function ($action, SalesContact $model, $key, $index, $column) {
-                        return Url::toRoute([$action, 'id' => $model->id]);
-                    }
-                ],
+                // [
+                //     'class' => ActionColumn::className(),
+                //     'urlCreator' => function ($action, SalesContact $model, $key, $index, $column) {
+                //         return Url::toRoute([$action, 'id' => $model->id]);
+                //     }
+                // ],
             ],
         ]); ?>
         <?= CustomLinkPager::widget([
