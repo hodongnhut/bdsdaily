@@ -26,7 +26,16 @@ class EmailCampaignController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'], 
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            $user = Yii::$app->user;
+                            $identity = $user->identity;
+                            
+                            if (isset($identity->jobTitle->role_code)) {
+                                return in_array($identity->jobTitle->role_code, ['manager', 'super_admin']);
+                            }
+                            return false;
+                        }
                     ],
                 ],
             ],

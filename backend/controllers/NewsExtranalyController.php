@@ -2,11 +2,13 @@
 
 namespace backend\controllers;
 
+use Yii;
 use common\models\NewsExtranaly;
 use common\models\NewsExtranalySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl; 
 
 /**
  * NewsExtranalyController implements the CRUD actions for NewsExtranaly model.
@@ -14,21 +16,36 @@ use yii\filters\VerbFilter;
 class NewsExtranalyController extends Controller
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            $user = Yii::$app->user;
+                            $identity = $user->identity;
+                            
+                            if (isset($identity->jobTitle->role_code)) {
+                                return in_array($identity->jobTitle->role_code, ['manager', 'super_admin']);
+                            }
+                            return false;
+                        }
                     ],
                 ],
-            ]
-        );
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
     }
 
     /**
