@@ -136,10 +136,10 @@ class EmailCampaignController extends Controller
         // Kiểm tra số email đã gửi trong ngày cho chiến dịch
         $sentToday = EmailLog::find()
             ->where([
-                'campaign_id' => $campaign->id,
+               // 'campaign_id' => $campaign->id,
                 'status' => 'sent'
             ])
-            ->andWhere(['like', 'sent_at', date('Y-m-d')])
+            //->andWhere(['like', 'sent_at', date('Y-m-d')])
             ->count();
 
         $dailyLimit = ($campaign->limit ?? 100);
@@ -155,7 +155,6 @@ class EmailCampaignController extends Controller
         // Lấy tất cả email đã gửi cho chiến dịch này (không giới hạn ngày)
         $sentEmails = EmailLog::find()
             ->select('email')
-            ->where(['campaign_id' => $campaign->id])
             ->column();
 
         $limit = min($remainingLimit, 100);
