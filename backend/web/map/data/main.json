@@ -1,6 +1,6 @@
 {
     "tiles": [
-        "https://samplemaps.ankapong.com/data/main/{z}/{x}/{y}.pbf"
+        "https://maps.ankapong.com/data/main/{z}/{x}/{y}.pbf"
     ],
     "name": "pn_bt_longduong.mbtiles + pn_bt_logioi.mbtiles + pn_bt_landuse.mbtiles + pn_bt_constructions.mbtiles + pn_bt_parcels.mbtiles + tanphu.mbtiles + tb.mbtiles + quan8.mbtiles + binhthanh.mbtiles + addresses.mbtiles + parcels.mbtiles + constructions.mbtiles",
     "format": "pbf",
