@@ -2973,7 +2973,7 @@ hp_HeadCode([
                 
                 
                     const initializeMap = () => {
-                        const baseUrlMap = "/map";
+                        const baseUrlMap = "https://files.rockervietnam.com/ZoningMapVer2";
                 
                         const mapStyle = {
                             version: 8,
