@@ -1,6 +1,6 @@
 {
     "tiles": [
-        "https://maps.ankapong.com/data/extra/{z}/{x}/{y}.pbf"
+        "https://samplemaps.ankapong.com/data/extra/{z}/{x}/{y}.pbf"
     ],
     "name": "../geotiles/subparcels_1350000.geojson.mbtiles + ../geotiles/parcels_1350000.geojson.mbtiles + ../geotiles/subparcels_1300000.geojson.mbtiles + ../geotiles/parcels_1300000.geojson.mbtiles + ../geotiles/subparcels_500000.geojson.mbtiles",
     "format": "pbf",
