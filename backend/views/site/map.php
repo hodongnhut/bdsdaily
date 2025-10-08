@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 use yii\bootstrap5\Html;
-$this->title = 'Bản Đồ Quy Hoạch Thành Phố Hồ Chí Minh';
+$this->title = 'Bản Đồ Quy Hoạch TP.HCM';
 ?> 
 <!-- Header -->
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
@@ -2973,7 +2973,7 @@ hp_HeadCode([
                 
                 
                     const initializeMap = () => {
-                        const baseUrlMap = "/map";
+                        const baseUrlMap = "https://files.rockervietnam.com/ZoningMapVer2";
                 
                         const mapStyle = {
                             version: 8,
