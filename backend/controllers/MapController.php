@@ -12,7 +12,7 @@ class MapController extends Controller
 
     public function actionProxy($path)
     {
-        $baseUrl = "https://files.rockervietnam.com/ZoningMapVer2/";
+        $baseUrl = "https://app.tapdoantoancau.com/ZoningMapVer2/";
 
         // Nối đường dẫn request vào baseUrl
         $url = $baseUrl . $path;
