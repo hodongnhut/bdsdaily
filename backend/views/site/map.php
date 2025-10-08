@@ -2978,7 +2978,7 @@ hp_HeadCode([
                         const mapStyle = {
                             version: 8,
                             name: "HCM city parcel land",
-                            glyphs: baseUrlMap + "/fonts/{fontstack}/{range}.pbf",
+                            glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
                             sources: {
                                 openmaptiles: {
                                     type: "vector",
