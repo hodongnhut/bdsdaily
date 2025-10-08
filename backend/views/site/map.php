@@ -2978,7 +2978,7 @@ hp_HeadCode([
                         const mapStyle = {
                             version: 8,
                             name: "HCM city parcel land",
-                            glyphs: "https://app.bdsdaily.com/map/fonts/font/{fontstack}/{range}.pbf",
+                            glyphs: "https://app.bdsdaily.com/map/fonts/{fontstack}/{range}.pbf",
                             sources: {
                                 openmaptiles: {
                                     type: "vector",
