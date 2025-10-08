@@ -57,7 +57,7 @@ class MapController extends Controller
         $baseUrl = "https://demotiles.maplibre.org/font/";
 
         // Encode lại fontstack (vì có thể chứa dấu cách)
-        $encodedFontstack = rawurlencode($fontstack);
+        $encodedFontstack = rawurlencode($fontstack); // <-- This is correct
         $url = "{$baseUrl}{$encodedFontstack}/{$range}.pbf";
 
         $client = new Client([
@@ -82,6 +82,7 @@ class MapController extends Controller
                 return "Upstream error: {$response->statusCode}";
             }
         } catch (\Exception $e) {
+            Yii::error("Font Proxy Error for {$fontstack}/{$range}: " . $e->getMessage()); // <-- Add this
             Yii::$app->response->statusCode = 500;
             return "Proxy error: " . $e->getMessage();
         }
