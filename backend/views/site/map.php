@@ -3351,7 +3351,6 @@ hp_HeadCode([
 </main>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/Translator.js"></script>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.all.js"></script>
-<script type="text/javascript" src="https://app.bdsdaily.com/js/map/jquery.history.js"></script>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.dtl.js"></script>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.fm.js"></script>
 </div>
