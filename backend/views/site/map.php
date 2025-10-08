@@ -6,7 +6,7 @@ $this->title = 'Bản Đồ Quy Hoạch TP.HCM';
 ?> 
 <!-- Header -->
 <header class="bg-white shadow-md p-2 flex items-center justify-between rounded-bl-lg">
-    <div class="text-lg font-semibold text-gray-800"><i class="fas fa-map text-xl"></i> Bản Đồ Quy Hoạch Thành Phố Hồ Chí Minh 
+    <div class="text-lg font-semibold text-gray-800"><i class="fas fa-map text-xl"></i> Bản Đồ Quy Hoạch TP.HCM
         
     </div>
     <div class="relative flex items-center space-x-4">
@@ -3351,6 +3351,7 @@ hp_HeadCode([
 </main>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/Translator.js"></script>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.all.js"></script>
+<script type="text/javascript" src="https://app.bdsdaily.com/js/map/jquery.history.js"></script>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.dtl.js"></script>
 <script type="text/javascript" src="https://app.bdsdaily.com/js/map/bdsdaily.fm.js"></script>
 </div>
