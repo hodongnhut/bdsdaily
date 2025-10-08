@@ -48,26 +48,18 @@ class MapController extends Controller
      * Proxy fonts request để ẩn domain demotiles.maplibre.org
      * Cache lại file trong 1 ngày để tránh request lặp
      */
+     /**
+     * Proxy fonts request để ẩn domain demotiles.maplibre.org
+     * Ví dụ: /map/fonts/Noto%20Sans%20Regular/0-255.pbf
+     */
     public function actionFonts($fontstack, $range)
     {
         $baseUrl = "https://demotiles.maplibre.org/font/";
 
-        // Encode lại fontstack (vd: "Noto Sans Regular" → "Noto%20Sans%20Regular")
+        // Encode lại fontstack (vì có thể chứa dấu cách)
         $encodedFontstack = rawurlencode($fontstack);
         $url = "{$baseUrl}{$encodedFontstack}/{$range}.pbf";
 
-        // 🔹 Tạo cache key riêng cho mỗi fontstack + range
-        $cacheKey = "map_font_{$fontstack}_{$range}";
-
-        // 🔹 Kiểm tra xem đã có cache chưa
-        $cached = Yii::$app->cache->get($cacheKey);
-        if ($cached !== false) {
-            Yii::$app->response->format = Response::FORMAT_RAW;
-            Yii::$app->response->headers->set('Content-Type', 'application/x-protobuf');
-            return $cached;
-        }
-
-        // 🔹 Nếu chưa có cache, tải từ upstream
         $client = new Client([
             'transport' => 'yii\httpclient\CurlTransport',
         ]);
@@ -79,18 +71,12 @@ class MapController extends Controller
                 ->send();
 
             if ($response->isOk) {
-                $content = $response->content;
-
-                // Lưu cache 1 ngày (86400 giây)
-                Yii::$app->cache->set($cacheKey, $content, 86400);
-
                 Yii::$app->response->format = Response::FORMAT_RAW;
                 Yii::$app->response->headers->set(
                     'Content-Type',
                     $response->headers['content-type'] ?? 'application/x-protobuf'
                 );
-
-                return $content;
+                return $response->content;
             } else {
                 Yii::$app->response->statusCode = $response->statusCode;
                 return "Upstream error: {$response->statusCode}";
