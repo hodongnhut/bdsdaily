@@ -23,6 +23,7 @@ class EmailCampaignController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
+                'except' => ['check-schedule'],
                 'rules' => [
                     [
                         'allow' => true,
