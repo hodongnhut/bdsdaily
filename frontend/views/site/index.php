@@ -173,6 +173,10 @@ $this->registerMetaTag([
                     <li>✔️ Sử dụng hệ thống giỏ hàng</li>
                     <li>✔️ Hỗ trợ Xem Số Chủ Nhà 500 số/ ngày</li>
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
+                    <li>✔️ Hỗ trợ dự toán khoản vay</li>
+                    <li>✔️ Xem lịch âm dương</li>
+                    <li>✔️ Xem Tuổi Mua Nhà</li>
+                    <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ App mobile</li>
                     <li>✔️ Hỗ trợ qua Zalo và Email</li>
                     <li>✔️ Báo cáo phân tích thị trường nâng cao</li>
