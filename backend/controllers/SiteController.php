@@ -55,7 +55,9 @@ class SiteController extends Controller
                             'clear-location-prompt',
                             'map',
                             'activity-data',
-                            'map-ho-chi-minh'
+                            'map-ho-chi-minh',
+                            'loan',
+                            'calendar'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -81,6 +83,27 @@ class SiteController extends Controller
                 'class' => \yii\web\ErrorAction::class,
             ],
         ];
+    }
+
+
+    /**
+     * Displays about page.
+     *
+     * @return mixed
+     */
+    public function actionLoan()
+    {
+        return $this->render('loan');
+    }
+
+     /**
+     * Displays about page.
+     *
+     * @return mixed
+     */
+    public function actionCalendar()
+    {
+        return $this->render('calendar');
     }
 
     /**

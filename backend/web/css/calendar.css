@@ -1,0 +1,140 @@
+/* General calendar styles */
+#calendar {
+    max-width: 800px;
+    margin: 30px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+#calendar .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #004d40;
+    color: #ffffff;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}
+
+#calendar .header button {
+    background: #ffffff;
+    color: #004d40;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#calendar .header button:hover {
+    background: #ccc;
+}
+
+#calendar table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#calendar table thead {
+    background: #e0f2f1;
+}
+
+#calendar table th,
+#calendar table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    width: calc(100% / 7); /* Divide equally into 7 columns */
+}
+
+#calendar table th {
+    font-weight: bold;
+    color: #004d40;
+}
+
+#calendar table td {
+    font-size: 14px;
+    height: 80px;
+    vertical-align: top;
+    background: #ffffff;
+}
+
+#calendar table td div {
+    font-weight: bold;
+}
+
+#calendar table td small {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+#calendar table td:hover {
+    background: #e0f2f1;
+    cursor: pointer;
+}
+
+/* Highlight today's date */
+#calendar table td.today {
+    background: #4caf50;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #calendar {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    #calendar .header {
+        font-size: 14px;
+    }
+
+    #calendar table td {
+        height: 60px;
+    }
+}
+
+.today {
+    background-color: #f0ad4e;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* calendar.css */
+#weather {
+    background-color: #f0f8ff;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#weather p {
+    margin: 5px 0;
+}
+
+#weather .title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+

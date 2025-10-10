@@ -60,6 +60,14 @@ AppAsset::register($this);
                 <i class="fas fa-users text-xl"></i>
                 <span>Danh Bạ</span>
             </a>
+            <a href="<?= \yii\helpers\Url::to(['/loan']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'map' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="BĐ Quy Hoạch">
+                <i class="fas fa-calculator text-xl"></i>
+                <span>Tính Toán Khoản Vay</span>
+            </a>
+            <a href="<?= \yii\helpers\Url::to(['/calendar']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'map' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="BĐ Quy Hoạch">
+                <i class="fas fa-calendar text-xl"></i>
+                <span>Lịch Âm Dương</span>
+            </a>
             <?php if (!Yii::$app->user->isGuest && in_array(Yii::$app->user->identity->jobTitle->role_code, ['manager', 'super_admin'])): ?>
                 <a href="<?= \yii\helpers\Url::to(['/property/users']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'users' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Quản Lý Nhân Viên">
                     <i class="fas fa-users text-xl"></i>

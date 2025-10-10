@@ -104,6 +104,8 @@ return [
                 'news' => 'post',
                 'property-folder' => 'folder',
                 'ban-do-quy-hoach' => 'site/map',
+                'loan' => 'site/loan',
+                'calendar' => 'site/calendar',
                 'ban-do-quy-hoach-ho-chi-minh' => 'site/map-ho-chi-minh',
                 'mobile-map' => 'site/mobile-map',
                 'map/<path:.+>' => 'map/proxy',

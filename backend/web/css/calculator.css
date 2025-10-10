@@ -1,0 +1,150 @@
+/* Body and container */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.loan-calculator {
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form Section */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.form-group label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.form-group input[readonly] {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Button Styling */
+button {
+    background-color: #C03D3D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #A63232;
+}
+
+/* Results Section */
+h3 {
+    font-size: 20px;
+    color: #333;
+    margin-top: 30px;
+}
+
+#monthly-payment, #total-payment-result {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Table Styling */
+.loan-schedule {
+    margin-top: 30px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.loan-schedule th, .loan-schedule td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.loan-schedule th {
+    background-color: #ff4800;
+    color: white;
+}
+
+.loan-schedule td {
+    background-color: #f9f9f9;
+}
+
+.loan-schedule tr:hover td {
+    background-color: #f1f1f1;
+}
+
+.loan-schedule td:last-child {
+    font-weight: bold;
+}
+
+/* Note Section */
+.note {
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .loan-calculator {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-group {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .loan-schedule {
+        font-size: 14px;
+    }
+}
+
