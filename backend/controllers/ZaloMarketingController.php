@@ -73,47 +73,19 @@ class ZaloMarketingController extends Controller
     public function actionList()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-    
-        $todayStart = date('Y-m-d 00:00:00');
-        $todayEnd = date('Y-m-d 23:59:59');
-    
-        // Đếm số bản ghi đã xử lý hôm nay
-        $countToday = ZaloContact::find()
-            ->where(['not in', 'status', ['1', '3']])
-            ->andWhere(['between', 'updated_at', $todayStart, $todayEnd])
-            ->count();
-    
-        // Giới hạn tối đa 10 bản ghi/ngày
-        $dailyLimit = 10;
-    
-        if ($countToday >= $dailyLimit) {
-            return [
-                'success' => false,
-                'message' => 'Đã đạt giới hạn ' . $dailyLimit . ' bản ghi cập nhật hôm nay.',
-                'countToday' => (int)$countToday,
-                'data' => [],
-            ];
-        }
-    
-        // Tính số lượng còn lại có thể lấy trong ngày
-        $remaining = $dailyLimit - $countToday;
-    
-        // Lấy tối đa $remaining bản ghi
+
         $models = ZaloContact::find()
-            ->select(['id', 'zalo', 'phone', 'status'])
-            ->where(['not in', 'status', ['1', '3']])
-            ->andWhere(['between', 'updated_at', $todayStart, $todayEnd])
-            ->limit($remaining)
-            ->all();
-    
+        ->select(['id', 'zalo', 'phone', 'status'])
+        ->where(['status' => '0'])
+        ->limit(10)
+        ->all();
+
         return [
             'success' => true,
-            'message' => "Còn $remaining bản ghi có thể cập nhật hôm nay.",
-            'countToday' => (int)$countToday,
+            'count' => count($models),
             'data' => $models,
         ];
     }
-    
 
     public function actionUpdateZalo($id)
     {
@@ -158,7 +130,9 @@ class ZaloMarketingController extends Controller
     public function actionFindUuid($uuid)
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
         $model = $this->findModelUuid($uuid);
+    
         if (!$model) {
             return [
                 'success' => false,
