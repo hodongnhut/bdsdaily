@@ -73,37 +73,47 @@ class ZaloMarketingController extends Controller
     public function actionList()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
+    
         $todayStart = date('Y-m-d 00:00:00');
         $todayEnd = date('Y-m-d 23:59:59');
-
+    
+        // Đếm số bản ghi đã xử lý hôm nay
         $countToday = ZaloContact::find()
             ->where(['not in', 'status', ['1', '3']])
             ->andWhere(['between', 'updated_at', $todayStart, $todayEnd])
             ->count();
-
-        if ($countToday >= 10) {
+    
+        // Giới hạn tối đa 10 bản ghi/ngày
+        $dailyLimit = 10;
+    
+        if ($countToday >= $dailyLimit) {
             return [
                 'success' => false,
-                'message' => 'Đã đạt giới hạn 10 bản ghi cập nhật hôm nay.',
+                'message' => 'Đã đạt giới hạn ' . $dailyLimit . ' bản ghi cập nhật hôm nay.',
                 'countToday' => (int)$countToday,
                 'data' => [],
             ];
         }
-
+    
+        // Tính số lượng còn lại có thể lấy trong ngày
+        $remaining = $dailyLimit - $countToday;
+    
+        // Lấy tối đa $remaining bản ghi
         $models = ZaloContact::find()
             ->select(['id', 'zalo', 'phone', 'status'])
             ->where(['not in', 'status', ['1', '3']])
             ->andWhere(['between', 'updated_at', $todayStart, $todayEnd])
-            ->limit(10)
+            ->limit($remaining)
             ->all();
-
+    
         return [
             'success' => true,
-            'count' => count($models),
+            'message' => "Còn $remaining bản ghi có thể cập nhật hôm nay.",
+            'countToday' => (int)$countToday,
             'data' => $models,
         ];
     }
+    
 
     public function actionUpdateZalo($id)
     {
