@@ -29,7 +29,7 @@ class ZaloContact extends \yii\db\ActiveRecord
     const STATUS_SENDING = 0; // 'Sending';
     const STATUS_SUCCESS = 1; // 'Success';
     const STATUS_FAILED = 2; // 'Failed';
-    const STATUS_NOTYET = 3: //'NotYet';
+    const STATUS_NOTYET = 3; //'NotYet';
 
     /**
      * {@inheritdoc}
