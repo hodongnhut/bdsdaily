@@ -79,7 +79,7 @@ class ZaloMarketingController extends Controller
 
         $models = ZaloContact::find()
             ->select(['id', 'zalo', 'phone', 'status'])
-            ->where(['not in', 'status', [1, 3]])
+            ->where(['not in', 'status', ['1', '3']])
             ->andWhere(['between', 'updated_at', $todayStart, $todayEnd])
             ->limit(10)
             ->all();
