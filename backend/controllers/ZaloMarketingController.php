@@ -77,6 +77,20 @@ class ZaloMarketingController extends Controller
         $todayStart = date('Y-m-d 00:00:00');
         $todayEnd = date('Y-m-d 23:59:59');
 
+        $countToday = ZaloContact::find()
+            ->where(['not in', 'status', ['1', '3']])
+            ->andWhere(['between', 'updated_at', $todayStart, $todayEnd])
+            ->count();
+
+        if ($countToday >= 10) {
+            return [
+                'success' => false,
+                'message' => 'Đã đạt giới hạn 10 bản ghi cập nhật hôm nay.',
+                'countToday' => (int)$countToday,
+                'data' => [],
+            ];
+        }
+
         $models = ZaloContact::find()
             ->select(['id', 'zalo', 'phone', 'status'])
             ->where(['not in', 'status', ['1', '3']])
