@@ -20,7 +20,7 @@ class ZaloMarketingController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'except' => ['list'],
+                'except' => ['list', 'update-zalo'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -77,6 +77,46 @@ class ZaloMarketingController extends Controller
             'data' => $models,
         ];
     }
+
+    public function actionUpdateZalo($id)
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+    
+        $model = $this->findModel($id);
+    
+        if (!$model) {
+            return [
+                'success' => false,
+                'message' => 'Record not found.',
+            ];
+        }
+    
+        $request = Yii::$app->request;
+    
+        if ($request->isPost) {
+            $data = $request->post();
+    
+            if ($model->load($data, '') && $model->save()) {
+                return [
+                    'success' => true,
+                    'message' => 'Zalo contact updated successfully.',
+                    'data' => $model,
+                ];
+            } else {
+                return [
+                    'success' => false,
+                    'message' => 'Failed to update.',
+                    'errors' => $model->getErrors(),
+                ];
+            }
+        }
+    
+        return [
+            'success' => false,
+            'message' => 'Invalid request method.',
+        ];
+    }
+    
 
     /**
      * Displays a single ZaloContact model.
