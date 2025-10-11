@@ -46,6 +46,14 @@ class ZaloMarketingController extends Controller
             ],
         ];
     }
+
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['update-zalo'])) {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
     /**
      * Lists all ZaloContact models.
      *
