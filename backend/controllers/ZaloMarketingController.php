@@ -64,9 +64,10 @@ class ZaloMarketingController extends Controller
     public function actionList()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        
+
         $models = ZaloContact::find()
-        ->where(['status' => 0])
+        ->select(['id', 'zalo', 'phone', 'status'])
+        ->where(['status' => '0'])
         ->limit(10)
         ->all();
 
