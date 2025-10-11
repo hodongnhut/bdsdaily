@@ -74,11 +74,15 @@ class ZaloMarketingController extends Controller
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
+        $todayStart = date('Y-m-d 00:00:00');
+        $todayEnd = date('Y-m-d 23:59:59');
+
         $models = ZaloContact::find()
-        ->select(['id', 'zalo', 'phone', 'status'])
-        ->where(['status' => '0'])
-        ->limit(10)
-        ->all();
+            ->select(['id', 'zalo', 'phone', 'status'])
+            ->where(['not in', 'status', [0, 3]])
+            ->andWhere(['between', 'updated_at', $todayStart, $todayEnd])
+            ->limit(10)
+            ->all();
 
         return [
             'success' => true,
