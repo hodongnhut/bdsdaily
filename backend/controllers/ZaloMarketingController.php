@@ -41,6 +41,7 @@ class ZaloMarketingController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
+                    'update-zalo' => ['POST'],
                 ],
             ],
         ];
