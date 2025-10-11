@@ -20,7 +20,7 @@ class ZaloMarketingController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'except' => ['list', 'update-zalo'],
+                'except' => ['list', 'update-zalo', 'find-uuid'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -125,6 +125,24 @@ class ZaloMarketingController extends Controller
             'message' => 'Invalid request method.',
         ];
     }
+
+
+    public function actionFindUuid($uuid)
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $model = $this->findModelUuid($uuid);
+        if (!$model) {
+            return [
+                'success' => false,
+                'message' => 'Record not found.',
+            ];
+        }
+    
+        return [
+            'success' => true,
+            'data' => $model,
+        ];
+    }
     
 
     /**
@@ -206,6 +224,22 @@ class ZaloMarketingController extends Controller
     protected function findModel($id)
     {
         if (($model = ZaloContact::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Finds the ZaloContact model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id ID
+     * @return ZaloContact the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModelUuid($uuid)
+    {
+        if (($model = ZaloContact::findOne(['uuid' => $uuid])) !== null) {
             return $model;
         }
 
