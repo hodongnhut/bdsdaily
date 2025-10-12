@@ -59,19 +59,19 @@
         {
             id: 1, author: "BDSDaily", time: "8 tháng trước", 
             title: "Email marketing tools gửi 1000 email daily", views: "177K", duration: "28:39",
-            thumbnail: "http://bdsdaily.com/img/email-marketing.webp", 
+            thumbnail: "https://bdsdaily.com/img/email-marketing.webp", 
             avatar: "GH", link: "https://youtu.be/W70xiAUZ3h0?si=ykE7XiFclApnpEDF"
         },
         {
             id: 2, author: "BDSDaily", time: "1 năm trước", 
             title: "Lên mẫu Email gửi mời khách hành - BDSDaily", views: "207K", duration: "05:50",
-            thumbnail: "http://bdsdaily.com/img/Email-template.webp", 
+            thumbnail: "https://bdsdaily.com/img/Email-template.webp", 
             avatar: "MV", link: "http://www.youtube.com/watch?v=H0_cP4a_rzs"
         },
         {
             id: 3, author: "BDSDaily", time: "4 tháng trước", 
             title: "Gửi hàng 1000 Email qua hệ thống - BDSDaily", views: "6K", duration: "00:55",
-            thumbnail: "hhttp://bdsdaily.com/img/1000-email.webp", 
+            thumbnail: "https://bdsdaily.com/img/1000-email.webp", 
             avatar: "EB", link: "https://youtu.be/_bHFN-Zv478?si=EUvFQJ2euqkzH9uD"
         },
         {
@@ -83,19 +83,19 @@
         {
             id: 5, author: "BDSDaily", time: "8 tháng trước", 
             title: "Hướng dẫn dùng dầu tẩy trang đúng cách!!! Chia sẻ ngay với người thân mình nhé!", views: "32K", duration: "00:56",
-            thumbnail: "https://placehold.co/600x338/3B82F6/ffffff?text=Cleansing+Oil", 
+            thumbnail: "https://bdsdaily.com/img/slider2.webp", 
             avatar: "RQ", link: "http://www.youtube.com/watch?v=RzYxLngbJO4"
         },
         {
             id: 6, author: "Review by Quyên aaa", time: "8 tháng trước", 
             title: "Hướng dẫn dùng dầu tẩy trang đúng cách!!! Chia sẻ ngay với người thân mình nhé!", views: "32K", duration: "00:56",
-            thumbnail: "https://placehold.co/600x338/3B82F6/ffffff?text=Cleansing+Oil", 
+            thumbnail: "https://bdsdaily.com/img/slider3.webp", 
             avatar: "RQ", link: "http://www.youtube.com/watch?v=RzYxLngbJO4"
         },
         {
             id: 7, author: "Review by Quyên aaa", time: "8 tháng trước", 
             title: "Hướng dẫn dùng dầu tẩy trang đúng cách!!! Chia sẻ ngay với người thân mình nhé!", views: "32K", duration: "00:56",
-            thumbnail: "https://placehold.co/600x338/3B82F6/ffffff?text=Cleansing+Oil", 
+            thumbnail: "https://bdsdaily.com/img/slider4.webp", 
             avatar: "RQ", link: "http://www.youtube.com/watch?v=RzYxLngbJO4"
         },
     ];
