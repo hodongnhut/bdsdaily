@@ -84,7 +84,7 @@
             id: 5, author: "BDSDaily", time: "8 tháng trước", 
             title: "Hướng dẫn dùng Check bảng đồ Quy Hoạch", views: "32K", duration: "00:56",
             thumbnail: "https://bdsdaily.com/img/slider2.webp", 
-            avatar: "RQ", link: "http://www.youtube.com/watch?v=RzYxLngbJO4"
+            avatar: "RQ", link: "https://youtu.be/WXqaFdcm0Y0?si=nPe3xOLJmmKaqtEM"
         },
         {
             id: 6, author: "Review by Quyên aaa", time: "8 tháng trước", 
