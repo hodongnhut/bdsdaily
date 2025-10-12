@@ -144,7 +144,7 @@ $this->registerMetaTag([
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>
                         ✔️ <a href="#" target="_blank" rel="noopener noreferrer">
-                            Đăng Bài Miễn Phí Trên Nhóm Facebook "<b></b>BẤT ĐỘNG SẢN TP.HCM</b>"
+                            Đăng Bài Miễn Phí Trên Nhóm Facebook "<b>BẤT ĐỘNG SẢN TP.HCM</b>"
                             </a>
                     </li>
                     <li>
