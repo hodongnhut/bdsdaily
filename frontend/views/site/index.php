@@ -40,6 +40,9 @@ $this->registerMetaTag([
     'content' => 'https://bdsdaily.com/'
 ]);
 ?>
+
+<?= $this->render('_feed') ?>
+
 <?= $this->render('_intro') ?>
 
 <!-- Our Data Section -->
