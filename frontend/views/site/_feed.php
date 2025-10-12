@@ -64,7 +64,7 @@
         },
         {
             id: 2, author: "BDSDaily", time: "1 năm trước", 
-            title: "Lên mẫu Email gửi mời khách hành - BDSDaily", views: "207K", duration: "05:50",
+            title: "Lên mẫu Email gửi mời khách hàng - BDSDaily", views: "207K", duration: "05:50",
             thumbnail: "https://bdsdaily.com/img/Email-template.webp", 
             avatar: "MV", link: "http://www.youtube.com/watch?v=H0_cP4a_rzs"
         },
