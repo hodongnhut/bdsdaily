@@ -144,12 +144,12 @@ $this->registerMetaTag([
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>
                         ✔️ <a href="#" target="_blank" rel="noopener noreferrer">
-                            Đăng Bài Miễn Phí Trên Nhóm Facebook "BẤT ĐỘNG SẢN TP.HCM"
+                            Đăng Bài Miễn Phí Trên Nhóm Facebook "<b></b>BẤT ĐỘNG SẢN TP.HCM</b>"
                             </a>
                     </li>
                     <li>
                     ✔️ <a href="https://zalo.me/0845528145" target="_blank" rel="noopener noreferrer">
-                        Nhận tin Miễn Phí qua Zalo Group "BDSDaily"
+                        Nhận tin Miễn Phí qua Zalo Group "<b>BDSDaily</b>"
                         </a>
                     </li>
                     <li>✔️ Nhận tin tức cập nhật miễn phí từ Website</li>
