@@ -71,13 +71,13 @@
         {
             id: 3, author: "BDSDaily", time: "4 tháng trước", 
             title: "Gửi hàng 1000 Email qua hệ thống - BDSDaily", views: "6K", duration: "00:55",
-            thumbnail: "https://placehold.co/600x338/FBBF24/ffffff?text=Gửi hàng 1000 Email", 
+            thumbnail: "hhttp://bdsdaily.com/img/1000-email.webp", 
             avatar: "EB", link: "https://youtu.be/_bHFN-Zv478?si=EUvFQJ2euqkzH9uD"
         },
         {
             id: 4, author: "BDSDaily", time: "10 tháng trước", 
             title: "App Nhà Phố - Phần mềm nhà phố", views: "20K", duration: "00:49",
-            thumbnail: "https://placehold.co/600x338/EF4444/ffffff?text=App+Nhà+Phố", 
+            thumbnail: "https://bdsdaily.com/img/slider1.webp", 
             avatar: "ST", link: "https://youtu.be/jfA5Mj7WlNI?si=Q3MtvdVl7YiYfFPf"
         },
         {
