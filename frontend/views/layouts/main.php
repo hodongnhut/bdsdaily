@@ -32,33 +32,58 @@ AppAsset::register($this);
 <body class="text-gray-800">
 <?php $this->beginBody() ?>
 
-<header class="bg-white shadow-sm sticky top-0 z-50">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+<header class="bg-white shadow-lg sticky top-0 z-50">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <a href="/" class="flex items-center">
-            <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" alt="Bất Động Sản Daily" class="h-14 w-auto">
+            <!-- Đảm bảo ảnh logo được đặt trong thư mục @web/img/ -->
+            <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" alt="Bất Động Sản Daily" class="h-12 sm:h-14 w-auto">
         </a>
-        <div class="hidden md:flex space-x-6 text-sm font-medium">
-            <a href="https://bdsdaily.com/#gioi-thieu" class="text-gray-600 hover:text-indigo-600">Giới Thiệu</a>
-            <a href="https://bdsdaily.com/#du-lieu" class="text-gray-600 hover:text-indigo-600">Dữ Liệu Của Chúng Tôi</a>
-            <a href="https://bdsdaily.com/#dich-vu" class="text-gray-600 hover:text-indigo-600">Dịch Vụ</a>
-            <a href="https://bdsdaily.com/#goi-dich-vu" class="text-gray-600 hover:text-indigo-600">Gói Dịch Vụ</a>
-            <a href="https://bdsdaily.com/#document" class="text-gray-600 hover:text-indigo-600">Tài Liệu</a>
-            <a href="https://bdsdaily.com/#app-mobile" class="text-gray-600 hover:text-indigo-600">App Mobile</a>
-            <a href="https://bdsdaily.com/#zalo" class="text-gray-600 hover:text-indigo-600">Zalo B2B</a>
-            <a href="https://bdsdaily.com/tin-tuc.html" class="text-gray-600 hover:text-indigo-600">Daily News</a>
+        
+        <!-- Desktop Menu Links -->
+        <div class="hidden md:flex space-x-6 text-sm font-medium items-center">
+            <a href="https://bdsdaily.com/#gioi-thieu" class="text-gray-600 hover:text-indigo-600 transition duration-150">Giới Thiệu</a>
+            <a href="https://bdsdaily.com/#du-lieu" class="text-gray-600 hover:text-indigo-600 transition duration-150">Dữ Liệu Của Chúng Tôi</a>
+            <a href="https://bdsdaily.com/#dich-vu" class="text-gray-600 hover:text-indigo-600 transition duration-150">Dịch Vụ</a>
+            <a href="https://bdsdaily.com/#goi-dich-vu" class="text-gray-600 hover:text-indigo-600 transition duration-150">Gói Dịch Vụ</a>
+            <a href="https://bdsdaily.com/#document" class="text-gray-600 hover:text-indigo-600 transition duration-150">Tài Liệu</a>
+            <a href="https://bdsdaily.com/#app-mobile" class="text-gray-600 hover:text-indigo-600 transition duration-150">App Mobile</a>
+            <a href="https://bdsdaily.com/#zalo" class="text-gray-600 hover:text-indigo-600 transition duration-150">Zalo B2B</a>
+            <a href="https://bdsdaily.com/tin-tuc.html" class="text-gray-600 hover:text-indigo-600 transition duration-150">Daily News</a>
             <a href="https://bdsdaily.com/#lien-he"
-                class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full transition-colors duration-300">Liên
+                class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full shadow-md transition-colors duration-300 transform hover:scale-[1.03]">Liên
                 Hệ</a>
         </div>
-        <!-- Mobile Menu Button -->
-        <button class="md:hidden text-gray-600 focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                </path>
+        
+        <!-- Mobile Menu Button with ID for JS interaction -->
+        <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition">
+            <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
     </nav>
+
+    <!-- Mobile Menu Container (Initially hidden on all screens, controlled by JS on mobile) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-md pb-4">
+        <div class="flex flex-col space-y-2 px-6 pt-3 text-base font-medium">
+            <!-- Mirroring desktop links for mobile view -->
+            <a href="https://bdsdaily.com/#gioi-thieu" class="text-gray-700 hover:bg-indigo-50 px-3 py-2 rounded-lg transition duration-150">Giới Thiệu</a>
+            <a href="https://bdsdaily.com/#du-lieu" class="text-gray-700 hover:bg-indigo-50 px-3 py-2 rounded-lg transition duration-150">Dữ Liệu Của Chúng Tôi</a>
+            <a href="https://bdsdaily.com/#dich-vu" class="text-gray-700 hover:bg-indigo-50 px-3 py-2 rounded-lg transition duration-150">Dịch Vụ</a>
+            <a href="https://bdsdaily.com/#goi-dich-vu" class="text-gray-700 hover:bg-indigo-50 px-3 py-2 rounded-lg transition duration-150">Gói Dịch Vụ</a>
+            <a href="https://bdsdaily.com/#document" class="text-gray-700 hover:bg-indigo-50 px-3 py-2 rounded-lg transition duration-150">Tài Liệu</a>
+            <a href="https://bdsdaily.com/#app-mobile" class="text-gray-700 hover:bg-indigo-50 px-3 py-2 rounded-lg transition duration-150">App Mobile</a>
+            <a href="https://bdsdaily.com/#zalo" class="text-gray-700 hover:bg-indigo-50 px-3 py-2 rounded-lg transition duration-150">Zalo B2B</a>
+            <a href="https://bdsdaily.com/tin-tuc.html" class="text-gray-700 hover:bg-indigo-50 px-3 py-2 rounded-lg transition duration-150">Daily News</a>
+            
+            <!-- Link Liên Hệ (Button style) -->
+            <a href="https://bdsdaily.com/#lien-he" 
+                class="text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-2 rounded-lg text-center mt-2 shadow-md transition duration-150">Liên Hệ
+            </a>
+        </div>
+    </div>
 </header>
 
 <main role="main" class="flex-shrink-0">
@@ -117,7 +142,48 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
+<!-- JavaScript cho Mobile Menu Toggle -->
+<script>
+    // Đảm bảo DOM đã tải xong trước khi gắn sự kiện
+    document.addEventListener('DOMContentLoaded', () => {
+        const button = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
 
+        if (button && menu && iconOpen && iconClose) {
+            button.addEventListener('click', () => {
+                // Toggle ẩn/hiện menu
+                menu.classList.toggle('hidden');
+                
+                // Toggle icon (Hamburger <-> X)
+                iconOpen.classList.toggle('hidden');
+                iconClose.classList.toggle('hidden');
+            });
+            
+            // Tự động ẩn menu khi nhấp vào một liên kết (giả định liên kết là anchor links)
+            const mobileLinks = menu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!menu.classList.contains('hidden')) {
+                        menu.classList.add('hidden');
+                        iconOpen.classList.remove('hidden');
+                        iconClose.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Xử lý khi resize cửa sổ (chắc chắn menu ẩn trên desktop)
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) { // 768px là breakpoint 'md:' của Tailwind
+                    menu.classList.add('hidden');
+                    iconOpen.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                }
+            });
+        }
+    });
+</script>
 <?php $this->endBody() ?>
 </body>
 </html>
