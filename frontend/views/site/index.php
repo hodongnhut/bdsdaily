@@ -149,7 +149,7 @@ $this->registerMetaTag([
                     </li>
                     <li>
                     ✔️ <a href="https://zalo.me/g/ktfwjs927" target="_blank" rel="noopener noreferrer">
-                        Nhận tin có giới hạn qua Zalo Group "<b>BDSDaily</b>" 5 tin/ngày
+                        Nhận tin 5 tin/ngày qua Zalo Group "<b>BDSDaily</b>" 
                         </a>
                     </li>
                     <li>✔️ Nhận tin tức cập nhật miễn phí từ Website</li>
@@ -174,7 +174,7 @@ $this->registerMetaTag([
                     <li>✔️ Cập nhật tin tức thị trường hàng ngày</li>
                     <li>
                     ✔️ <a href="https://zalo.me/g/ktfwjs927" target="_blank" rel="noopener noreferrer">
-                        Nhận tin Miễn Phí qua Zalo Group "<b>BDSDaily</b>" Không Giới Hạn
+                        Nhận tin qua Zalo Group "<b>BDSDaily</b>" Không Giới Hạn
                         </a>
                     </li>
                     <li>✔️ Dữ liệu được xác thực liên tục </li>
