@@ -149,7 +149,7 @@ $this->registerMetaTag([
                     </li>
                     <li>
                     ✔️ <a href="https://zalo.me/g/ktfwjs927" target="_blank" rel="noopener noreferrer">
-                        Nhận tin Miễn Phí qua Zalo Group "<b>BDSDaily</b>"
+                        Nhận tin có giới hạn qua Zalo Group "<b>BDSDaily</b>" 5 tin/ngày
                         </a>
                     </li>
                     <li>✔️ Nhận tin tức cập nhật miễn phí từ Website</li>
@@ -172,6 +172,11 @@ $this->registerMetaTag([
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>✔️ Truy cập dữ liệu nhà phố đầy đủ (200K+)</li>
                     <li>✔️ Cập nhật tin tức thị trường hàng ngày</li>
+                    <li>
+                    ✔️ <a href="https://zalo.me/g/ktfwjs927" target="_blank" rel="noopener noreferrer">
+                        Nhận tin Miễn Phí qua Zalo Group "<b>BDSDaily</b>" Không Giới Hạn
+                        </a>
+                    </li>
                     <li>✔️ Dữ liệu được xác thực liên tục </li>
                     <li>✔️ Sử dụng hệ thống giỏ hàng</li>
                     <li>✔️ Hỗ trợ Xem Số Chủ Nhà 500 số/ ngày</li>
