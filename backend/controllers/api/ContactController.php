@@ -4,9 +4,10 @@ namespace backend\controllers\api;
 
 use Yii;
 use yii\rest\Controller;
-use yii\filters\auth\HttpBearerAuth;
 use common\models\SalesContact;
+use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
+use yii\filters\auth\HttpBearerAuth;
 
 /**
  * API Controller cho SalesContact (liên hệ bán hàng)
@@ -28,15 +29,32 @@ class ContactController extends Controller
      */
     public function actionIndex()
     {
-        $query = SalesContact::find()->orderBy(['id' => SORT_DESC]);
+        $page = (int) Yii::$app->request->get('page', 1);
+        $limit = (int) Yii::$app->request->get('per-page', 10);
+        $offset = ($page - 1) * $limit;
 
-        return new ActiveDataProvider([
-            'query' => $query,
+        $query = SalesContact::find();
+
+        $total = $query->count();
+
+        $contacts = $query
+            ->orderBy(['id' => SORT_DESC])
+            ->offset($offset)
+            ->limit($limit)
+            ->asArray()
+            ->all();
+
+        return [
+            'status' => 'success',
+            'message' => 'Danh sách liên hệ',
             'pagination' => [
-                'pageSize' => Yii::$app->request->get('per-page', 10), // mặc định 10 item/trang
-                'page' => Yii::$app->request->get('page', 1) - 1, // page = 1 → offset 0
+                'total' => (int)$total,
+                'page' => $page,
+                'per_page' => $limit,
+                'total_pages' => ceil($total / $limit),
             ],
-        ]);
+            'data' => $contacts,
+        ];
     }
 
     /**
