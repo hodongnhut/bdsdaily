@@ -11,7 +11,7 @@ use common\widgets\CustomLinkPager;
 /** @var common\models\SalesContactSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Danh Bạ Môi Giới Tổng Hợp (Batdongsan.com.vn, Chotot.com, Homedy, Mogi, Rever...)';
+$this->title = 'Danh Bạ Môi Giới';
 ?>
 
 
