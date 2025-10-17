@@ -89,7 +89,7 @@ class PropertiesFrom extends Model
         $property->district_county = $this->districts;
         $property->ward_commune = $this->wards;
         $property->street_name = $this->streets;
-        $property->title = $this->house_number. ', '. $this->streets . ', '. $this->wards .', ' . $this->districts .', '. $this->provinces;
+        $property->title = $this->house_number. ' '. $this->streets . ', '. $this->wards .', ' . $this->districts .', '. $this->provinces;
         
         $property->new_district = $this->findNewDistrict($this->provinces, $this->districts, $this->wards);
        
