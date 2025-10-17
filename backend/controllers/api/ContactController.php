@@ -67,9 +67,7 @@ class ContactController extends Controller
         if (!empty($keyword)) {
             $query->andFilterWhere([
                 'or',
-                ['like', 'name', $keyword],
                 ['like', 'phone', $keyword],
-                ['like', 'email', $keyword],
             ]);
         }
 
