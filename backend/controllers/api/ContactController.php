@@ -28,7 +28,15 @@ class ContactController extends Controller
      */
     public function actionIndex()
     {
-        return SalesContact::find()->orderBy(['id' => SORT_DESC])->asArray()->all();
+        $query = SalesContact::find()->orderBy(['id' => SORT_DESC]);
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->request->get('per-page', 10), // mặc định 10 item/trang
+                'page' => Yii::$app->request->get('page', 1) - 1, // page = 1 → offset 0
+            ],
+        ]);
     }
 
     /**
