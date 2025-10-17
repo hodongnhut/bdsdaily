@@ -58,6 +58,31 @@ class ContactController extends Controller
     }
 
     /**
+     * API: GET /api/contact/search?keyword=xxx
+     */
+    public function actionSearch($keyword = '')
+    {
+        $query = SalesContact::find();
+
+        if (!empty($keyword)) {
+            $query->andFilterWhere([
+                'or',
+                ['like', 'name', $keyword],
+                ['like', 'phone', $keyword],
+                ['like', 'email', $keyword],
+            ]);
+        }
+
+        $data = $query->limit(20)->asArray()->all();
+
+        return [
+            'status' => 'success',
+            'message' => !empty($data) ? 'Data found' : 'No results found',
+            'data' => $data,
+        ];
+    }
+
+    /**
      * Xem chi tiết liên hệ
      * GET /api/contact/view?id=1
      */
