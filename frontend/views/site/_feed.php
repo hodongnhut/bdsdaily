@@ -64,7 +64,7 @@
         },
         {
             id: 2, author: "BDSDaily", time: "1 năm trước", 
-            title: "hướng Dẫn Dùng Phần App BDSDaily", views: "207K", duration: "05:50",
+            title: "Hướng Dẫn Dùng Phần App BDSDaily", views: "207K", duration: "05:50",
             thumbnail: "https://bdsdaily.com/img/Email-template.webp", 
             avatar: "MV", link: "https://www.youtube.com/shorts/PuRZxWghKA4"
         },
