@@ -65,12 +65,32 @@ class ContactController extends Controller
         $query = SalesContact::find();
 
         if (!empty($keyword)) {
-            $query->andFilterWhere([
-                'or',
-                ['like', 'name', $keyword],
-                ['like', 'phone', $keyword],
-                ['like', 'email', $keyword],
-            ]);
+            // Chuẩn hóa keyword
+            $keyword = trim($keyword);
+
+            // Nếu là số điện thoại (toàn số, độ dài hợp lý)
+            if (preg_match('/^\d{8,11}$/', $keyword)) {
+                // Nếu chưa có số 0 đầu thì thêm vào
+                if (strpos($keyword, '0') !== 0) {
+                    $keywordWithZero = '0' . $keyword;
+                } else {
+                    $keywordWithZero = $keyword;
+                }
+
+                // Tìm theo cả hai dạng: có 0 và không có 0
+                $query->andFilterWhere([
+                    'or',
+                    ['like', 'phone', $keyword],
+                    ['like', 'phone', $keywordWithZero],
+                ]);
+            } else {
+                // Nếu không phải là số → tìm theo tên và email
+                $query->andFilterWhere([
+                    'or',
+                    ['like', 'name', $keyword],
+                    ['like', 'email', $keyword],
+                ]);
+            }
         }
 
         $data = $query->limit(20)->asArray()->all();
@@ -81,6 +101,7 @@ class ContactController extends Controller
             'data' => $data,
         ];
     }
+
 
     /**
      * Xem chi tiết liên hệ
