@@ -32,10 +32,10 @@ class ImageProxyController extends Controller
     public function actionLoad($path)
     {
         // Domain gốc bạn muốn ẩn
-        $baseUrl = 'https://kinglandgroup.vn';
+        $baseUrl = 'https://kinglandgroup.vn/';
 
         // Tạo URL hoàn chỉnh
-        $url = $baseUrl . ltrim($path, '/');
+        $url = rtrim($baseUrl, '/') . '/' . ltrim($path, '/');
 
         // Tải ảnh
         $client = new Client();
