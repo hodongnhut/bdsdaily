@@ -322,7 +322,7 @@ function formatNumber($number) {
                 <?php if (!empty($model->propertyImages)): ?>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 uploaded-images">
                         <?php
-                            $baseUrl = 'https://app.bdsdaily.com/image-proxy';
+                            $baseUrl = 'https://kinglandgroup.vn';
                             $images = $model->propertyImages;
                             foreach ($images as $image) {
                                 if ($image->image_type == 1) {
@@ -362,7 +362,7 @@ function formatNumber($number) {
                 <?php if (!empty($model->propertyImages)): ?>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 uploaded-images">
                         <?php
-                            $baseUrl = 'https://app.bdsdaily.com/image-proxy';
+                            $baseUrl = 'https://kinglandgroup.vn';
                             $images = $model->propertyImages;
                             foreach ($images as $image) {
                                 if ($image->image_type == 0) {
