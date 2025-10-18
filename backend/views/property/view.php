@@ -358,7 +358,7 @@ function formatNumber($number) {
                                 if ($image->status_external === 1) {
                                     $imageUrl = strpos($imagePath, '/') === 0 ? $urlLocal . $imagePath : $urlLocal . '/' . $imagePath;
                                 } else {
-                                    $imageUrl = Url::to(['/image-proxy/load', 'path' => $imagePath]);
+                                    $imageUrl = Url::to(['/image-proxy/load', 'path' => Html::encode($image->image_path)]);
                                 }
                                 echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
                                 echo "<img src='{$imageUrl}' loading='lazy' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
