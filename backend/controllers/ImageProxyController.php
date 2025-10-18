@@ -38,21 +38,19 @@ class ImageProxyController extends Controller
         $url = rtrim($baseUrl, '/') . '/' . ltrim($path, '/');
 
         // Tải ảnh
-        $client = new Client();
+        $client = new \yii\httpclient\Client(['transport' => 'yii\httpclient\StreamTransport']);
         $response = $client->get($url)->send();
 
         if (!$response->isOk) {
             throw new NotFoundHttpException('Không tìm thấy hình ảnh');
         }
 
-        // Lấy header content-type (image/jpeg, image/png, ...)
-        $contentType = $response->headers->get('content-type', 'image/jpeg');
 
         // Trả về ảnh trực tiếp
-        Yii::$app->response->format = Response::FORMAT_RAW;
-        Yii::$app->response->headers->set('Content-Type', $contentType);
-        Yii::$app->response->headers->set('Cache-Control', 'max-age=86400'); // cache 1 ngày
-
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        Yii::$app->response->headers->set('Content-Type', $response->headers->get('content-type', 'image/jpeg'));
+        Yii::$app->response->headers->set('Cache-Control', 'max-age=86400');
+        
         return $response->content;
     }
 }
