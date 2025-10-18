@@ -2,11 +2,11 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
-use yii\web\Response;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\log\Logger;
+use yii\web\Response;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 class ImageProxyController extends Controller
 {
@@ -54,6 +54,7 @@ class ImageProxyController extends Controller
         curl_setopt($ch, CURLOPT_HEADER, true); // Include headers in output
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Verify SSL
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2); // Verify hostname
+        curl_setopt($ch, CURLOPT_USERAGENT, 'BdsDaily/1.0 (PHP/' . PHP_VERSION . ')'); // Set User-Agent
 
         // Execute cURL request
         $response = curl_exec($ch);
@@ -62,18 +63,8 @@ class ImageProxyController extends Controller
         $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
         $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 
-        if ($response === false || $error) {
-            curl_close($ch);
-            Yii::getLogger()->log('cURL error for ' . $imageUrl . ': ' . $error . ' [Server: ' . php_uname('n') . ', PHP: ' . PHP_VERSION . ']', Logger::LEVEL_ERROR, 'image-proxy');
-            throw new NotFoundHttpException('Failed to load image: ' . $error);
-        }
-
-        // Extract headers and body
-        $headers = substr($response, 0, $headerSize);
-        $body = substr($response, $headerSize);
-
         // Try WebP fallback if initial request fails and path is not already WebP
-        if ($httpCode !== 200 && preg_match('/\.(jpg|jpeg|png|gif)$/i', $decodedPath)) {
+        if (($response === false || $httpCode !== 200) && preg_match('/\.(jpg|jpeg|png|gif)$/i', $decodedPath)) {
             curl_close($ch);
             $webpPath = preg_replace('/\.(jpg|jpeg|png|gif)$/i', '.webp', $decodedPath);
             $webpUrl = strpos($webpPath, '/') === 0 ? $baseUrl . $webpPath : $baseUrl . '/' . $webpPath;
@@ -87,20 +78,24 @@ class ImageProxyController extends Controller
             curl_setopt($ch, CURLOPT_HEADER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'BdsDaily/1.0 (PHP/' . PHP_VERSION . ')');
 
             $response = curl_exec($ch);
             $error = curl_error($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
             $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-            $body = substr($response, $headerSize);
-
-            if ($response === false || $error) {
-                curl_close($ch);
-                Yii::getLogger()->log('cURL error for WebP fallback ' . $webpUrl . ': ' . $error . ' [Server: ' . php_uname('n') . ', PHP: ' . PHP_VERSION . ']', Logger::LEVEL_ERROR, 'image-proxy');
-                throw new NotFoundHttpException('Failed to load WebP image: ' . $error);
-            }
         }
+
+        if ($response === false || $error) {
+            curl_close($ch);
+            Yii::getLogger()->log('cURL error for ' . $imageUrl . ': ' . $error . ' [Server: ' . php_uname('n') . ', PHP: ' . PHP_VERSION . ', cURL: ' . curl_version()['version'] . ']', Logger::LEVEL_ERROR, 'image-proxy');
+            throw new NotFoundHttpException('Failed to load image: ' . $error);
+        }
+
+        // Extract headers and body
+        $headers = substr($response, 0, $headerSize);
+        $body = substr($response, $headerSize);
 
         curl_close($ch);
 
