@@ -2,11 +2,11 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\log\Logger;
-use yii\web\Response;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+use yii\log\Logger;
 
 class ImageProxyController extends Controller
 {
@@ -45,33 +45,10 @@ class ImageProxyController extends Controller
             throw new NotFoundHttpException('Invalid image path.');
         }
 
-        // Initialize cURL
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $imageUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // 10-second timeout
-        curl_setopt($ch, CURLOPT_HEADER, true); // Include headers in output
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Verify SSL
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2); // Verify hostname
-        curl_setopt($ch, CURLOPT_USERAGENT, 'BdsDaily/1.0 (PHP/' . PHP_VERSION . ')'); // Set User-Agent
-
-        // Execute cURL request
-        $response = curl_exec($ch);
-        $error = curl_error($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-        $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-
-        // Try WebP fallback if initial request fails and path is not already WebP
-        if (($response === false || $httpCode !== 200) && preg_match('/\.(jpg|jpeg|png|gif)$/i', $decodedPath)) {
-            curl_close($ch);
-            $webpPath = preg_replace('/\.(jpg|jpeg|png|gif)$/i', '.webp', $decodedPath);
-            $webpUrl = strpos($webpPath, '/') === 0 ? $baseUrl . $webpPath : $baseUrl . '/' . $webpPath;
-            Yii::getLogger()->log('Trying WebP fallback: ' . $webpUrl, Logger::LEVEL_INFO, 'image-proxy');
-
+        // Function to fetch image with cURL
+        $fetchImage = function ($url) {
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $webpUrl);
+            curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 10);
@@ -85,35 +62,55 @@ class ImageProxyController extends Controller
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
             $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-        }
+            $body = $response !== false ? substr($response, $headerSize) : '';
 
-        if ($response === false || $error) {
             curl_close($ch);
-            Yii::getLogger()->log('cURL error for ' . $imageUrl . ': ' . $error . ' [Server: ' . php_uname('n') . ', PHP: ' . PHP_VERSION . ', cURL: ' . curl_version()['version'] . ']', Logger::LEVEL_ERROR, 'image-proxy');
-            throw new NotFoundHttpException('Failed to load image: ' . $error);
+
+            return [
+                'success' => $response !== false && !$error && $httpCode === 200 && !empty($body),
+                'body' => $body,
+                'contentType' => $contentType,
+                'httpCode' => $httpCode,
+                'error' => $error,
+            ];
+        };
+
+        // Try primary image
+        $result = $fetchImage($imageUrl);
+        $logUrl = $imageUrl;
+
+        // Try WebP fallback if initial request fails and path is not already WebP
+        if (!$result['success'] && preg_match('/\.(jpg|jpeg|png|gif)$/i', $decodedPath)) {
+            $webpPath = preg_replace('/\.(jpg|jpeg|png|gif)$/i', '.webp', $decodedPath);
+            $webpUrl = strpos($webpPath, '/') === 0 ? $baseUrl . $webpPath : $baseUrl . '/' . $webpPath;
+            Yii::getLogger()->log('Trying WebP fallback: ' . $webpUrl, Logger::LEVEL_INFO, 'image-proxy');
+            $result = $fetchImage($webpUrl);
+            $logUrl = $webpUrl;
         }
 
-        // Extract headers and body
-        $headers = substr($response, 0, $headerSize);
-        $body = substr($response, $headerSize);
+        if ($result['success']) {
+            // Validate content
+            if (empty($result['body']) || strlen($result['body']) < 100) {
+                // Adjust threshold based on expected minimum image size
+                Yii::getLogger()->log('Invalid or empty image content: ' . $logUrl . ' [Size: ' . strlen($result['body']) . ' bytes]', Logger::LEVEL_ERROR, 'image-proxy');
+                throw new NotFoundHttpException('Image content is invalid or empty.');
+            }
 
-        curl_close($ch);
-
-        if ($httpCode === 200) {
             // Set default content type if not provided
-            $contentType = $contentType ?: 'image/webp';
+            $contentType = $result['contentType'] ?: 'image/webp';
 
             // Set response headers
             $yiiResponse = Yii::$app->response;
             $yiiResponse->format = Response::FORMAT_RAW;
             $yiiResponse->headers->add('Content-Type', $contentType);
             $yiiResponse->headers->add('Cache-Control', 'public, max-age=86400');
-            $yiiResponse->headers->add('Content-Length', strlen($body));
+            $yiiResponse->headers->add('Content-Length', strlen($result['body']));
 
-            return $body;
+            return $result['body'];
         } else {
-            Yii::getLogger()->log('Failed to fetch image: ' . $imageUrl . ' (HTTP Code: ' . $httpCode . ')', Logger::LEVEL_ERROR, 'image-proxy');
-            throw new NotFoundHttpException('Image not found or inaccessible (HTTP Code: ' . $httpCode . ').');
+            $errorMsg = $result['error'] ?: 'HTTP Code: ' . $result['httpCode'];
+            Yii::getLogger()->log('Failed to fetch image: ' . $logUrl . ' - ' . $errorMsg . ' [Server: ' . php_uname('n') . ', PHP: ' . PHP_VERSION . ', cURL: ' . curl_version()['version'] . ']', Logger::LEVEL_ERROR, 'image-proxy');
+            throw new NotFoundHttpException('Failed to load image: ' . $errorMsg);
         }
     }
 }
