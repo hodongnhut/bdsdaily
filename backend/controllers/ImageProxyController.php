@@ -1,6 +1,5 @@
 <?php
 namespace backend\controllers;
-
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -34,12 +33,15 @@ class ImageProxyController extends Controller
         // Define base URL
         $baseUrl = 'https://kinglandgroup.vn';
 
-        // Construct full image URL
-        $imageUrl = strpos($path, '/') === 0 ? $baseUrl . $path : $baseUrl . '/' . $path;
+        // Decode URL-encoded path
+        $decodedPath = urldecode($path);
 
-        // Validate path to prevent directory traversal and invalid formats
-        if (preg_match('/\.\.\//', $path) || !preg_match('/\.(jpg|jpeg|png|gif)$/i', $path)) {
-            Yii::getLogger()->log('Invalid image path: ' . $path, Logger::LEVEL_ERROR, 'image-proxy');
+        // Construct full image URL
+        $imageUrl = strpos($decodedPath, '/') === 0 ? $baseUrl . $decodedPath : $baseUrl . '/' . $decodedPath;
+
+        // Validate path to prevent directory traversal and allow specific image formats
+        if (preg_match('/\.\.\//', $decodedPath) || !preg_match('/\.(jpg|jpeg|png|gif|webp)$/i', $decodedPath)) {
+            Yii::getLogger()->log('Invalid image path: ' . $decodedPath, Logger::LEVEL_ERROR, 'image-proxy');
             throw new NotFoundHttpException('Invalid image path.');
         }
 
@@ -55,9 +57,21 @@ class ImageProxyController extends Controller
                 ])
                 ->send();
 
+            if (!$response->isOk && preg_match('/\.(jpg|jpeg|png|gif)$/i', $decodedPath)) {
+                // Try WebP extension if original request fails
+                $webpPath = preg_replace('/\.(jpg|jpeg|png|gif)$/i', '.webp', $decodedPath);
+                $webpUrl = strpos($webpPath, '/') === 0 ? $baseUrl . $webpPath : $baseUrl . '/' . $webpPath;
+                Yii::getLogger()->log('Trying WebP fallback: ' . $webpUrl, Logger::LEVEL_INFO, 'image-proxy');
+                $response = $client->createRequest()
+                    ->setMethod('GET')
+                    ->setUrl($webpUrl)
+                    ->setOptions(['timeout' => 10, 'followLocation' => true])
+                    ->send();
+            }
+
             if ($response->isOk) {
                 // Get content type from response headers
-                $contentType = $response->headers->get('content-type', 'image/jpeg');
+                $contentType = $response->headers->get('content-type', 'image/webp');
 
                 // Set response headers
                 $yiiResponse = Yii::$app->response;
@@ -72,7 +86,7 @@ class ImageProxyController extends Controller
                 throw new NotFoundHttpException('Image not found or inaccessible.');
             }
         } catch (\Exception $e) {
-            Yii::getLogger()->log('Failed to load image: ' . $imageUrl . ' - ' . $e->getMessage(), Logger::LEVEL_ERROR, 'image-proxy');
+            Yii::getLogger()->log('Failed to load image: ' . $imageUrl . ' - ' . $e->getMessage() . ' [Server: ' . php_uname('n') . ', PHP: ' . PHP_VERSION . ']', Logger::LEVEL_ERROR, 'image-proxy');
             throw new NotFoundHttpException('Failed to load image: ' . $e->getMessage());
         }
     }
