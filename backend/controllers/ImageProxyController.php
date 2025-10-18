@@ -14,22 +14,33 @@ class ImageProxyController extends Controller
     public function actionLoad($path)
     {
         $baseUrl = 'https://kinglandgroup.vn/';
-    $url = rtrim($baseUrl, '/') . '/' . ltrim($path, '/');
+        $url = rtrim($baseUrl, '/') . '/' . ltrim($path, '/');
 
-    $client = new \yii\httpclient\Client(['transport' => 'yii\httpclient\StreamTransport']);
-    $response = $client->get($url)->send();
+        $client = new \yii\httpclient\Client(['transport' => 'yii\httpclient\StreamTransport']);
 
-    if (!$response->isOk) {
-        throw new \yii\web\NotFoundHttpException('Không tìm thấy hình ảnh');
-    }
+        $response = $client->createRequest()
+            ->setUrl($url)
+            ->setOptions(['sslVerifyPeer' => false, 'sslVerifyHost' => false]) // Bỏ kiểm tra SSL
+            ->send();
 
-    $mimeType = $response->headers->get('content-type', 'image/jpeg');
+        if (!$response->isOk) {
+            Yii::error("Không tải được ảnh từ: $url", __METHOD__);
+            throw new \yii\web\NotFoundHttpException('Không tìm thấy hình ảnh');
+        }
 
-    Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-    Yii::$app->response->headers->set('Content-Type', $mimeType);
-    Yii::$app->response->headers->set('Access-Control-Allow-Origin', '*');
-    Yii::$app->response->content = $response->content;
+        $mimeType = $response->headers->get('content-type', 'image/jpeg');
 
-    return Yii::$app->response;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        Yii::$app->response->headers->set('Content-Type', $mimeType);
+        Yii::$app->response->headers->set('Access-Control-Allow-Origin', '*');
+        Yii::$app->response->content = $response->content;
+
+        // Xóa mọi buffer nếu có
+        if (ob_get_length()) {
+            ob_clean();
+        }
+        flush();
+
+        return Yii::$app->response;
     }
 }
