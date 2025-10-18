@@ -120,10 +120,10 @@ $selectedDisadvantages = array_column($model->disadvantages, 'disadvantage_id');
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md space-y-6">
-            <?php
+                <?php
                     if (in_array(Yii::$app->user->identity->jobTitle->role_code ?? '', ['manager', 'super_admin'])) {  ?>
-                        <?= $form->field($model, 'title')->textInput(['id' => 'title_id']) ?>
-                <?php  } ?>
+                        <?= $form->field($model, 'title')->textInput(['id' => 'title_id'])->label('Địa Chỉ' ) ?>
+                <?php } ?>
                 <label class="text-md font-semibold text-gray-800 required">Vị Trí BĐS</label>
                 <div class="flex space-x-2 mb-4" id="location-type-buttons">
                     <button type="button" data-value="1"
