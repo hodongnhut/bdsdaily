@@ -38,7 +38,7 @@ class ImageProxyController extends Controller
 
         // Construct full image URL
         $imageUrl = strpos($decodedPath, '/') === 0 ? $baseUrl . $decodedPath : $baseUrl . '/' . $decodedPath;
-
+        echo  $imageUrl ; die;
         // Validate path to prevent directory traversal and allow specific image formats
         if (preg_match('/\.\.\//', $decodedPath) || !preg_match('/\.(jpg|jpeg|png|gif|webp)$/i', $decodedPath)) {
             Yii::getLogger()->log('Invalid image path: ' . $decodedPath, Logger::LEVEL_ERROR, 'image-proxy');
