@@ -22,6 +22,26 @@ class ImageProxyController extends Controller
      */
     private $targetBaseUrl = 'https://kinglandgroup.vn';
 
+    private $cachePath;
+
+    public function init()
+    {
+        parent::init();
+        // --- 2. Check Server File Permissions: Ensure write access to this path ---
+        // This MUST be writable by the web server user (Apache/Nginx)
+        $this->cachePath = Yii::getAlias('@runtime/image-cache');
+
+        if (!is_dir($this->cachePath)) {
+            // Attempt to create the directory if it doesn't exist
+            if (!mkdir($this->cachePath, 0775, true) && !is_dir($this->cachePath)) {
+                // Log and throw an error if directory creation fails
+                Yii::error("Failed to create image cache directory: " . $this->cachePath, 'image-proxy');
+                // Note: You can't safely throw an exception here without affecting the whole app
+            }
+        }
+    }
+
+
     public function behaviors()
     {
         return [
@@ -43,117 +63,82 @@ class ImageProxyController extends Controller
      */
     public function actionLoad($path)
     {
-        $response = Yii::$app->response;
-        // Ensure raw format for binary image data
-        $response->format = Response::FORMAT_RAW; 
+        // 1. Determine the source URL and target cache file
+        $baseUrl = 'https://kinglandgroup.vn/'; // Base URL of the external resource
+        $sourceUrl = $baseUrl . $path;
 
-        // 1. Set common headers for the response using the Yii Response object
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Cache-Control', 'public, max-age=86400'); // Cache 1 ngày
+        // Create a unique hash for the cache file name based on the full URL
+        $cacheFileName = md5($sourceUrl) . '_' . basename($path);
+        $cacheFilePath = $this->cachePath . '/' . $cacheFileName;
 
-        // 2. Security Checks
-        if (preg_match('/\.\.\//', $path)) {
-            Yii::warning('ImageProxy: Directory traversal attempt detected for path: ' . $path, __METHOD__);
-            throw new NotFoundHttpException('Invalid image path.');
-        }
+        // 2. Check Cache
+        if (file_exists($cacheFilePath)) {
+            // Cache hit: Serve the cached file
+            $mimeType = mime_content_type($cacheFilePath);
 
-        // Only allow common image formats (case-insensitive)
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-        $extension = pathinfo($path, PATHINFO_EXTENSION);
-
-        if (!in_array(strtolower($extension), $allowedExtensions)) {
-            Yii::warning('ImageProxy: Invalid image type requested: ' . $path, __METHOD__);
-            throw new NotFoundHttpException('Invalid image type. Only ' . strtoupper(implode(', ', $allowedExtensions)) . ' are allowed.');
-        }
-
-        // 3. Construct URL and Cache Paths
-        $normalizedPath = ltrim($path, '/');
-        $imageUrl = $this->targetBaseUrl . '/' . $normalizedPath;
-
-        $cacheDir = Yii::getAlias('@runtime/image-cache');
-        if (!is_dir($cacheDir)) {
-            // Suppress errors and check existence to handle race conditions safely
-            if (!@mkdir($cacheDir, 0777, true) && !is_dir($cacheDir)) {
-                Yii::error('ImageProxy: Failed to create cache directory: ' . $cacheDir, __METHOD__);
-                // Script will continue without caching if directory creation fails
-            }
-        }
-        
-        $cachePath = $cacheDir . '/' . md5($imageUrl) . '.' . $extension;
-
-        // 4. Cache Hit: Serve from internal cache
-        if (file_exists($cachePath)) {
-            Yii::info("Serving image from cache: " . $cachePath, __METHOD__);
-            
-            // Determine MIME type for correct serving
-            $mimeType = @mime_content_type($cachePath) ?: ('image/' . strtolower($extension));
-
-            // Use Yii's response->sendFile for efficient file serving
-            return $response->sendFile($cachePath, null, [
-                'inline' => true,
+            // --- 3. Verify Response Headers: Set Content-Type correctly ---
+            return Yii::$app->response->sendFile($cacheFilePath, null, [
                 'mimeType' => $mimeType,
-                'cacheControl' => 'public, max-age=86400', 
+                'inline' => true,
             ]);
         }
 
-        // 5. Cache Miss: Download the image
-        $client = new Client(['transport' => 'yii\httpclient\CurlTransport']);
+        // 3. Fetch Remote Image (Cache Miss)
         try {
-            Yii::info("Loading image from remote URL: " . $imageUrl, __METHOD__);
-            
-            // Set options including follow location (important for redirects)
-            $remoteResponse = $client->createRequest()
+            $client = new Client();
+            // Yii2 HttpClient is safer and better integrated than raw cURL
+            $response = $client->createRequest()
                 ->setMethod('GET')
-                ->setUrl($imageUrl)
-                ->setOptions([
-                    CURLOPT_TIMEOUT => 30, // 30 seconds timeout
-                    CURLOPT_FOLLOWLOCATION => true, // Handle redirects (modernization)
-                ])
+                ->setUrl($sourceUrl)
                 ->send();
 
-            if (!$remoteResponse->isOk) {
-                Yii::error("Remote image not OK. Status: " . $remoteResponse->statusCode . " URL: " . $imageUrl, __METHOD__);
-                throw new NotFoundHttpException('Image not found or inaccessible on the remote server. Status: ' . $remoteResponse->statusCode);
+            // --- 1. Check Yii2 Logging for cURL/Fetch Errors: Handle fetch failure ---
+            if (!$response->isOk) {
+                Yii::error("Failed to fetch image from external source: " . $sourceUrl . " Status: " . $response->getStatusCode(), 'image-proxy-fetch');
+                throw new NotFoundHttpException('The requested external image could not be fetched or does not exist.');
             }
 
-            $content = $remoteResponse->content;
-            $contentLength = strlen($content);
-            $contentType = $remoteResponse->headers->get('content-type', 'image/jpeg');
+            $content = $response->getContent();
+            $mimeType = $response->getHeaders()->get('Content-Type');
 
-            // 6. Size Check & Content Validation
-            $maxSize = 10 * 1024 * 1024; // 10MB
-            if ($contentLength > $maxSize) {
-                Yii::warning("Image is too large: " . $contentLength . " bytes for URL: " . $imageUrl, __METHOD__);
-                throw new NotFoundHttpException('Image too large (max 10MB).');
+            // 4. Save to Cache
+            if (!empty($content) && str_starts_with($mimeType, 'image/')) {
+                // IMPORTANT: Ensure the cache directory is writable!
+                if (!file_put_contents($cacheFilePath, $content)) {
+                    // Log permission/write failure
+                    Yii::error("Failed to write image content to cache file: " . $cacheFilePath, 'image-proxy-permissions');
+                    // Continue to serve content directly but log the failure
+                }
+            } else {
+                Yii::warning("Fetched content was not a valid image: " . $sourceUrl . " MIME: " . $mimeType, 'image-proxy-content');
+                throw new NotFoundHttpException('Fetched resource was not a valid image.');
             }
-            
-            // Tighter Content-Type check against response header
-            if (!preg_match('/^image\/(jpg|jpeg|png|gif|webp)/i', $contentType)) {
-                 Yii::warning("Image has invalid remote Content-Type: " . $contentType . " for URL: " . $imageUrl, __METHOD__);
-                 throw new NotFoundHttpException('Remote content is not a valid image type.');
+
+
+            // 5. Serve the new content
+            // We use the cached file if the write succeeded, otherwise serve the raw content
+            if (file_exists($cacheFilePath)) {
+                $mimeType = mime_content_type($cacheFilePath);
+                return Yii::$app->response->sendFile($cacheFilePath, null, [
+                    'mimeType' => $mimeType,
+                    'inline' => true,
+                ]);
+            } else {
+                 // Fallback: Serve content directly if caching failed
+                Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+                Yii::$app->response->getHeaders()->set('Content-Type', $mimeType);
+                Yii::$app->response->content = $content;
+                return Yii::$app->response;
             }
 
 
-            // 7. Save cache and send response
-            if (is_dir($cacheDir)) {
-                file_put_contents($cachePath, $content);
-                Yii::info("Image cached successfully: " . $cachePath, __METHOD__);
-            }
-            
-            // Finalize Response Headers
-            $response->headers->set('Content-Type', $contentType);
-            $response->headers->set('Content-Length', $contentLength);
-            
-            // Set the raw content and return the response object
-            $response->content = $content;
-            return $response;
-
-        } catch (NotFoundHttpException $e) {
-            // Re-throw 404s
-            throw $e;
+        } catch (\yii\httpclient\Exception $e) {
+            // Catch network errors, timeouts, etc.
+            Yii::error("Network error during image fetch: " . $e->getMessage() . " URL: " . $sourceUrl, 'image-proxy-network');
+            throw new NotFoundHttpException('An internal server error occurred while fetching the image.', 0, $e);
         } catch (\Exception $e) {
-            Yii::error('ImageProxy Error: ' . $e->getMessage() . " for URL: " . $imageUrl, __METHOD__);
-            throw new NotFoundHttpException('Failed to load image due in the proxy system.');
+            Yii::error("General error in proxy: " . $e->getMessage(), 'image-proxy-general');
+            throw new NotFoundHttpException('An internal server error occurred.');
         }
     }
 }
