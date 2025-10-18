@@ -60,11 +60,13 @@ class ImageProxyController extends Controller
         // Dùng HTTP client tải ảnh
         $client = new Client(['transport' => 'yii\httpclient\CurlTransport']);
         try {
+            Yii::info("Loading image from: " . $imageUrl, __METHOD__);
             $response = $client->createRequest()
                 ->setMethod('GET')
                 ->setUrl($imageUrl)
                 ->send();
 
+            Yii::info("HTTP Status: " . $response->statusCode, __METHOD__);
             if ($response->isOk) {
                 $content = $response->content;
 
@@ -86,6 +88,7 @@ class ImageProxyController extends Controller
 
                 return $content;
             } else {
+                Yii::error("Remote image not OK: " . $response->statusCode, __METHOD__);
                 throw new NotFoundHttpException('Image not found or inaccessible.');
             }
         } catch (\Exception $e) {
