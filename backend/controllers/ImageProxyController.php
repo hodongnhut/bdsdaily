@@ -32,13 +32,10 @@ class ImageProxyController extends Controller
     public function actionLoad($path)
     {
         // Define base URL
-         $baseUrl = 'https://kinglandgroup.vn';
+        $baseUrl = 'https://kinglandgroup.vn';
 
-         // Decode URL-encoded path
-         $decodedPath = urldecode($path);
- 
-         // Construct full image URL
-         $imageUrl = strpos($decodedPath, '/') === 0 ? $baseUrl . $decodedPath : $baseUrl . '/' . $decodedPath;
+        // Construct full image URL
+        $imageUrl = strpos($path, '/') === 0 ? $baseUrl . $path : $baseUrl . '/' . $path;
 
         // Validate path to prevent directory traversal and invalid formats
         if (preg_match('/\.\.\//', $path) || !preg_match('/\.(jpg|jpeg|png|gif)$/i', $path)) {
