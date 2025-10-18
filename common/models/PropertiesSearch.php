@@ -39,25 +39,82 @@ class PropertiesSearch extends Properties
      * {@inheritdoc}
      */
     public function rules()
-{
-    return [
-        [['property_id', 'user_id', 'has_vat_invoice', 'num_toilets', 'num_bedrooms', 
-          'num_basements', 'has_deposit', 'transaction_status_id', 'has_rental_contract', 
-          'is_active', 'created_at', 'updated_at', 'num_floors', 'commission_types_id', 
-          'commission_prices_id', 'property_images_id', 'num_floors_from', 'num_floors_to', 'num_bedrooms_from', 'num_bedrooms_to'], 'integer'],
+    {
+        return [
+            [[
+                'property_id',
+                'user_id',
+                'has_vat_invoice',
+                'num_toilets',
+                'num_bedrooms',
+                'num_basements',
+                'has_deposit',
+                'transaction_status_id',
+                'has_rental_contract',
+                'is_active',
+                'created_at',
+                'updated_at',
+                'num_floors',
+                'commission_types_id',
+                'commission_prices_id',
+                'property_images_id',
+                'num_floors_from',
+                'num_floors_to',
+                'num_bedrooms_from',
+                'num_bedrooms_to'
+            ], 'integer'],
 
-        [['title', 'selling_price', 'house_number', 'street_name', 'ward_commune', 'district_county', 'city', 
-          'compound_name', 'usable_area', 'land_type', 'description', 'transaction_description', 'external_id', 
-          'plot_number', 'sheet_number', 'lot_number', 'keyword', 'district', 'ward', 'street', 
-          'direction','location_type_id', 'property_type_id', 'status_filters','area_from', 'area_to', 
-          'asset_type_id', 'direction_ids','date_from', 'date_to', 'listing_types_id'], 'safe'],
+            [[
+                'title',
+                'selling_price',
+                'house_number',
+                'street_name',
+                'ward_commune',
+                'district_county',
+                'city',
+                'compound_name',
+                'usable_area',
+                'land_type',
+                'description',
+                'transaction_description',
+                'external_id',
+                'plot_number',
+                'sheet_number',
+                'lot_number',
+                'keyword',
+                'district',
+                'ward',
+                'street',
+                'direction',
+                'location_type_id',
+                'property_type_id',
+                'status_filters',
+                'area_from',
+                'area_to',
+                'asset_type_id',
+                'direction_ids',
+                'date_from',
+                'date_to',
+                'listing_types_id'
+            ], 'safe'],
 
-        [['area_width', 'area_length', 'area_total', 'planned_width', 'planned_length', 'planned_construction_area', 
-          'area_back_side', 'wide_road', 'planned_back_side', 'price_from', 'price_to'], 'number'],
+            [[
+                'area_width',
+                'area_length',
+                'area_total',
+                'planned_width',
+                'planned_length',
+                'planned_construction_area',
+                'area_back_side',
+                'wide_road',
+                'planned_back_side',
+                'price_from',
+                'price_to'
+            ], 'number'],
 
-        [['price_from', 'price_to', 'area_from', 'area_to'], 'number'],
-    ];
-}
+            [['price_from', 'price_to', 'area_from', 'area_to'], 'number'],
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -80,7 +137,7 @@ class PropertiesSearch extends Properties
     {
         $query = Properties::find()
             ->where(['properties.is_active' => 1])
-            ->with(['locationType', 'propertyType', 'transactionStatus', 'direction','assetType']);
+            ->with(['locationType', 'propertyType', 'transactionStatus', 'direction', 'assetType']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -101,7 +158,7 @@ class PropertiesSearch extends Properties
         if (!empty($this->listing_types_id)) {
             $query->andWhere(['properties.listing_types_id' => $this->listing_types_id]);
         }
-        
+
         if (!empty($this->status_filters)) {
             $selectedIds = array_map('intval', explode(',', $this->status_filters));
 
@@ -114,7 +171,10 @@ class PropertiesSearch extends Properties
                 'west_four_trach' => 8, // ID cho "Tây Tứ Trạch" (Tẩy Trạch)
             ];
             $transactionStatusValueMap = [
-                3 => 1, 4 => 2, 5 => 3, 11 => 4,
+                3 => 1,
+                4 => 2,
+                5 => 3,
+                11 => 4,
             ];
 
             $selectedFrontendTransactionIds = array_intersect($selectedIds, $logicMap['transaction_status_id']);
@@ -136,8 +196,8 @@ class PropertiesSearch extends Properties
                         $condition[] = ['properties.has_rental_contract' => 1];
                     }
                 }
-                if(count($condition) > 1){
-                     $query->andWhere($condition);
+                if (count($condition) > 1) {
+                    $query->andWhere($condition);
                 }
             }
 
@@ -176,7 +236,7 @@ class PropertiesSearch extends Properties
             foreach ($ids as $id) {
                 $condition[] = ['properties.location_type_id' => trim($id)];
             }
-            if(count($condition) > 1){
+            if (count($condition) > 1) {
                 $query->andWhere($condition);
             }
         }
@@ -187,11 +247,11 @@ class PropertiesSearch extends Properties
             foreach ($ids as $id) {
                 $condition[] = ['properties.property_type_id' => trim($id)];
             }
-            if(count($condition) > 1){
+            if (count($condition) > 1) {
                 $query->andWhere($condition);
             }
         }
-        
+
         $query->andFilterWhere(['>=', 'properties.area_width', $this->area_from]);
         $query->andFilterWhere(['<=', 'properties.area_length', $this->area_to]);
         $query->andFilterWhere(['between', 'properties.num_floors', $this->num_floors_from, $this->num_floors_to]);
@@ -207,12 +267,14 @@ class PropertiesSearch extends Properties
             if (is_numeric($this->keyword)) {
                 $condition[] = ['=', 'properties.house_number', $this->keyword];
             } else {
+                $normalizedKeyword = self::normalizeAddress($this->keyword);
                 $condition[] = ['like', 'properties.title', $this->keyword];
+                $condition[] = ['like', new \yii\db\Expression("REPLACE(properties.title, 'Đường ', '')"), $normalizedKeyword]; // Normalized title search
             }
             $condition[] = ['=', 'owner_contacts.phone_number', $this->keyword];
             $query->andWhere($condition);
         }
-        
+
         if (!empty($this->date_from)) {
             $query->andWhere(['>=', 'properties.created_at', $this->date_from]);
         }
@@ -237,5 +299,16 @@ class PropertiesSearch extends Properties
         }
 
         return $dataProvider;
+    }
+    /**
+     * Normalize the title or keyword by removing common prefixes like "Đường", "Phố", etc.
+     * @param string $text
+     * @return string
+     */
+    public static function normalizeAddress($text)
+    {
+        $prefixes = ['Đường ', 'Phố ', 'Hẻm ', 'Ngõ '];
+        $normalized = str_ireplace($prefixes, '', trim($text));
+        return $normalized;
     }
 }
