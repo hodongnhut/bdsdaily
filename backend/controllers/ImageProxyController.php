@@ -30,6 +30,7 @@ class ImageProxyController extends Controller
      */
     public function actionLoad($path)
     {
+        header('Content-Type: image/jpeg');
         $baseUrl = 'https://kinglandgroup.vn';
 
         // Kiểm tra path hợp lệ (chặn directory traversal)
