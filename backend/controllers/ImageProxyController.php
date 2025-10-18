@@ -61,7 +61,7 @@ class ImageProxyController extends Controller
                 $yiiResponse->headers->add('Content-Length', strlen($response->content));
 
                 // Return the image content
-                echo $response->content; die;
+                return $response->content;
             } else {
                 throw new NotFoundHttpException('Image not found or inaccessible.');
             }
