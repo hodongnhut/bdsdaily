@@ -321,22 +321,34 @@ function formatNumber($number) {
                 <h3 class="text-md font-semibold text-gray-800 mb-3">SỔ HỒNG | GIẤY TỜ PHÁP LÝ</h3>
                 <?php if (!empty($model->propertyImages)): ?>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 uploaded-images">
-                    <?php
-                        $urlLocal = 'http://app.bdsdaily.com';
-                        $images = $model->propertyImages;
-                        foreach ($images as $image) {
-                            if ($image->image_type == 1) {
-                                $imagePath = $image->image_path;
-                                if ($image->status_external === 1) {
-                                    $imageUrl = strpos($imagePath, '/') === 0 ? $urlLocal . $imagePath : $urlLocal . '/' . $imagePath;
-                                } else {
-                                    $imageUrl = Url::to(['/image-proxy/load', 'path' => $imagePath]);
+                        <?php
+                            $baseUrl = 'https://kinglandgroup.vn';
+                            $images = $model->propertyImages;
+                            foreach ($images as $image) {
+                                if ($image->image_type == 1) {
+                                    $imagePath = $image->image_path;
+                                    if ($image->status_external  === 1) {
+                                        $urlLocal = 'http://app.bdsdaily.com';
+                                        if (strpos($imagePath, '/') === 0) {
+                                            $imageUrl = $urlLocal . $imagePath;
+                                        } else {
+                                            $imageUrl = $urlLocal . '/' . $imagePath;
+                                        }
+                                        echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
+                                        echo "<img src='{$imageUrl}' loading='lazy' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
+                                        echo "</div>";
+                                    } else {
+                                        if (strpos($imagePath, '/') === 0) {
+                                            $imageUrl = $baseUrl . $imagePath;
+                                        } else {
+                                            $imageUrl = $baseUrl . '/' . $imagePath;
+                                        }
+                                        echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
+                                        echo "<img src='{$imageUrl}' loading='lazy' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
+                                        echo "</div>";
+                                    }
                                 }
-                                echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
-                                echo "<img src='{$imageUrl}' loading='lazy' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
-                                echo "</div>";
                             }
-                        }
                         ?>
                     </div>
                 <?php else: ?>
@@ -349,22 +361,34 @@ function formatNumber($number) {
                 <h3 class="text-md font-semibold text-gray-800 mb-3">HÌNH ẢNH BỔ SUNG</h3>
                 <?php if (!empty($model->propertyImages)): ?>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 uploaded-images">
-                    <?php
-                        $urlLocal = 'http://app.bdsdaily.com';
-                        $images = $model->propertyImages;
-                        foreach ($images as $image) {
-                            if ($image->image_type == 0) {
-                                $imagePath = $image->image_path;
-                                if ($image->status_external === 1) {
-                                    $imageUrl = strpos($imagePath, '/') === 0 ? $urlLocal . $imagePath : $urlLocal . '/' . $imagePath;
-                                } else {
-                                    $imageUrl = Url::to(['/image-proxy/load', 'path' => $imagePath]);
+                        <?php
+                            $baseUrl = 'https://kinglandgroup.vn';
+                            $images = $model->propertyImages;
+                            foreach ($images as $image) {
+                                if ($image->image_type == 0) {
+                                    $imagePath = $image->image_path;
+                                    if ($image->status_external  === 1) {
+                                        $urlLocal = 'http://app.bdsdaily.com';
+                                        if (strpos($imagePath, '/') === 0) {
+                                            $imageUrl = $urlLocal . $imagePath;
+                                        } else {
+                                            $imageUrl = $urlLocal . '/' . $imagePath;
+                                        }
+                                        echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
+                                        echo "<img src='{$imageUrl}' loading='lazy' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
+                                        echo "</div>";
+                                    } else {
+                                        if (strpos($imagePath, '/') === 0) {
+                                            $imageUrl = $baseUrl . $imagePath;
+                                        } else {
+                                            $imageUrl = $baseUrl . '/' . $imagePath;
+                                        }
+                                        echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
+                                        echo "<img src='{$imageUrl}' loading='lazy' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
+                                        echo "</div>";
+                                    }
                                 }
-                                echo "<div class='relative group aspect-w-1 aspect-h-1 w-full rounded-lg overflow-hidden border border-gray-200 image-container'>";
-                                echo "<img src='{$imageUrl}' loading='lazy' alt='" . Html::encode($image->image_path) . "' class='view-image-button cursor-pointer object-cover w-full h-full' data-image-url='{$imageUrl}'>";
-                                echo "</div>";
                             }
-                        }
                         ?>
                     </div>
                 <?php else: ?>
