@@ -39,7 +39,13 @@ class ImageProxyController extends Controller
 
         // Tải ảnh
         $client = new \yii\httpclient\Client(['transport' => 'yii\httpclient\StreamTransport']);
-        $response = $client->get($url)->send();
+        $response = $client->createRequest()
+            ->setMethod('GET')
+            ->setUrl($url)
+            ->addHeaders([
+                'Origin' => 'kinglandgroup.vn', 
+            ])
+            ->send();
 
         if (!$response->isOk) {
             throw new NotFoundHttpException('Không tìm thấy hình ảnh');
