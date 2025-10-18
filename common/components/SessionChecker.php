@@ -30,6 +30,9 @@ class SessionChecker extends Behavior
 
     public function checkAuthKeySession()
     {
+        if ($this->isMobileRequest()) {
+            return;
+        }
         if (!Yii::$app->user->isGuest) {
             $user = Yii::$app->user->identity;
             $authKeySession = Yii::$app->session->get('auth_key_session');
@@ -39,5 +42,25 @@ class SessionChecker extends Behavior
                 throw new UnauthorizedHttpException('Tài Khoản của bạn đang đăng nhập ở thiết bị khác.');
             }
         }
+    }
+
+    private function isMobileRequest()
+    {
+        // Option 1: Check for a custom header (e.g., X-Mobile-App)
+        if (Yii::$app->request->headers->has('X-Mobile-App') && Yii::$app->request->headers->get('X-Mobile-App') === 'true') {
+            return true;
+        }
+
+        // Option 2: Check if the request is to an API endpoint
+        if (strpos(Yii::$app->request->pathInfo, 'api/') === 0) {
+            return true;
+        }
+
+        // Option 3: Check User-Agent (example, adjust based on your mobile app's User-Agent)
+        $userAgent = Yii::$app->request->userAgent;
+        if ($userAgent && preg_match('/(Mobile|Android|iOS)/i', $userAgent)) {
+            return true;
+        }
+        return false;
     }
 }
