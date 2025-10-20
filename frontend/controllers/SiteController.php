@@ -266,4 +266,24 @@ class SiteController extends Controller
     {
         return $this->render('privacy-policy');
     }
+
+    public function actionPhanMemNhaPhoHoChiMinh()
+    {
+        return $this->render('phan-mem-nha-pho-ho-chi-minh');
+    }
+
+    public function actionPhanMemNhaPhoBinhDuong()
+    {
+        return $this->render('phan-mem-nha-pho-binh-duong');
+    }
+
+    public function actionPhanMemNhaPhoVungTau()
+    {
+        return $this->render('phan-mem-nha-pho-vung-tau');
+    }
+    public function actionPhanMemNhaPhoDaNang()
+    {
+        return $this->render('phan-mem-nha-pho-da-nang');
+    }
+
 }

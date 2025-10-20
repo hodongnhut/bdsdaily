@@ -430,27 +430,27 @@ $this->registerMetaTag([
     </p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-items-center">
-        <a href="/phan-mem-nha-pho-ho-chi-minh" 
+        <a href="/phan-mem-nha-pho-ho-chi-minh.html" 
          class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
          🌆 Hồ Chí Minh
         </a>  
 
-        <a href="/phan-mem-nha-pho-binh-duong" 
+        <a href="/phan-mem-nha-pho-binh-duong.html" 
             class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
             🏡 Bình Dương
         </a>
      
-        <a href="/phan-mem-nha-pho-vung-tau" 
+        <a href="/phan-mem-nha-pho-vung-tau.html" 
             class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
             🌊 Vũng Tàu
         </a>
 
-        <a href="/phan-mem-nha-pho-da-nang" 
+        <a href="/phan-mem-nha-pho-da-nang.html" 
             class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
             🏖️ Đà Nẵng
         </a>
 
-        <a href="/phan-mem-nha-pho-ha-noi" 
+        <a href="/phan-mem-nha-pho-ha-noi.html" 
             class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
             🏙️ Hà Nội
         </a>
