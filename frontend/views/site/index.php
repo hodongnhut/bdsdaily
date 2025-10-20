@@ -41,6 +41,7 @@ $this->registerMetaTag([
 ]);
 ?>
 
+
 <?= $this->render('_feed') ?>
 
 <?= $this->render('_intro') ?>
@@ -420,6 +421,39 @@ $this->registerMetaTag([
         </a>
     </div>
 </section>
+
+<section id="phan-mem-nha-pho" class="py-16 bg-gray-50 border-t border-gray-200">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Phần Mềm Nhà Phố Theo Khu Vực</h2>
+    <p class="text-gray-600 mb-10">
+      Khám phá giải pháp quản lý nhà phố thông minh tại các khu vực trọng điểm trên toàn quốc.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-items-center">
+      <a href="/phan-mem-nha-pho-binh-duong" 
+         class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
+         🏡 Bình Dương
+      </a>
+      <a href="/phan-mem-nha-pho-ho-chi-minh" 
+         class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
+         🌆 Hồ Chí Minh
+      </a>
+      <a href="/phan-mem-nha-pho-vung-tau" 
+         class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
+         🌊 Vũng Tàu
+      </a>
+      <a href="/phan-mem-nha-pho-da-nang" 
+         class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
+         🏖️ Đà Nẵng
+      </a>
+      <a href="/phan-mem-nha-pho-ha-noi" 
+         class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
+         🏙️ Hà Nội
+      </a>
+    </div>
+  </div>
+</section>
+
 
 <!-- About Us & Contact Section -->
 <section id="lien-he" class="bg-indigo-600 py-20">
