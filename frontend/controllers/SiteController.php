@@ -286,4 +286,8 @@ class SiteController extends Controller
         return $this->render('phan-mem-nha-pho-da-nang');
     }
 
+    public function actionPhanMemNhaPhoHaNoi()
+    {
+        return $this->render('phan-mem-nha-pho-ha-noi');
+    }
 }

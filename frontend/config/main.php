@@ -47,7 +47,8 @@ return [
                 'phan-mem-nha-pho-ho-chi-minh.html' => 'site/phan-mem-nha-pho-ho-chi-minh',
                 'phan-mem-nha-pho-binh-duong.html' => 'site/phan-mem-nha-pho-binh-duong',
                 'phan-mem-nha-pho-vung-tau.html' => 'site/phan-mem-nha-pho-vung-tau',
-                'phan-mem-nha-pho-da-nang.html' => 'site/phan-mem-nha-pho-da-nang'
+                'phan-mem-nha-pho-da-nang.html' => 'site/phan-mem-nha-pho-da-nang',
+                'phan-mem-nha-pho-ha-noi.html' => 'site/phan-mem-nha-pho-ha-noi'
             ],
         ],
     ],
