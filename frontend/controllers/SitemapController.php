@@ -4,7 +4,6 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\helpers\Url;
 use common\models\NewsExtranaly as Post;
 
 class SitemapController extends Controller
@@ -28,19 +27,21 @@ class SitemapController extends Controller
         ob_clean();
         ob_start();
 
+        $baseUrl = 'https://bdsdaily.com'; // 👈 Ép cố định domain và https
+
         $urls = [];
 
         // 🏠 Homepage
         $urls[] = [
-            'loc' => Url::to('/', true, 'https'),
+            'loc' => $baseUrl . '/',
             'lastmod' => date('Y-m-d'),
             'changefreq' => 'daily',
             'priority' => '1.0',
         ];
 
-        // ⚙️ Static pages
+        // ⚙️ Static page
         $urls[] = [
-            'loc' => Url::to(['/privacy-policy.html'], true, 'https'),
+            'loc' => $baseUrl . '/privacy-policy.html',
             'lastmod' => date('Y-m-d'),
             'changefreq' => 'yearly',
             'priority' => '0.4',
@@ -48,16 +49,16 @@ class SitemapController extends Controller
 
         // 🏗️ 5 Phần mềm Nhà Phố
         $pages = [
-            'phan-mem-nha-pho-ho-chi-minh' => 'Phần mềm Nhà Phố Hồ Chí Minh',
-            'phan-mem-nha-pho-binh-duong' => 'Phần mềm Nhà Phố Bình Dương',
-            'phan-mem-nha-pho-vung-tau' => 'Phần mềm Nhà Phố Vũng Tàu',
-            'phan-mem-nha-pho-da-nang' => 'Phần mềm Nhà Phố Đà Nẵng',
-            'phan-mem-nha-pho-ha-noi' => 'Phần mềm Nhà Phố Hà Nội',
+            'phan-mem-nha-pho-ho-chi-minh',
+            'phan-mem-nha-pho-binh-duong',
+            'phan-mem-nha-pho-vung-tau',
+            'phan-mem-nha-pho-da-nang',
+            'phan-mem-nha-pho-ha-noi',
         ];
 
-        foreach ($pages as $slug => $title) {
+        foreach ($pages as $slug) {
             $urls[] = [
-                'loc' => Url::to(["/{$slug}.html"], 'https'),
+                'loc' => $baseUrl . '/' . $slug . '.html',
                 'lastmod' => date('Y-m-d'),
                 'changefreq' => 'monthly',
                 'priority' => '0.9',
@@ -65,21 +66,21 @@ class SitemapController extends Controller
         }
 
         // 📰 Dynamic posts
-        $posts = Post::find()->where(['status' => 1])->all();
+        $posts = \common\models\NewsExtranaly::find()->where(['status' => 1])->all();
         foreach ($posts as $post) {
             $lastmod = is_numeric($post->updated_at)
                 ? date('Y-m-d', $post->updated_at)
                 : substr($post->updated_at, 0, 10);
 
             $urls[] = [
-                'loc' => Url::to(['/' . $post->slug . '-tin-tuc.html'], 'https'),
+                'loc' => $baseUrl . '/' . $post->slug . '-tin-tuc.html',
                 'lastmod' => $lastmod,
                 'changefreq' => 'weekly',
                 'priority' => '0.8',
             ];
         }
 
-        // 🧱 Build XML Sitemap
+        // 🧱 Build XML
         $xml = new \XMLWriter();
         $xml->openMemory();
         $xml->startDocument('1.0', 'UTF-8');
