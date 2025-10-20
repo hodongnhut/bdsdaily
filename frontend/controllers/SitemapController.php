@@ -32,7 +32,7 @@ class SitemapController extends Controller
 
         // 🏠 Homepage
         $urls[] = [
-            'loc' => Url::to('/', true),
+            'loc' => Url::to('/', true, 'https'),
             'lastmod' => date('Y-m-d'),
             'changefreq' => 'daily',
             'priority' => '1.0',
@@ -40,7 +40,7 @@ class SitemapController extends Controller
 
         // ⚙️ Static pages
         $urls[] = [
-            'loc' => Url::to(['/privacy-policy.html'], true),
+            'loc' => Url::to(['/privacy-policy.html'], true, 'https'),
             'lastmod' => date('Y-m-d'),
             'changefreq' => 'yearly',
             'priority' => '0.4',
@@ -57,7 +57,7 @@ class SitemapController extends Controller
 
         foreach ($pages as $slug => $title) {
             $urls[] = [
-                'loc' => Url::to(["/{$slug}.html"], true),
+                'loc' => Url::to(["/{$slug}.html"], 'https'),
                 'lastmod' => date('Y-m-d'),
                 'changefreq' => 'monthly',
                 'priority' => '0.9',
@@ -72,7 +72,7 @@ class SitemapController extends Controller
                 : substr($post->updated_at, 0, 10);
 
             $urls[] = [
-                'loc' => Url::to(['/' . $post->slug . '-tin-tuc.html'], true),
+                'loc' => Url::to(['/' . $post->slug . '-tin-tuc.html'], 'https'),
                 'lastmod' => $lastmod,
                 'changefreq' => 'weekly',
                 'priority' => '0.8',
@@ -99,8 +99,6 @@ class SitemapController extends Controller
         $xml->endDocument();
 
         $content = trim($xml->outputMemory());
-
-        // 🚫 Remove BOM or leading whitespace
         $content = preg_replace('/^\xEF\xBB\xBF/', '', $content);
 
         ob_end_clean();
