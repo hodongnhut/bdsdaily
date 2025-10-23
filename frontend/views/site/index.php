@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'BDSDaily - Phần Mềm Bất Động Sản Nhà Phố';
+$this->title = 'Phần Mềm Nhà Phố - BDSDaily';
 
 
 $this->registerMetaTag([
@@ -22,12 +22,12 @@ $this->registerMetaTag([
 
 $this->registerMetaTag([
     'property' => 'og:title',
-    'content' => 'BDSDaily - Phần Mềm Bất Động Sản Nhà Phố'
+    'content' => 'Phần Mềm Nhà Phố - BDSDaily'
 ]);
 
 $this->registerMetaTag([
     'property' => 'og:site_name',
-    'content' => 'BDSDaily - Phần Mềm Bất Động Sản Nhà Phố'
+    'content' => 'Phần Mềm Nhà Phố - BDSDaily'
 ]);
 
 $this->registerMetaTag([
