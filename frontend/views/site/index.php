@@ -144,7 +144,7 @@ $this->registerMetaTag([
                 <p class="text-4xl font-bold text-indigo-600 mb-4">0 Đồng <span class="text-base font-normal">/tháng</span></p>
                 <ul class="text-left text-gray-600 space-y-2 mb-6">
                     <li>
-                        ✔️ <a href="#" target="_blank" rel="noopener noreferrer">
+                        ✔️ <a href="https://www.facebook.com/groups/753117670978352" target="_blank" rel="noopener noreferrer">
                             Đăng Bài Miễn Phí Trên Nhóm Facebook "<b>BẤT ĐỘNG SẢN TP.HCM</b>"
                             </a>
                     </li>
@@ -154,7 +154,11 @@ $this->registerMetaTag([
                         </a>
                     </li>
                     <li>✔️ Nhận tin tức cập nhật miễn phí từ Website</li>
-                    <li>✔️ Nhận tin tức cập nhật miễn phí từ Youtube</li>
+                    <li>
+                    ✔️ <a href="https://www.youtube.com/@bdsdaily247" target="_blank" rel="noopener noreferrer">
+                        Nhận tin tức cập nhật miễn phí từ "<b>Youtube BDSDaily</b>" 
+                        </a>
+                    </li>
                     <li>✔️ Nhận hỗ trợ check quy hoạch miễn phí </li>
                     <li>✔️ Tư vấn thiết kế APP - Website BDS miễn phí</li>
                     <li>✔️ Tư vấn SEO Miễn Phí</li>
