@@ -54,8 +54,8 @@ class EmailCampaignController extends Controller
                 'name' => $name,
                 'email' => $email,
             ])
-           // ->setFrom(['nhuthd@bdsdaily.com' => 'BDSDaily'])
-            ->setFrom(['bdsdaily247@gmail.com' => 'BDSDaily'])
+            ->setFrom(['nhuthd@bdsdaily.com' => 'BDSDaily'])
+            // ->setFrom(['bdsdaily247@gmail.com' => 'BDSDaily'])
             ->setTo($email)
             ->setSubject($subject)
             ->send();
