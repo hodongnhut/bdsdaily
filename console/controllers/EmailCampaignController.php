@@ -75,7 +75,12 @@ class EmailCampaignController extends Controller
         $log->email = $email;
         $log->status = $result ? 'sent' : 'failed';
         $log->sent_at = date('Y-m-d H:i:s');
-        $log->save();
+        if (!$log->save()) {
+            $this->stdout("❌ Failed to save EmailLog for {$email}:\n");
+            $this->stdout(print_r($log->errors, true) . "\n");
+        } else {
+            $this->stdout("✅ Logged email status for {$email}\n");
+        }
     }
 
     public function actionTestMail()
