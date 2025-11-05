@@ -136,11 +136,13 @@ class EmailCampaignController extends Controller
 
         // Kiểm tra số email đã gửi trong ngày cho chiến dịch
         $sentToday = EmailLog::find()
-            ->where([
-                'status' => 'sent'
-            ])
-            ->andWhere(['like', 'sent_at', date('Y-m-d')])
-            ->count();
+        ->where([
+            'campaign_id' => $campaign->id,
+            'status' => 'sent'
+        ])
+        ->andWhere(['>=', 'sent_at', date('Y-m-d 00:00:00')])
+        ->andWhere(['<=', 'sent_at', date('Y-m-d 23:59:59')])
+        ->count();
 
         $dailyLimit = ($campaign->limit ?? 100);
         $remainingLimit = $dailyLimit - $sentToday;
@@ -158,14 +160,18 @@ class EmailCampaignController extends Controller
             ->column();
 
         $limit = $remainingLimit;
-        $recipients = SalesContact::find()
-            ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
-            ->where(['not in', 'email', $sentEmails])
-            ->andWhere(['IS NOT', 'email', null]) 
-            ->andWhere(['<>', 'email', ''])
-            ->orderBy('RAND()')
-            ->limit($limit)
-            ->all();
+        $sentEmailsSubquery = EmailLog::find()
+        ->select('email')
+        ->where(['campaign_id' => $campaign->id]);
+    
+    $recipients = SalesContact::find()
+        ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
+        ->where(['NOT EXISTS', $sentEmailsSubquery, 'SalesContact.email = email_log.email'])
+        ->andWhere(['IS NOT', 'email', null])
+        ->andWhere(['<>', 'email', ''])
+        ->orderBy('RAND()')
+        ->limit($remainingLimit)
+        ->all();
 
         if (empty($recipients)) {
             Yii::warning("No contacts available for campaign ID {$campaign->id}.", __METHOD__);
