@@ -154,24 +154,19 @@ class EmailCampaignController extends Controller
             return ['queued' => 0, 'message' => 'Daily limit reached'];
         }
 
-        // Lấy tất cả email đã gửi cho chiến dịch này (không giới hạn ngày)
-        $sentEmails = EmailLog::find()
-            ->select('email')
-            ->column();
 
-        $limit = $remainingLimit;
         $sentEmailsSubquery = EmailLog::find()
-        ->select('email')
-        ->where(['campaign_id' => $campaign->id]);
-    
-    $recipients = SalesContact::find()
-        ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
-        ->where(['NOT EXISTS', $sentEmailsSubquery, 'SalesContact.email = email_log.email'])
-        ->andWhere(['IS NOT', 'email', null])
-        ->andWhere(['<>', 'email', ''])
-        ->orderBy('RAND()')
-        ->limit($remainingLimit)
-        ->all();
+            ->select('email')
+            ->where(['campaign_id' => $campaign->id]);
+        
+        $recipients = SalesContact::find()
+            ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
+            ->where(['NOT EXISTS', $sentEmailsSubquery, 'sales_contact.email = email_log.email'])
+            ->andWhere(['IS NOT', 'email', null])
+            ->andWhere(['<>', 'email', ''])
+            ->orderBy('RAND()')
+            ->limit($remainingLimit)
+            ->all();
 
         if (empty($recipients)) {
             Yii::warning("No contacts available for campaign ID {$campaign->id}.", __METHOD__);
