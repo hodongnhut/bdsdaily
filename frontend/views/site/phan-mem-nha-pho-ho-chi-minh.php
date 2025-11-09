@@ -6,8 +6,8 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => 'Phần mềm Nhà Phố Hồ Chí Minh của BDSDaily — giải pháp quản lý bất động sản, CRM, giỏ hàng và bản đồ quy hoạch giúp sàn môi giới và doanh nghiệp tối ưu hóa hoạt động, tăng tỉ lệ chốt giao dịch.'
 ]);
-$this->registerMetaTag(['name' => 'keywords', 'content' => 'Phần mềm nhà phố Hồ Chí Minh, phần mềm bất động sản HCM, phần mềm BDSDaily, phan mem nha pho, phan mem nha pho hcm']);
-$this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/phan-mem-nha-pho-ho-chi-minh']);
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'Phần mềm nhà phố Hồ  Chí Minh, phần mềm bất động sản HCM, phần mềm BDSDaily, phan mem nha pho, phan mem nha pho hcm, app nha pho hcm, ung dung nha pho hcm']);
+$this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/phan-mem-nha-pho-ho-chi-minh.html']);
 ?>
 
 <main class="container mx-auto px-4 py-10 prose max-w-4xl">
@@ -99,7 +99,7 @@ $schema = [
     "@type" => "Article",
     "headline" => "Phần Mềm Nhà Phố Hồ Chí Minh — Giải pháp quản lý & kinh doanh từ BDSDaily",
     "description" => "Phần mềm Nhà Phố Hồ Chí Minh của BDSDaily — giải pháp quản lý bất động sản, CRM, giỏ hàng và bản đồ quy hoạch giúp sàn môi giới và doanh nghiệp tối ưu hóa hoạt động, tăng tỉ lệ chốt giao dịch.",
-    "url" => "https://bdsdaily.com/phan-mem-nha-pho-ho-chi-minh",
+    "url" => "https://bdsdaily.com/phan-mem-nha-pho-ho-chi-minh.html",
     "publisher" => [
         "@type" => "Organization",
         "name" => "BDSDaily",
