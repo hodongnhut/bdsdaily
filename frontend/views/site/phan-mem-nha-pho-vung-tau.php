@@ -26,6 +26,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/ph
 
         <section itemprop="articleBody" class="mt-6 space-y-6">
             <h2>Tiềm năng bất động sản nhà phố tại Vũng Tàu</h2>
+            <img src="https://bdsdaily.com/img/slider1.webp" />
             <p>
                 Vũng Tàu là trung tâm du lịch, nghỉ dưỡng và kinh tế biển lớn của khu vực phía Nam, thu hút hàng nghìn nhà đầu tư và người mua ở thực mỗi năm.
                 Thị trường <strong>nhà phố Vũng Tàu</strong> đang phát triển mạnh mẽ nhờ hạ tầng giao thông, cầu Cỏ May mở rộng, cao tốc Biên Hòa – Vũng Tàu và xu hướng đầu tư thứ hai (second home).

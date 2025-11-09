@@ -26,6 +26,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/ph
 
         <section itemprop="articleBody" class="mt-6 space-y-6">
             <h2>Tiềm năng thị trường nhà phố Hà Nội</h2>
+            <img src="https://bdsdaily.com/img/slider3.webp" />
             <p>
                 Là trung tâm kinh tế – chính trị của Việt Nam, <strong>Hà Nội</strong> luôn nằm trong top đầu về nhu cầu mua bán và đầu tư nhà phố. 
                 Với tốc độ đô thị hóa nhanh, nhiều khu vực mới như Đông Anh, Gia Lâm, Hoài Đức, Hà Đông phát triển mạnh, thị trường <strong>nhà phố Hà Nội</strong> đang mở ra cơ hội lớn cho các sàn giao dịch, nhà đầu tư và môi giới chuyên nghiệp.

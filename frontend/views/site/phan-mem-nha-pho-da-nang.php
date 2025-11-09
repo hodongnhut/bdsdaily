@@ -26,6 +26,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/ph
 
         <section itemprop="articleBody" class="mt-6 space-y-6">
             <h2>Tiềm năng thị trường nhà phố Đà Nẵng</h2>
+            <img src="https://bdsdaily.com/img/slider2.webp" />
             <p>
                 <strong>Đà Nẵng</strong> – trung tâm kinh tế, du lịch và logistics của miền Trung – đang là điểm đến hấp dẫn của giới đầu tư bất động sản. 
                 Sự phát triển hạ tầng đồng bộ, các dự án khu đô thị ven biển và nhu cầu nhà ở tăng mạnh đã biến 
