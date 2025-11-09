@@ -98,6 +98,12 @@
             thumbnail: "https://bdsdaily.com/img/slider4.webp", 
             avatar: "RQ", link: "https://youtube.com/shorts/qMeJY8nJ4Z8?si=dwppQAl1Jp5rZ1yG"
         },
+        {
+            id: 8, author: "Review by Quyên aaa", time: "8 tháng trước", 
+            title: "Bất Động Sản Daily - 2026", views: "32K", duration: "4:00",
+            thumbnail: "https://bdsdaily.com/img/slider4.webp", 
+            avatar: "RQ", link: "https://youtu.be/LXH9K9UHolo?si=AHEL-VmIdxuFQYMJ"
+        },
     ];
 
     /**
