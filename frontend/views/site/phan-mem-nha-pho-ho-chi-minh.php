@@ -28,6 +28,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/ph
 
         <section itemprop="articleBody" class="mt-6 space-y-6">
             <h2>Thực trạng thị trường nhà phố tại TP.HCM</h2>
+            <img src="https://bdsdaily.com/img/slider4.webp" />
             <p>
                 Thị trường nhà phố tại <strong>Hồ Chí Minh</strong> luôn là tâm điểm của bất động sản Việt Nam với lượng giao dịch lớn, biến động giá nhanh và mức cạnh tranh cao.
                 Nhiều sàn và môi giới phải xử lý khối lượng thông tin khổng lồ — từ danh sách sản phẩm, thông tin pháp lý, tới quản lý khách hàng và KPI đội ngũ —
