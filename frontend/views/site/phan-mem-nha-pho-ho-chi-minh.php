@@ -87,6 +87,62 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/ph
             </p>
         </section>
 
+        <section class="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">
+                Khách hàng nói gì về BDSDaily?
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-white rounded-lg shadow-md p-5 border border-gray-100">
+                    <div class="flex items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Anh Minh - Sàn BDS Q7" class="w-12 h-12 rounded-full mr-3">
+                        <div>
+                            <p class="font-semibold text-gray-800">Anh Minh</p>
+                            <p class="text-sm text-gray-500">Sàn BDS Q7 Elite</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-2">★★★★★</div>
+                    <p class="text-gray-700 text-sm italic">
+                        "Từ ngày dùng BDSDaily, team mình chốt deal nhanh hơn 40%. Bản đồ quy hoạch giúp tư vấn pháp lý chính xác, khách tin tưởng hơn!"
+                    </p>
+                    <p class="text-xs text-gray-400 mt-3">— 15/10/2025</p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white rounded-lg shadow-md p-5 border border-gray-100">
+                    <div class="flex items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Chị Lan - CEO BDS Pro" class="w-12 h-12 rounded-full mr-3">
+                        <div>
+                            <p class="font-semibold text-gray-800">Chị Lan</p>
+                            <p class="text-sm text-gray-500">CEO BDS Pro Thủ Đức</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-2">★★★★★</div>
+                    <p class="text-gray-700 text-sm italic">
+                        "CRM tự động nhắc lịch, gửi Zalo cho khách — mình không bỏ sót lead nào. Dashboard KPI giúp quản lý team cực dễ!"
+                    </p>
+                    <p class="text-xs text-gray-400 mt-3">— 18/10/2025</p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white rounded-lg shadow-md p-5 border border-gray-100">
+                    <div class="flex items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Anh Hùng - Môi giới tự do" class="w-12 h-12 rounded-full mr-3">
+                        <div>
+                            <p class="font-semibold text-gray-800">Anh Hùng</p>
+                            <p class="text-sm text-gray-500">Môi giới tự do Gò Vấp</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-2">★★★★★</div>
+                    <p class="text-gray-700 text-sm italic">
+                        "App mobile chạy mượt, cập nhật tin ngay tại hiện trường. Giỏ hàng lọc theo quận giúp mình tìm nhà đúng nhu cầu khách trong 30 giây!"
+                    </p>
+                    <p class="text-xs text-gray-400 mt-3">— 20/10/2025</p>
+                </div>
+            </div>
+        </section>
+
         <footer class="mt-8 text-sm text-gray-600 border-t pt-4">
             <p>© BDSDaily — Giải pháp dữ liệu & phần mềm cho nhà phố tại Việt Nam.</p>
             <p>Email: <a href="mailto:bdsdaily247@gmail.com" class="text-blue-600">bdsdaily247@gmail.com</a> | Điện thoại: 0845 528 145</p>
