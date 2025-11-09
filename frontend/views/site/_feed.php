@@ -101,7 +101,7 @@
         {
             id: 8, author: "Review Admin", time: "8 tháng trước", 
             title: "Bất Động Sản Daily - 2026", views: "32K", duration: "4:00",
-            thumbnail: "https://bdsdaily.com/img/slider4.webp", 
+            thumbnail: "https://bdsdaily.com/img/slider1.webp", 
             avatar: "RQ", link: "https://youtu.be/LXH9K9UHolo?si=AHEL-VmIdxuFQYMJ"
         },
     ];
