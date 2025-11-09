@@ -26,6 +26,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/ph
 
         <section itemprop="articleBody" class="mt-6 space-y-6">
             <h2>Tiềm năng thị trường nhà phố Bình Dương</h2>
+            <img src="https://bdsdaily.com/img/slider3.webp" />
             <p>
                 Bình Dương đang trở thành tâm điểm đầu tư bất động sản khu vực phía Nam nhờ hạ tầng phát triển nhanh, khu công nghiệp mở rộng và dân số tăng mạnh.
                 Với tốc độ đô thị hóa cao và nhu cầu nhà ở thực lớn, thị trường <strong>nhà phố Bình Dương</strong> liên tục sôi động — tạo cơ hội lớn cho các sàn, môi giới và nhà đầu tư.
