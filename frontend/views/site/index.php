@@ -7,7 +7,7 @@ $this->title = 'Phần Mềm Nhà Phố - BDSDaily';
 
 $this->registerMetaTag([
     'name' => 'keywords',
-    'content' => 'phần mềm nhà phố, phần mềm giỏ hàng nhà phố, phần mềm BDSDaily, phan mem gio hang nha pho, phan mem nha pho, phần mềm bất động sản nhà phố, phần mềm quản lý giỏ hàng nhà phố, phan mem bds nha pho'
+    'content' => 'phần mềm nhà phố, phần mềm giỏ hàng nhà phố, phần mềm BDSDaily, phan mem gio hang nha pho, phan mem nha pho, phần mềm bất động sản nhà phố, phần mềm quản lý giỏ hàng nhà phố, phan mem bds nha pho, phan mem nha pho, phan mem nha pho hcm'
 ]);
 
 $this->registerMetaTag([
