@@ -96,7 +96,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/ph
                 <!-- Review 1 -->
                 <div class="bg-white rounded-lg shadow-md p-5 border border-gray-100">
                     <div class="flex items-center mb-3">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Anh Minh - Sàn BDS Q7" class="w-12 h-12 rounded-full mr-3">
+                        <img src="/img/avatar/Samland.jpg" alt="Anh Minh - Sàn BDS Q7" class="w-12 h-12 rounded-full mr-3">
                         <div>
                             <p class="font-semibold text-gray-800">Anh Minh</p>
                             <p class="text-sm text-gray-500">Sàn BDS Q7 Elite</p>
@@ -112,7 +112,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/ph
                 <!-- Review 2 -->
                 <div class="bg-white rounded-lg shadow-md p-5 border border-gray-100">
                     <div class="flex items-center mb-3">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Chị Lan - CEO BDS Pro" class="w-12 h-12 rounded-full mr-3">
+                        <img src="/img/avatar/thanhthuy.jpg" alt="Chị Lan - CEO BDS Pro" class="w-12 h-12 rounded-full mr-3">
                         <div>
                             <p class="font-semibold text-gray-800">Chị Lan</p>
                             <p class="text-sm text-gray-500">CEO BDS Pro Thủ Đức</p>
@@ -128,7 +128,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => 'https://bdsdaily.com/ph
                 <!-- Review 3 -->
                 <div class="bg-white rounded-lg shadow-md p-5 border border-gray-100">
                     <div class="flex items-center mb-3">
-                        <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Anh Hùng - Môi giới tự do" class="w-12 h-12 rounded-full mr-3">
+                        <img src="/img/avatar/Kieunguen.jpg" alt="Anh Hùng - Môi giới tự do" class="w-12 h-12 rounded-full mr-3">
                         <div>
                             <p class="font-semibold text-gray-800">Anh Hùng</p>
                             <p class="text-sm text-gray-500">Môi giới tự do Gò Vấp</p>
