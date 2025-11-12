@@ -142,6 +142,91 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
+
+
+
+<div id="app-notification-dialog" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="dialog-title" aria-hidden="true" role="dialog">
+    <div class="flex min-h-screen items-center justify-center p-4">
+        <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+        <div class="relative w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all sm:my-8 sm:max-w-lg">
+            <button id="close-dialog" class="float-right text-gray-400 hover:text-gray-600">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div class="mt-2 text-center">
+                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                    <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 id="dialog-title" class="text-lg font-medium leading-6 text-gray-900 mt-4">App Mới Lên Google Store!</h3>
+                <div class="mt-2">
+                    <p class="text-sm text-gray-500">Ứng dụng Bất Động Sản Daily đã chính thức có mặt trên Google Play. Tải ngay để cập nhật dữ liệu bất động sản nhanh chóng, tiện lợi hơn!</p>
+                </div>
+                
+                <div class="mt-4 flex justify-center space-x-3">
+                    <button id="download-app" class="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">
+                        Tải Ngay
+                    </button>
+                    <button id="dismiss-dialog" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const dialog = document.getElementById('app-notification-dialog');
+    const closeBtn = document.getElementById('close-dialog');
+    const dismissBtn = document.getElementById('dismiss-dialog');
+    const downloadBtn = document.getElementById('download-app');
+    
+    if (!dialog) return;
+    
+    // Kiểm tra localStorage: hiển thị nếu chưa xem hôm nay
+    const today = new Date().toDateString();
+    const lastShown = localStorage.getItem('appNotificationShown');
+    if (lastShown !== today) {
+        dialog.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Ngăn scroll khi dialog mở
+    }
+    
+    // Đóng dialog
+    const closeDialog = () => {
+        dialog.classList.add('hidden');
+        document.body.style.overflow = ''; // Khôi phục scroll
+        localStorage.setItem('appNotificationShown', today);
+    };
+    
+    // Event listeners
+    closeBtn?.addEventListener('click', closeDialog);
+    dismissBtn?.addEventListener('click', closeDialog);
+    
+    // Tải app: mở Google Play (thay URL thực tế của app)
+    downloadBtn?.addEventListener('click', () => {
+        window.open('https://play.google.com/store/apps/details?id=com.bdsdaily', '_blank');
+        closeDialog(); // Đóng sau khi click
+    });
+    
+    // Đóng khi click backdrop
+    dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) closeDialog();
+    });
+    
+    // Đóng bằng ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !dialog.classList.contains('hidden')) {
+            closeDialog();
+        }
+    });
+});
+</script>
+
 <!-- JavaScript cho Mobile Menu Toggle -->
 <script>
     // Đảm bảo DOM đã tải xong trước khi gắn sự kiện
