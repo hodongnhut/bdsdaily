@@ -250,8 +250,7 @@ $this->registerMetaTag([
                         class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:bg-indigo-700 transition-colors duration-300">
                         Tải Về Cho iOS
                     </a>
-                    <a href="javascript:void(0);"
-                        onclick="alert('Vui lòng đăng ký gói Member để được sài ứng dụng!')"
+                    <a href="https://play.google.com/store/apps/details?id=com.bdsdaily"
                         class="inline-block bg-gray-800 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg hover:bg-gray-700 transition-colors duration-300">
                         Tải Về Cho Android
                     </a>
