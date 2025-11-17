@@ -39,14 +39,14 @@ return [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-            'authTimeout' => 1800,
+            // 'authTimeout' => 1800,
             'as sessionChecker' => [
                 'class' => 'common\components\SessionChecker',
             ],
         ],
         'session' => [
             'name' => 'advanced-backend',
-            'timeout' => 1800,
+            // 'timeout' => 1800,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
