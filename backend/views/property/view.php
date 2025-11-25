@@ -1075,15 +1075,12 @@ function showDuplicateModal(properties, phone) {
                         ${p.title || 'Bất động sản #' + p.property_id}
                     </a>
                 </div>
-                <div class="text-sm text-gray-600">
-                    ${p.address || 'Chưa có địa chỉ'}
-                </div>
                 <div class="text-sm text-gray-500">
-                    Giá: ${p.price ? (p.price / 1e9).toFixed(2) + ' tỷ' : 'Thỏa thuận'}
+                    Giá: ${p.final_price ? (p.final_price / 1e9).toFixed(2) + ' tỷ' : 'Thỏa thuận'}
                     • Diện tích: ${p.area || '?'} m²
                 </div>
             </div>
-            <a href="/property/view/${p.property_id}" target="_blank" class="text-blue-600 text-sm">
+            <a href="/property/view?property_id=${p.property_id}" target="_blank" class="text-blue-600 text-sm">
                 Xem <i class="fas fa-external-link-alt ml-1"></i>
             </a>
         </div>
