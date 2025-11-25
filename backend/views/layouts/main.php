@@ -58,7 +58,7 @@ AppAsset::register($this);
             </a>
             <a href="<?= \yii\helpers\Url::to(['/sales-contact']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'map' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="BĐ Quy Hoạch">
                 <i class="fas fa-users text-xl"></i>
-                <span>Danh Bạ</span>
+                <span>Danh Bạ Sales</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/loan']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'loan' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="BĐ Quy Hoạch">
                 <i class="fas fa-calculator text-xl"></i>
