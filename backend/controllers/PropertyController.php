@@ -651,7 +651,7 @@ class PropertyController extends Controller
         }
 
         $properties = Properties::find()
-            ->select(['property_id', 'title', 'final_price']) 
+            ->select(['property_id', 'title', 'price', 'final_price', 'area_width', 'area_length']) 
             ->where(['property_id' => $propertyIds])
             ->asArray()
             ->all();
