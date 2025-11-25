@@ -1091,8 +1091,8 @@ function showDuplicateModal(properties, phone) {
             <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-screen overflow-y-auto">
                 <div class="p-5 border-b flex justify-between items-center">
                     <h3 class="text-xl font-bold text-red-600">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
-                        Phát hiện ${properties.length} tin đăng trùng số điện thoại
+                        <i class="fas fa-eye"></i>
+                        Hiện ${properties.length} tin đăng trùng số điện thoại
                     </h3>
                     <button onclick="document.getElementById('duplicatePhoneModal')?.remove()" 
                             class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
