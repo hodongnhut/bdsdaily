@@ -247,6 +247,20 @@ function formatNumber($number) {
                                             <img src="/img/zalo.png" alt="Zalo" class="zalo-icon">
                                         </a>
                                     </span>
+
+                                    <!-- Google Search Link -->
+                                    <span class="google-link hidden ml-2" title="Tìm kiếm trên Google">
+                                        <a href="#" class="google-anchor" target="_blank">
+                                            <img src="/img/google.png" alt="Google" class="w-5 h-5">
+                                        </a>
+                                    </span>
+
+                                    <!-- Facebook Search Link -->
+                                    <span class="fb-link hidden ml-2" title="Tìm kiếm trên Facebook">
+                                        <a href="#" class="fb-anchor" target="_blank">
+                                            <img src="/img/facebook.png" alt="Facebook" class="w-5 h-5">
+                                        </a>
+                                    </span>
                                     <span class="error-message text-red-600 text-xs ml-2 hidden"></span>
                                 </span>
                                 <span class="ml-2 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
@@ -798,7 +812,11 @@ function formatNumber($number) {
                     const contactId = entry.getAttribute('data-contact-id');
                     const phoneDisplay = entry.querySelector('.phone-display');
                     const zaloLink = entry.querySelector('.zalo-link');
+                    const googleLink = entry.querySelector('.google-link');
+                    const fbLink = entry.querySelector('.fb-link');
                     const zaloAnchor = entry.querySelector('.zalo-anchor');
+                    const googleAnchor = entry.querySelector('.google-anchor');
+                    const fbAnchor = entry.querySelector('.fb-anchor');
                     const errorMessage = entry.querySelector('.error-message');
                     const originalPhoneText = phoneDisplay.textContent; 
 
@@ -823,9 +841,23 @@ function formatNumber($number) {
                         if (data.success && data.phone_number) {
                             phoneDisplay.textContent = data.phone_number;
                             phoneDisplay.classList.add('revealed');
+
+                            // Show and set Zalo
                             if (zaloLink && zaloAnchor) {
                                 zaloLink.classList.remove('hidden');
                                 zaloAnchor.href = `https://zalo.me/${data.phone_number}`;
+                            }
+
+                            // Show and set Google search
+                            if (googleLink && googleAnchor) {
+                                googleLink.classList.remove('hidden');
+                                googleAnchor.href = `https://www.google.com/search?q=${encodeURIComponent(data.phone_number)}`;
+                            }
+
+                            // Show and set Facebook search
+                            if (fbLink && fbAnchor) {
+                                fbLink.classList.remove('hidden');
+                                fbAnchor.href = `https://www.facebook.com/search/top?q=${encodeURIComponent(data.phone_number)}`;
                             }
                         } else {
                             phoneDisplay.textContent = originalPhoneText; 
@@ -833,9 +865,8 @@ function formatNumber($number) {
                                 errorMessage.textContent = data.error || 'Không thể lấy số điện thoại';
                                 errorMessage.classList.remove('hidden');
                             }
-                            if (zaloLink) {
-                                zaloLink.classList.add('hidden');
-                            }
+                            // Hide all links on error
+                            [zaloLink, googleLink, fbLink].forEach(link => link?.classList.add('hidden'));
                             console.error('Error:', data.error || 'Unknown error');
                         }
                     })
@@ -845,13 +876,12 @@ function formatNumber($number) {
                             errorMessage.textContent = 'Lỗi kết nối máy chủ';
                             errorMessage.classList.remove('hidden');
                         }
-                        if (zaloLink) {
-                            zaloLink.classList.add('hidden');
-                        }
+                        [zaloLink, googleLink, fbLink].forEach(link => link?.classList.add('hidden'));
                         console.error('Fetch error:', error);
                     });
                 });
             });
+            
     });
 
     const imageViewModal = document.getElementById('imageViewModal');
