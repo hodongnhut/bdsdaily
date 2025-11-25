@@ -39,6 +39,7 @@ use common\models\UserActivities;
 use common\models\PropertyUpdateLog;
 use common\models\PropertyActionPhone;
 use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 class PropertyController extends Controller
 {
 
@@ -613,5 +614,52 @@ class PropertyController extends Controller
         }
 
         return ['success' => true, 'phone_number' => $contact->phone_number];
+    }
+
+
+    public function actionListPropertyByPhone()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $phone = trim(Yii::$app->request->post('phone'));
+        $currentPropertyId = Yii::$app->request->post('property_id');
+
+        if (!$phone || !preg_match('/^\d{10,11}$/', $phone)) {
+            return ['success' => false, 'error' => 'Số điện thoại không hợp lệ'];
+        }
+
+        if (!$currentPropertyId || !is_numeric($currentPropertyId)) {
+            return ['success' => false, 'error' => 'Thiếu ID bất động sản hiện tại'];
+        }
+
+        $currentPropertyId = (int)$currentPropertyId;
+
+        $propertyIds = OwnerContacts::find()
+            ->select('property_id')
+            ->where(['phone_number' => $phone])
+            ->andWhere(['<>', 'property_id', $currentPropertyId])
+            ->distinct()
+            ->column();
+
+        if (empty($propertyIds)) {
+            return [
+                'success' => true,
+                'count' => 0,
+                'properties' => [],
+                'message' => 'Không có tin đăng nào khác trùng số điện thoại'
+            ];
+        }
+
+        $properties = Properties::find()
+            ->select(['property_id', 'title', 'final_price']) 
+            ->where(['property_id' => $propertyIds])
+            ->asArray()
+            ->all();
+
+        return [
+            'success' => true,
+            'count' => count($properties),
+            'properties' => $properties
+        ];
     }
 }

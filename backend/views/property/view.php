@@ -93,7 +93,10 @@ function formatNumber($number) {
     </div>
 </header>
 
-
+<div id="property-view" 
+     data-property-id="<?= Html::encode($model->property_id) ?>" 
+     class="hidden">
+</div>
 <main class="flex-1 p-6 overflow-y-auto hide-scrollbar">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -265,6 +268,10 @@ function formatNumber($number) {
                                 </span>
                                 <span class="ml-2 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
                                     <?= Html::encode($contact->role->name ?? 'Chủ nhà') ?>
+                                </span>
+                                <span class="check-duplicate-phone hidden ml-3 cursor-pointer hover:text-red-600" 
+                                    title="Xem các tin đăng khác có cùng số điện thoại">
+                                    <i class="fas fa-eye"></i> Căn Trùng Số Phone
                                 </span>
                             </div>
                         <?php endforeach; ?>
@@ -842,6 +849,11 @@ function formatNumber($number) {
                             phoneDisplay.textContent = data.phone_number;
                             phoneDisplay.classList.add('revealed');
 
+                            const duplicateIcon = entry.querySelector('.check-duplicate-phone');
+                            if (duplicateIcon) {
+                                duplicateIcon.classList.remove('hidden');
+                            }
+
                             // Show and set Zalo
                             if (zaloLink && zaloAnchor) {
                                 zaloLink.classList.remove('hidden');
@@ -1011,4 +1023,103 @@ function formatNumber($number) {
         }
     }
 
+</script>
+
+<script>
+document.querySelectorAll('.check-duplicate-phone').forEach(icon => {
+    icon.addEventListener('click', function(e) {
+        e.stopPropagation(); 
+
+        const contactEntry = this.closest('.contact-entry');
+        const contactId = contactEntry.getAttribute('data-contact-id');
+
+        const phoneDisplay = contactEntry.querySelector('.phone-display');
+        let phone = phoneDisplay.textContent.trim();
+
+        const PropertyId = document.getElementById('property-view')?.dataset.propertyId;
+
+
+        fetch('/property/list-property-by-phone', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': yii.getCsrfToken()
+            },
+            body: JSON.stringify({ 
+                phone: phone.replace(/[^\d]/g, '').slice(-10),
+                property_id: PropertyId
+            })
+
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success && data.count > 0) {
+                showDuplicateModal(data.properties, phone);
+            } else {
+                alert('Không tìm thấy tin đăng nào khác có cùng số điện thoại này.');
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Lỗi kết nối server');
+        });
+    });
+});
+
+function showDuplicateModal(properties, phone) {
+    let listHtml = properties.map(p => `
+        <div class="p-3 border-b hover:bg-gray-50 flex justify-between items-center">
+            <div>
+                <div class="font-medium text-blue-700">
+                    <a href="/property/view/${p.property_id}" target="_blank">
+                        ${p.title || 'Bất động sản #' + p.property_id}
+                    </a>
+                </div>
+                <div class="text-sm text-gray-600">
+                    ${p.address || 'Chưa có địa chỉ'}
+                </div>
+                <div class="text-sm text-gray-500">
+                    Giá: ${p.price ? (p.price / 1e9).toFixed(2) + ' tỷ' : 'Thỏa thuận'}
+                    • Diện tích: ${p.area || '?'} m²
+                </div>
+            </div>
+            <a href="/property/view/${p.property_id}" target="_blank" class="text-blue-600 text-sm">
+                Xem <i class="fas fa-external-link-alt ml-1"></i>
+            </a>
+        </div>
+    `).join('');
+
+    const modalHtml = `
+        <div id="duplicatePhoneModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-screen overflow-y-auto">
+                <div class="p-5 border-b flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-red-600">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Phát hiện ${properties.length} tin đăng trùng số điện thoại
+                    </h3>
+                    <button onclick="document.getElementById('duplicatePhoneModal')?.remove()" 
+                            class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                </div>
+                <div class="p-5">
+                    <p class="mb-4 text-gray-700">
+                        Số điện thoại: <strong class="text-lg">${phone}</strong>
+                    </p>
+                    <div class="space-y-2">
+                        ${listHtml}
+                    </div>
+                </div>
+                <div class="p-4 border-t text-right">
+                    <button onclick="document.getElementById('duplicatePhoneModal')?.remove()" 
+                            class="px-5 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Xóa modal cũ nếu có
+    document.getElementById('duplicatePhoneModal')?.remove();
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+}
 </script>
