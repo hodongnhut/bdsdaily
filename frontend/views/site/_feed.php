@@ -87,13 +87,13 @@
             avatar: "RQ", link: "https://youtu.be/WXqaFdcm0Y0?si=nPe3xOLJmmKaqtEM"
         },
         {
-            id: 6, author: "Review by Quyên aaa", time: "8 tháng trước", 
+            id: 6, author: "Review by Quyên", time: "8 tháng trước", 
             title: "Hướng dẫn dùng App mobile BDSDaily", views: "32K", duration: "00:56",
             thumbnail: "https://bdsdaily.com/img/slider3.webp", 
             avatar: "RQ", link: "https://youtu.be/pGw7yK4UF6Q?si=zLIl0sYD5A1ezGiC"
         },
         {
-            id: 7, author: "Review by Quyên aaa", time: "8 tháng trước", 
+            id: 7, author: "Review by Quyên", time: "8 tháng trước", 
             title: "Đồng Bộ Zalo Group cập nhật mới", views: "32K", duration: "00:56",
             thumbnail: "https://bdsdaily.com/img/slider4.webp", 
             avatar: "RQ", link: "https://youtube.com/shorts/qMeJY8nJ4Z8?si=dwppQAl1Jp5rZ1yG"
