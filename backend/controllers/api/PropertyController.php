@@ -580,7 +580,6 @@ class PropertyController extends Controller
         }
     }
 
-
     public function actionUpdateLogPhone()
     {
         if (Yii::$app->user->isGuest) {
@@ -656,12 +655,12 @@ class PropertyController extends Controller
             ->column();
 
         if (empty($propertyIds)) {
-            return [
-                'success' => true,
+            $data=  [
                 'count' => 0,
                 'properties' => [],
-                'message' => 'Không có tin đăng nào khác trùng số điện thoại'
             ];
+
+            return $this->response(true, 'Không có tin đăng nào khác trùng số điện thoại', $data);
         }
 
         $properties = Properties::find()
