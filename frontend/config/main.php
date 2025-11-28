@@ -48,7 +48,16 @@ return [
                 'phan-mem-nha-pho-binh-duong.html' => 'site/phan-mem-nha-pho-binh-duong',
                 'phan-mem-nha-pho-vung-tau.html' => 'site/phan-mem-nha-pho-vung-tau',
                 'phan-mem-nha-pho-da-nang.html' => 'site/phan-mem-nha-pho-da-nang',
-                'phan-mem-nha-pho-ha-noi.html' => 'site/phan-mem-nha-pho-ha-noi'
+                'phan-mem-nha-pho-ha-noi.html' => 'site/phan-mem-nha-pho-ha-noi',
+
+                'phan-mem-nha-pho-dong-nai.html'        => 'site/phan-mem-nha-pho-dong-nai',
+                'phan-mem-nha-pho-nha-trang.html'       => 'site/phan-mem-nha-pho-nha-trang',
+                'phan-mem-nha-pho-hai-phong.html'       => 'site/phan-mem-nha-pho-hai-phong',
+                'phan-mem-nha-pho-can-tho.html'         => 'site/phan-mem-nha-pho-can-tho',
+                'phan-mem-nha-pho-da-lat.html'          => 'site/phan-mem-nha-pho-da-lat',
+                'phan-mem-nha-pho-hue.html'             => 'site/phan-mem-nha-pho-hue',
+                'phan-mem-nha-pho-thu-dau-mot.html'     => 'site/phan-mem-nha-pho-thu-dau-mot',
+
             ],
         ],
     ],

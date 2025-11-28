@@ -426,39 +426,83 @@ $this->registerMetaTag([
 </section>
 
 <section id="phan-mem-nha-pho" class="py-16 bg-gray-50 border-t border-gray-200">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">Phần Mềm Nhà Phố Theo Khu Vực</h2>
-    <p class="text-gray-600 mb-10">
-      Khám phá giải pháp quản lý nhà phố thông minh tại các khu vực trọng điểm trên toàn quốc.
-    </p>
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Phần Mềm Nhà Phố Theo Khu Vực</h2>
+        <p class="text-gray-600 mb-10">
+             Khám phá giải pháp quản lý nhà phố thông minh tại các khu vực trọng điểm trên toàn quốc.
+        </p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-items-center">
-        <a href="/phan-mem-nha-pho-ho-chi-minh.html" 
-         class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
-         🌆 Hồ Chí Minh
-        </a>  
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center">
+            <!-- TP.HCM & các tỉnh lớn -->
+            <a href="/phan-mem-nha-pho-ho-chi-minh.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
+                <div class="text-3xl mb-2">TP. Hồ Chí Minh</div>
+                <div class="text-sm font-medium text-blue-700">TP. Hồ Chí Minh</div>
+            </a>
 
-        <a href="/phan-mem-nha-pho-binh-duong.html" 
-            class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
-            🏡 Bình Dương
-        </a>
-     
-        <a href="/phan-mem-nha-pho-vung-tau.html" 
-            class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
-            🌊 Vũng Tàu
-        </a>
+            <a href="/phan-mem-nha-pho-binh-duong.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
+                <div class="text-3xl mb-2">Bình Dương</div>
+                <div class="text-sm font-medium text-blue-700">Thủ Dầu Một • Dĩ An • Thuận An</div>
+            </a>
 
-        <a href="/phan-mem-nha-pho-da-nang.html" 
-            class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
-            🏖️ Đà Nẵng
-        </a>
+            <a href="/phan-mem-nha-pho-dong-nai.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
+                <div class="text-3xl mb-2">Đồng Nai</div>
+                <div class="text-sm font-medium text-blue-700">Biên Hòa • Long Thành • Nhơn Trạch</div>
+            </a>
 
-        <a href="/phan-mem-nha-pho-ha-noi.html" 
-            class="block w-full text-center bg-white hover:bg-blue-50 border rounded-xl py-4 px-3 shadow-sm hover:shadow-md transition">
-            🏙️ Hà Nội
-        </a>
+            <a href="/phan-mem-nha-pho-ha-noi.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
+                <div class="text-3xl mb-2">Hà Nội</div>
+                <div class="text-sm font-medium text-blue-700">Cầu Giấy • Nam Từ Liêm • Gia Lâm</div>
+            </a>
+
+            <a href="/phan-mem-nha-pho-da-nang.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
+                <div class="text-3xl mb-2">Đà Nẵng</div>
+                <div class="text-sm font-medium text-blue-700">Hải Châu • Sơn Trà • Ngũ Hành Sơn</div>
+            </a>
+
+            <a href="/phan-mem-nha-pho-nha-trang.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
+                <div class="text-3xl mb-2">Nha Trang</div>
+                <div class="text-sm font-medium text-blue-700">Khánh Hòa • Cam Ranh</div>
+            </a>
+
+            <!-- Các tỉnh HOT tiếp theo -->
+            <a href="/phan-mem-nha-pho-vung-tau.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
+                <div class="text-3xl mb-2">Vũng Tàu</div>
+                <div class="text-sm font-medium text-blue-700">Bà Rịa - Vũng Tàu</div>
+            </a>
+
+            <a href="/phan-mem-nha-pho-hai-phong.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
+                <div class="text-3xl mb-2">Hải Phòng</div>
+                <div class="text-sm font-medium text-blue-700">Thủy Nguyên • Hải An</div>
+            </a>
+
+            <a href="/phan-mem-nha-pho-can-tho.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
+                <div class="text-3xl mb-2">Cần Thơ</div>
+                <div class="text-sm font-medium text-blue-700">Ninh Kiều • Cái Răng</div>
+            </a>
+
+            <a href="/phan-mem-nha-pho-da-lat.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
+                <div class="text-3xl mb-2">Đà Lạt</div>
+                <div class="text-sm font-medium text-blue-700">Lâm Đồng • Bảo Lộc</div>
+            </a>
+
+            <a href="/phan-mem-nha-pho-hue.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
+                <div class="text-3xl mb-2">Huế</div>
+                <div class="text-sm font-medium text-blue-700">Thừa Thiên Huế</div>
+            </a>
+
+            <a href="/phan-mem-nha-pho-thu-dau-mot.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
+                <div class="text-3xl mb-2">Thủ Dầu Một</div>
+                <div class="text-sm font-medium text-blue-700">Trung tâm Bình Dương</div>
+            </a>
+
+        </div>
+
+        <div class="mt-12">
+            <p class="text-sm text-gray-500">
+                Đang mở rộng thêm <strong>34 tỉnh/thành</strong> — Liên hệ ngay để nhận bản demo riêng cho khu vực bạn đang kinh doanh!
+            </p>
+        </div>
     </div>
-  </div>
 </section>
 
 

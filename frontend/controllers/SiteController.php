@@ -290,4 +290,39 @@ class SiteController extends Controller
     {
         return $this->render('phan-mem-nha-pho-ha-noi');
     }
+
+    public function actionPhanMemNhaPhoDongNai()
+    {
+        return $this->render('phan-mem-nha-pho-dong-nai');
+    }
+
+    public function actionPhanMemNhaPhoNhaTrang()
+    {
+        return $this->render('phan-mem-nha-pho-nha-trang');
+    }
+
+    public function actionPhanMemNhaPhoHaiPhong()
+    {
+        return $this->render('phan-mem-nha-pho-hai-phong');
+    }
+
+    public function actionPhanMemNhaPhoCanTho()
+    {
+        return $this->render('phan-mem-nha-pho-can-tho');
+    }
+
+    public function actionPhanMemNhaPhoDaLat()
+    {
+        return $this->render('phan-mem-nha-pho-da-lat');
+    }
+
+    public function actionPhanMemNhaPhoHue()
+    {
+        return $this->render('phan-mem-nha-pho-hue');
+    }
+
+    public function actionPhanMemNhaPhoThuDauMot()
+    {
+        return $this->render('phan-mem-nha-pho-thu-dau-mot');
+    }
 }
