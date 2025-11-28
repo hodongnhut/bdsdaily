@@ -21,6 +21,8 @@ use common\models\RentalContracts;
 use common\models\PropertyInteriors;
 use common\models\PropertyAdvantages;
 use common\models\PropertyDisadvantages;
+use common\models\PropertyActionPhone;
+use common\models\UserActivities;
 
 class PropertyController extends Controller
 {
@@ -575,6 +577,53 @@ class PropertyController extends Controller
             $response['message'] = 'Error uploading images: ' . $e->getMessage();
             return $response;
         }
+    }
+
+
+    public function actionUpdateLogPhone()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->response(false, 'Unauthorized access.');
+        }
+
+        $phone = Yii::$app->request->post('phone_number');
+        $propertyId = Yii::$app->request->post('property_id');
+        $userId = Yii::$app->user->id;
+
+        if (!$phone) {
+            return $this->response(false, 'Phone number is required.');
+        }
+
+        if (!$propertyId) {
+            return $this->response(false, 'Property ID is required.');
+        }
+
+        $logResult = UserActivities::logActivityPhone($userId, 'view_phone', 300);
+        if (!$logResult) {
+            return $this->response(false, 
+                'Bạn đã xem đủ 300 số điện thoại hôm nay. Vui lòng quay lại vào ngày mai.'
+            );
+        }
+
+        try {
+            $action = new PropertyActionPhone();
+            $action->property_id = $propertyId;
+            $action->user_id = $userId;
+            $action->action = 'view';
+            $action->phone_number = $phone;
+
+            if (!$action->save()) {
+                Yii::error(
+                    'Failed to save PropertyActionPhone: ' . json_encode($action->errors),
+                    'property_update_log'
+                );
+            }
+        } catch (\Throwable $th) {
+            Yii::error($th->getMessage(), 'property_update_exception');
+            return $this->response(false, 'Internal Server Error.');
+        }
+
+        return $this->response(true, 'Update Phone Log Success');
     }
 
     /**
