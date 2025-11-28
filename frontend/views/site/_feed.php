@@ -104,6 +104,12 @@
             thumbnail: "https://bdsdaily.com/img/slider1.webp", 
             avatar: "RQ", link: "https://youtu.be/LXH9K9UHolo?si=AHEL-VmIdxuFQYMJ"
         },
+        {
+            id: 9, author: "Review Admin", time: "1 ngày trước", 
+            title: "Hướng Dẫn check căn trùng số phone", views: "50K", duration: "1:33",
+            thumbnail: "https://bdsdaily.com/img/slider1.webp", 
+            avatar: "RQ", link: "https://youtube.com/shorts/AiZD52Boz-c?si=PGMv-7waxRGRY6jT"
+        },
     ];
 
     /**
