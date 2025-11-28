@@ -23,6 +23,7 @@ use common\models\PropertyAdvantages;
 use common\models\PropertyDisadvantages;
 use common\models\PropertyActionPhone;
 use common\models\UserActivities;
+use common\models\OwnerContacts;
 
 class PropertyController extends Controller
 {
@@ -624,6 +625,57 @@ class PropertyController extends Controller
         }
 
         return $this->response(true, 'Update Phone Log Success');
+    }
+
+
+    public function actionListPropertyByPhone()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->response(false, 'Unauthorized access.');
+        }
+
+        $phone = trim(Yii::$app->request->post('phone_number'));
+        $currentPropertyId = Yii::$app->request->post('property_id');
+
+        if (!$phone || !preg_match('/^\d{10,11}$/', $phone)) {
+            return ['success' => false, 'error' => 'Số điện thoại không hợp lệ'];
+        }
+
+        if (!$currentPropertyId || !is_numeric($currentPropertyId)) {
+            return ['success' => false, 'error' => 'Thiếu ID bất động sản hiện tại'];
+        }
+
+        $currentPropertyId = (int)$currentPropertyId;
+
+        $propertyIds = OwnerContacts::find()
+            ->select('property_id')
+            ->where(['phone_number' => $phone])
+            ->andWhere(['<>', 'property_id', $currentPropertyId])
+            ->distinct()
+            ->column();
+
+        if (empty($propertyIds)) {
+            return [
+                'success' => true,
+                'count' => 0,
+                'properties' => [],
+                'message' => 'Không có tin đăng nào khác trùng số điện thoại'
+            ];
+        }
+
+        $properties = Properties::find()
+            ->select(['property_id', 'title', 'price', 'final_price', 'area_width', 'area_length']) 
+            ->where(['property_id' => $propertyIds])
+            ->asArray()
+            ->all();
+
+        $data =  [
+            'count' => count($properties),
+            'properties' => $properties
+        ];
+
+        return $this->response(true, 'Get List by Phone Success', $data);
     }
 
     /**
