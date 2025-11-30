@@ -185,6 +185,7 @@ $this->registerMetaTag([
                     <li>✔️ Dữ liệu được xác thực liên tục </li>
                     <li>✔️ Sử dụng hệ thống giỏ hàng</li>
                     <li>✔️ Hỗ trợ Xem Số Chủ Nhà 500 số/ ngày</li>
+                    <li>✔️ Hỗ trợ Phần Mềm Trên Cài Trên Máy Tính</li>
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ dự toán khoản vay</li>
                     <li>✔️ Xem lịch âm dương</li>
