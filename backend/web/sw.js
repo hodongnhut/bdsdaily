@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-app-v1';
+const CACHE_NAME = 'bdsdaily-app-v1';
 const urlsToCache = [
     '/',
     '/site/index',
