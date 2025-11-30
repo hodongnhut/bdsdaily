@@ -105,8 +105,11 @@ AppAsset::register($this);
 
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
 
-    <button id="install-pwa-btn" style="display:none; padding:10px 20px; background:#1a73e8; color:white; border:none; border-radius:4px; cursor:pointer; font-size:16px;">
-    📥 Save to Desktop
+    <button id="install-pwa-btn" title="Cài đặt BDSDaily vào Desktop">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        <span class="btn-text">Cài vào Desktop</span>
     </button>
 
     <div class="flex-1 flex flex-col">
