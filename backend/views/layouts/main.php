@@ -105,6 +105,7 @@ AppAsset::register($this);
 
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
 
+    <div class="hidden show installed translate-y-0 opacity-100">
     <button id="install-pwa-btn" title="Cài đặt BDSDaily vào Desktop">
     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <rect x="3" y="3" width="18" height="14" rx="2"></rect>
@@ -114,6 +115,9 @@ AppAsset::register($this);
 </svg>
         <span class="btn-text">Cài vào Desktop</span>
     </button>
+    </div>
+
+   
 
     <div class="flex-1 flex flex-col">
         <?= $content ?>
