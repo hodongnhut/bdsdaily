@@ -189,10 +189,8 @@ $this->registerMetaTag([
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ dự toán khoản vay</li>
                     <li>✔️ Xem lịch âm dương</li>
-                    <li>✔️ Xem Tuổi Mua Nhà</li>
                     <li>✔️ Hỗ trợ bản đồ quy hoạch Tp.HCM</li>
                     <li>✔️ Hỗ trợ App mobile</li>
-                    <li>✔️ Hỗ trợ qua Zalo và Email</li>
                     <li>✔️ Báo cáo phân tích thị trường nâng cao</li>
                     <li>✔️ Hỗ trợ kỹ thuật 24/7</li>
                     <li>✔️ Hỗ trợ sài thử 7 ngày</li>
