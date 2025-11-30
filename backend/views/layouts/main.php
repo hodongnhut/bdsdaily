@@ -20,6 +20,16 @@ AppAsset::register($this);
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="manifest" href="<?= Yii::$app->request->baseUrl ?>/manifest.json">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="icon" sizes="192x192" href="<?= Yii::$app->request->baseUrl ?>/img/icon-192x192.png">
+    <link rel="apple-touch-icon" href="<?= Yii::$app->request->baseUrl ?>/img/icon-192x192.png">
+
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="<?= Yii::$app->request->baseUrl ?>/img/icon-192x192.png">
+
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -95,6 +105,10 @@ AppAsset::register($this);
 
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
 
+    <button id="install-pwa-btn" style="display:none; padding:10px 20px; background:#1a73e8; color:white; border:none; border-radius:4px; cursor:pointer; font-size:16px;">
+    📥 Save to Desktop
+    </button>
+
     <div class="flex-1 flex flex-col">
         <?= $content ?>
     </div>
@@ -155,6 +169,52 @@ AppAsset::register($this);
             }
         });
     }
+</script>
+<script>
+  // Đăng ký Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('SW registered: ', reg))
+        .catch(err => console.log('SW registration failed: ', err));
+    });
+  }
+
+  // Sự kiện Install PWA
+  let deferredPrompt;
+  const installButton = document.getElementById('install-pwa-btn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('Có thể cài đặt PWA');
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Hiện nút cài đặt
+    if (installButton) {
+      installButton.style.display = 'block';
+    }
+  });
+
+  // Khi nhấn nút "Save to Desktop"
+  document.getElementById('install-pwa-btn')?.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+
+    // Hiển thị hộp thoại cài đặt của Chrome
+    deferredPrompt.prompt();
+
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      console.log('Người dùng đã cài đặt PWA');
+      installButton.style.display = 'none';
+    }
+    deferredPrompt = null;
+  });
+
+  // Ẩn nút nếu đã cài rồi
+  window.addEventListener('appinstalled', () => {
+    console.log('PWA đã được cài đặt');
+    if (installButton) installButton.style.display = 'none';
+  });
 </script>
 <?php $this->endBody() ?>
 </body>
