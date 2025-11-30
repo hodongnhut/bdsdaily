@@ -105,8 +105,9 @@ AppAsset::register($this);
 
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
 
-    <div class="hidden show installed translate-y-0 opacity-100">
-        
+
+    <div class="flex-1 flex flex-col">
+        <?= $content ?>
     </div>
 
     <button id="install-pwa-btn" title="Cài đặt ứng dụng vào Desktop">
@@ -119,9 +120,6 @@ AppAsset::register($this);
         <span class="btn-text">Cài vào Desktop</span>
     </button>
 
-    <div class="flex-1 flex flex-col">
-        <?= $content ?>
-    </div>
     <script>
     const userMenuButton = document.getElementById('userMenuButton');
     const userMenu = document.getElementById('userMenu');
