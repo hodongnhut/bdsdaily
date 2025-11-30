@@ -188,36 +188,35 @@ AppAsset::register($this);
   const installButton = document.getElementById('install-pwa-btn');
 
   window.addEventListener('beforeinstallprompt', (e) => {
-    console.log('Có thể cài đặt PWA');
     e.preventDefault();
     deferredPrompt = e;
 
-    // Hiện nút cài đặt
+    // Hiện nút với hiệu ứng mượt
     if (installButton) {
-      installButton.style.display = 'block';
+        installButton.classList.add('show');
     }
-  });
+});
 
-  // Khi nhấn nút "Save to Desktop"
-  document.getElementById('install-pwa-btn')?.addEventListener('click', async () => {
+installButton?.addEventListener('click', async () => {
     if (!deferredPrompt) return;
 
-    // Hiển thị hộp thoại cài đặt của Chrome
     deferredPrompt.prompt();
-
     const { outcome } = await deferredPrompt.userChoice;
+
     if (outcome === 'accepted') {
-      console.log('Người dùng đã cài đặt PWA');
-      installButton.style.display = 'none';
+        installButton.classList.remove('show');
+        installButton.classList.add('installed');
     }
     deferredPrompt = null;
-  });
+});
 
-  // Ẩn nút nếu đã cài rồi
-  window.addEventListener('appinstalled', () => {
-    console.log('PWA đã được cài đặt');
-    if (installButton) installButton.style.display = 'none';
-  });
+// Ẩn luôn nếu đã cài rồi
+window.addEventListener('appinstalled', () => {
+    if (installButton) {
+        installButton.classList.remove('show');
+        installButton.classList.add('installed');
+    }
+});
 </script>
 <?php $this->endBody() ?>
 </body>
