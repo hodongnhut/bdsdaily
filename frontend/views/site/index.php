@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'PHẦN MỀM NHÀ PHỐ ';
+$this->title = 'Phần Mềm Nhà Phố';
 
 
 $this->registerMetaTag([
