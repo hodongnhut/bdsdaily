@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'Phần Mềm Nhà Phố - BDSDaily';
+$this->title = 'PHẦN MỀM NHÀ PHỐ ';
 
 
 $this->registerMetaTag([
