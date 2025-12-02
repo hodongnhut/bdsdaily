@@ -424,82 +424,95 @@ $this->registerMetaTag([
     </div>
 </section>
 
-<section id="phan-mem-nha-pho" class="py-16 bg-gray-50 border-t border-gray-200">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6">Phần Mềm Nhà Phố Theo Khu Vực</h2>
-        <p class="text-gray-600 mb-10">
-             Khám phá giải pháp quản lý nhà phố thông minh tại các khu vực trọng điểm trên toàn quốc.
-        </p>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center">
-            <!-- TP.HCM & các tỉnh lớn -->
-            <a href="/phan-mem-nha-pho-ho-chi-minh.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
-                <div class="text-3xl mb-2">TP. Hồ Chí Minh</div>
-                <div class="text-sm font-medium text-blue-700">TP. Hồ Chí Minh</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-binh-duong.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
-                <div class="text-3xl mb-2">Bình Dương</div>
-                <div class="text-sm font-medium text-blue-700">Thủ Dầu Một • Dĩ An • Thuận An</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-dong-nai.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
-                <div class="text-3xl mb-2">Đồng Nai</div>
-                <div class="text-sm font-medium text-blue-700">Biên Hòa • Long Thành • Nhơn Trạch</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-ha-noi.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
-                <div class="text-3xl mb-2">Hà Nội</div>
-                <div class="text-sm font-medium text-blue-700">Cầu Giấy • Nam Từ Liêm • Gia Lâm</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-da-nang.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
-                <div class="text-3xl mb-2">Đà Nẵng</div>
-                <div class="text-sm font-medium text-blue-700">Hải Châu • Sơn Trà • Ngũ Hành Sơn</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-nha-trang.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition transform hover:-translate-y-1">
-                <div class="text-3xl mb-2">Nha Trang</div>
-                <div class="text-sm font-medium text-blue-700">Khánh Hòa • Cam Ranh</div>
-            </a>
-
-            <!-- Các tỉnh HOT tiếp theo -->
-            <a href="/phan-mem-nha-pho-vung-tau.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
-                <div class="text-3xl mb-2">Vũng Tàu</div>
-                <div class="text-sm font-medium text-blue-700">Bà Rịa - Vũng Tàu</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-hai-phong.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
-                <div class="text-3xl mb-2">Hải Phòng</div>
-                <div class="text-sm font-medium text-blue-700">Thủy Nguyên • Hải An</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-can-tho.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
-                <div class="text-3xl mb-2">Cần Thơ</div>
-                <div class="text-sm font-medium text-blue-700">Ninh Kiều • Cái Răng</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-da-lat.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
-                <div class="text-3xl mb-2">Đà Lạt</div>
-                <div class="text-sm font-medium text-blue-700">Lâm Đồng • Bảo Lộc</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-hue.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
-                <div class="text-3xl mb-2">Huế</div>
-                <div class="text-sm font-medium text-blue-700">Thừa Thiên Huế</div>
-            </a>
-
-            <a href="/phan-mem-nha-pho-thu-dau-mot.html" class="group block w-full bg-white hover:bg-blue-50 border rounded-xl py-5 px-4 shadow-sm hover:shadow-lg transition">
-                <div class="text-3xl mb-2">Thủ Dầu Một</div>
-                <div class="text-sm font-medium text-blue-700">Trung tâm Bình Dương</div>
-            </a>
-
+<section id="phan-mem-nha-pho" class="py-20 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <!-- Tiêu đề -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                Phần Mềm Quản Lý Nhà Phố 
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+                    Theo Từng Khu Vực
+                </span>
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Giải pháp tối ưu riêng cho từng tỉnh thành – giúp bạn <strong class="text-blue-600">bán hàng nhanh gấp 3 lần</strong>.
+            </p>
         </div>
 
-        <div class="mt-12">
-            <p class="text-sm text-gray-500">
-                Đang mở rộng thêm <strong>34 tỉnh/thành</strong> — Liên hệ ngay để nhận bản demo riêng cho khu vực bạn đang kinh doanh!
-            </p>
+        <!-- Grid các tỉnh thành + Icon -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <?php
+            $areas = [
+                ['name' => 'TP. Hồ Chí Minh',   'sub' => 'Quận 1 • Quận 7 • Bình Thạnh', 'slug' => 'ho-chi-minh',   'icon' => 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'], // Landmark 81 / trái tim Sài Gòn
+                ['name' => 'Bình Dương',        'sub' => 'Thủ Dầu Một • Dĩ An • Thuận An', 'slug' => 'binh-duong',    'icon' => 'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm12 8h2v-6h-2v6zm-4-6h2V9h-2v14z'], // Nhà máy công nghiệp
+                ['name' => 'Đồng Nai',          'sub' => 'Biên Hòa • Long Thành • Nhơn Trạch', 'slug' => 'dong-nai',      'icon' => 'M4 4h16v12H5.17L4 17.17V4zm4 10h8v-2H8v2zm0-4h8V8H8v2z'], // Cảng + container
+                ['name' => 'Hà Nội',            'sub' => 'Cầu Giấy • Nam Từ Liêm • Gia Lâm', 'slug' => 'ha-noi',        'icon' => 'M12 2L2 22h20L12 2zm0 4.5L17.5 18H6.5L12 6.5z'], // Hồ Gươm + tháp Rùa
+                ['name' => 'Đà Nẵng',           'sub' => 'Hải Châu • Sơn Trà • Ngũ Hành Sơn', 'slug' => 'da-nang',       'icon' => 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z'], // Cầu Rồng + cầu Vàng
+                ['name' => 'Nha Trang',         'sub' => 'Vinpearl • Cam Ranh • Nha Trang', 'slug' => 'nha-trang',     'icon' => 'M12 21s-8-4.5-8-11.8c0-4.4 3.6-8 8-8s8 3.6 8 8c0 7.3-8 11.8-8 11.8z'], // Biển + đảo
+                ['name' => 'Vũng Tàu',          'sub' => 'Bà Rịa - Vũng Tàu • Long Hải', 'slug' => 'vung-tau',      'icon' => 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z M12 6l-4 8h8l-4-8z'], // Tượng Chúa Kitô + biển
+                ['name' => 'Hải Phòng',         'sub' => 'Thủy Nguyên • Hải An • Đồ Sơn', 'slug' => 'hai-phong',     'icon' => 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'], // Cảng biển
+                ['name' => 'Cần Thơ',           'sub' => 'Ninh Kiều • Cái Răng • Phong Điền', 'slug' => 'can-tho',       'icon' => 'M12 2C6.48 2 2 5.58 2 10c0 4.42 5.48 10.86 10 14.98C16.52 20.86 22 14.42 22 10c0-4.42-3.58-8-10-8z'], // Chợ nổi Cái Răng
+                ['name' => 'Đà Lạt',            'sub' => 'Lâm Đồng • Bảo Lộc • Đức Trọng', 'slug' => 'da-lat',        'icon' => 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7-7z M12 11.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'], // Hồ Xuân Hương + thông reo
+                ['name' => 'Huế',               'sub' => 'Thừa Thiên Huế • Kinh thành', 'slug' => 'hue',           'icon' => 'M12 2L2 12h3v8h14v-8h3L12 2zm0 3.5l7 6.3V18h-4v-4H9v4H5v-6.2L12 5.5z'], // Kinh thành Huế
+                ['name' => 'Thủ Dầu Một',       'sub' => 'Trung tâm Bình Dương', 'slug' => 'thu-dau-mot',    'icon' => 'M12 2a10 10 0 00-10 10c0 6 10 12 10 12s10-6 10-12a10 10 0 00-10-10z M12 15c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z'], // Thành phố mới Bình Dương
+            ];
+            ?>
+
+            <?php foreach ($areas as $area): ?>
+            <a href="/phan-mem-nha-pho-<?= $area['slug']; ?>.html"
+               class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-100
+                      overflow-hidden transform hover:-translate-y-3 transition-all duration-500
+                      flex flex-col items-center justify-center h-44 p-6 text-center">
+
+                <!-- Gradient overlay + hiệu ứng -->
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/10 
+                                opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <!-- Icon SVG riêng cho từng tỉnh -->
+                <div class="relative z-10 mb-4">
+                    <svg class="w-14 h-14 text-blue-600 drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="<?= $area['icon']; ?>"/>
+                    </svg>
+                </div>
+
+                <h3 class="font-extrabold text-lg text-gray-800 group-hover:text-blue-700 transition">
+                    <?= $area['name']; ?>
+                </h3>
+                <p class="text-xs text-gray-500 mt-2 leading-tight px-2">
+                    <?= $area['sub']; ?>
+                </p>
+
+                <!-- Mũi tên nhỏ khi hover -->
+                <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 
+                            transform translate-y-3 group-hover:translate-y-0 transition-all duration-500">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </a>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- CTA cuối -->
+        <div class="mt-16 text-center">
+            <div class="bg-gradient-to-r from-blue-600 to-cyan-500 rounded-3xl p-10 md:p-12 
+                          text-white shadow-2xl max-w-5xl mx-auto">
+                <p class="text-xl md:text-2xl font-bold">
+                    Đang mở rộng thêm <span class="text-4xl">34 tỉnh/thành</span> trên toàn quốc
+                </p>
+                <p class="mt-4 text-blue-100 text-lg">
+                    Liên hệ ngay để nhận <strong>bản demo miễn phí</strong> được tùy chỉnh riêng cho khu vực bạn đang hoạt động!
+                </p>
+                <a href="#lien-he" class="inline-flex items-center mt-8 px-10 py-5 bg-white text-blue-600 
+                       font-bold text-lg rounded-2xl hover:bg-gray-100 shadow-xl transform hover:scale-105 
+                       transition duration-300">
+                    Yêu Cầu Demo Ngay Gọi: 0845 528 145
+                    <svg class="w-6 h-6 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+            </div>
         </div>
     </div>
 </section>
