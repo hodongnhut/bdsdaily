@@ -45,6 +45,7 @@ AppAsset::register($this);
             <a href="https://bdsdaily.com/#du-lieu" class="text-gray-600 hover:text-indigo-600 transition duration-150">Dữ Liệu Của Chúng Tôi</a>
             <a href="https://bdsdaily.com/#dich-vu" class="text-gray-600 hover:text-indigo-600 transition duration-150">Dịch Vụ</a>
             <a href="https://bdsdaily.com/#goi-dich-vu" class="text-gray-600 hover:text-indigo-600 transition duration-150">Gói Dịch Vụ</a>
+            <a href="https://bdsdaily.com/#phan-mem-nha-pho" class="text-gray-600 hover:text-indigo-600 transition duration-150">Thành Phố</a>
             <a href="https://bdsdaily.com/#document" class="text-gray-600 hover:text-indigo-600 transition duration-150">Tài Liệu</a>
             <a href="https://bdsdaily.com/#app-mobile" class="text-gray-600 hover:text-indigo-600 transition duration-150">App Mobile</a>
             <a href="https://bdsdaily.com/#zalo" class="text-gray-600 hover:text-indigo-600 transition duration-150">Zalo B2B</a>
@@ -102,6 +103,7 @@ AppAsset::register($this);
                 <a href="#du-lieu" class="hover:text-indigo-400">Dữ Liệu</a>
                 <a href="#dich-vu" class="hover:text-indigo-400">Dịch Vụ</a>
                 <a href="#goi-dich-vu" class="hover:text-indigo-400">Gói Dịch Vụ</a>
+                <a href="#phan-mem-nha-pho" class="hover:text-indigo-400">Thành Phố</a>
                 <a href="<?= Yii::getAlias('@web') ?>/privacy-policy.html" class="hover:text-indigo-400">Chính sách bảo mật</a>
                 <a href="#document" class="hover:text-indigo-400">Tài Liệu</a>
                 <a href="#app-mobile" class="hover:text-indigo-400">App Mobile</a>
