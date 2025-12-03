@@ -1,13 +1,9 @@
-<?php
-/* @var $this yii\web\View */
-$this->title = 'Không có kết nối Internet';
-?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= Html::encode($this->title) ?></title>
+    <title>Không có kết nối Internet</title>
     <link rel="manifest" href="<?= Yii::$app->request->baseUrl ?>/manifest.json">
     <link rel="icon" sizes="192x192" href="<?= Yii::$app->request->baseUrl ?>/img/icon-192x192.png">
     <meta name="theme-color" content="#2563eb">
