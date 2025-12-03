@@ -34,23 +34,20 @@ AppAsset::register($this);
 
 <header class="bg-white shadow-lg sticky top-0 z-50">
     <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-        <a href="<?= Yii::$app->homeUrl ?>" class="flex items-center space-x-1 md:space-x-1 py-2 px-2 md:px-6 lg:px-8 hover:bg-gray-50 transition">
-            <!-- Logo -->
-            <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" 
-                alt="BDSDaily" 
-                class="h-10 sm:h-12 w-auto flex-shrink-0">
+        <a href="<?= Yii::$app->homeUrl ?>" class="flex items-center space-x-1 md:space-x-1 md:px-6 lg:px-8 hover:bg-gray-50 transition">
+        <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" 
+            alt="BDSDaily" 
+            class="h-10 sm:h-12 w-auto flex-shrink-0">
 
-                <div class="min-w-0"> <!-- min-w-0 để cho phép text bị cắt nếu quá dài -->
-     <!-- Tên chính -->
-     <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 leading-none">
-         BDSDaily
-     </h1>
+            <div class="min-w-0"> 
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 leading-none">
+                    BDSDaily
+                </h1>
 
-     <!-- Phụ đề – xuống dòng đẹp trên mobile -->
-     <p class="text-sm sm:text-base md:text-lg font-medium text-gray-600 leading-tight mt-0.5 logo-slogan mb-0 text-muted fst-italic">
-         Phần Mềm Nhà Phố
-     </p>
- </div>
+                <p class="text-sm sm:text-base md:text-lg font-medium text-gray-600 leading-tight mt-0.5 logo-slogan mb-0 text-muted fst-italic">
+                    Phần Mềm Nhà Phố
+                </p>
+            </div>
         </a>
         
         <!-- Desktop Menu Links -->
