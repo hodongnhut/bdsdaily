@@ -136,64 +136,61 @@ AppAsset::register($this);
     </button>
 
     <script>
-    const userMenuButton = document.getElementById('userMenuButton');
-    const userMenu = document.getElementById('userMenu');
-    let timeoutId;
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userMenu = document.getElementById('userMenu');
+        let timeoutId;
 
-    userMenuButton.addEventListener('mouseenter', () => {
-        clearTimeout(timeoutId);
-        userMenu.classList.remove('hidden');
-        userMenuButton.setAttribute('aria-expanded', 'true');
-    });
-
-    userMenuButton.addEventListener('mouseleave', () => {
-        timeoutId = setTimeout(() => {
-            userMenu.classList.add('hidden');
-            userMenuButton.setAttribute('aria-expanded', 'false');
-        }, 300);
-    });
-
-    userMenu.addEventListener('mouseenter', () => {
-        clearTimeout(timeoutId);
-    });
-
-    userMenu.addEventListener('mouseleave', () => {
-        timeoutId = setTimeout(() => {
-            userMenu.classList.add('hidden');
-            userMenuButton.setAttribute('aria-expanded', 'false');
-        }, 300);
-    });
-
-    const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
-    const mainSidebar = document.getElementById('main-sidebar');
-    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-
-    function toggleSidebar() {
-        mainSidebar.classList.toggle('aside-open');
-        sidebarBackdrop.classList.toggle('show');
-    }
-
-    if (mobileSidebarToggle && mainSidebar && sidebarBackdrop) {
-        mobileSidebarToggle.addEventListener('click', toggleSidebar);
-        sidebarBackdrop.addEventListener('click', toggleSidebar); 
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && mainSidebar.classList.contains('aside-open')) {
-                toggleSidebar();
-            }
+        userMenuButton.addEventListener('mouseenter', () => {
+            clearTimeout(timeoutId);
+            userMenu.classList.remove('hidden');
+            userMenuButton.setAttribute('aria-expanded', 'true');
         });
 
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) { 
-                mainSidebar.classList.remove('aside-open');
-                sidebarBackdrop.classList.remove('show');
-            }
+        userMenuButton.addEventListener('mouseleave', () => {
+            timeoutId = setTimeout(() => {
+                userMenu.classList.add('hidden');
+                userMenuButton.setAttribute('aria-expanded', 'false');
+            }, 300);
         });
-    }
-</script>
 
-<script>
-        // Service Worker
+        userMenu.addEventListener('mouseenter', () => {
+            clearTimeout(timeoutId);
+        });
+
+        userMenu.addEventListener('mouseleave', () => {
+            timeoutId = setTimeout(() => {
+                userMenu.classList.add('hidden');
+                userMenuButton.setAttribute('aria-expanded', 'false');
+            }, 300);
+        });
+
+        const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
+        const mainSidebar = document.getElementById('main-sidebar');
+        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+        function toggleSidebar() {
+            mainSidebar.classList.toggle('aside-open');
+            sidebarBackdrop.classList.toggle('show');
+        }
+
+        if (mobileSidebarToggle && mainSidebar && sidebarBackdrop) {
+            mobileSidebarToggle.addEventListener('click', toggleSidebar);
+            sidebarBackdrop.addEventListener('click', toggleSidebar); 
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && mainSidebar.classList.contains('aside-open')) {
+                    toggleSidebar();
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) { 
+                    mainSidebar.classList.remove('aside-open');
+                    sidebarBackdrop.classList.remove('show');
+                }
+            });
+        }
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
