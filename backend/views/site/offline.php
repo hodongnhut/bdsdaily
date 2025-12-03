@@ -38,7 +38,7 @@
         </div>
 
         <p class="text-sm text-gray-500 mt-12">
-            BDS Daily
+            BDS Daily - Phần Mềm Nhà Phố
         </p>
     </div>
 </body>
