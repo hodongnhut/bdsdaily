@@ -109,6 +109,7 @@ return [
                 'property-folder' => 'folder',
                 'ban-do-quy-hoach' => 'site/map',
                 'loan' => 'site/loan',
+                'offline' => 'site/offline',
                 'calendar' => 'site/calendar',
                 'ban-do-quy-hoach-ho-chi-minh' => 'site/map-ho-chi-minh',
                 'mobile-map' => 'site/mobile-map',
