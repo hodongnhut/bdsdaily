@@ -1,22 +1,21 @@
-const CACHE_NAME = 'bdsdaily-v19'; // Tăng version mỗi khi deploy mới
+const CACHE_NAME = 'bdsdaily-v19';
 const STATIC_CACHE = 'static-v19';
 const DYNAMIC_CACHE = 'dynamic-v19';
 
 
 const PRECACHE_URLS = [
-    '/',                                            // Trang chủ
-    '/site/offline',                                // Trang offline tùy chỉnh (bắt buộc tạo view này)
+    '/',
+    '/site/offline',
     '/css/site.css',
     '/js/site.js',
     '/img/logo.webp',
     '/img/icon-192x192.png',
     '/img/icon-512x512.png',
-    '/img/offline-banner.jpg',                      // Ảnh hiển thị khi offline
+    '/img/offline-banner.jpg',
     '/manifest.json',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css',
 ];
 
-// ============= INSTALL =============
 self.addEventListener('install', event => {
     console.log('[SW] Install');
     event.waitUntil(
@@ -25,11 +24,11 @@ self.addEventListener('install', event => {
                 console.log('[SW] Precaching resources...');
                 return cache.addAll(PRECACHE_URLS);
             })
-            .then(() => self.skipWaiting()) // Bỏ qua waiting ngay lập tức
+            .then(() => self.skipWaiting())
     );
 });
 
-// ============= ACTIVATE =============
+
 self.addEventListener('activate', event => {
     console.log('[SW] Activate');
     const expectedCaches = [STATIC_CACHE, DYNAMIC_CACHE];
@@ -44,21 +43,20 @@ self.addEventListener('activate', event => {
                     }
                 })
             );
-        }).then(() => self.clients.claim()) // Lấy quyền điều khiển tất cả tab ngay
+        }).then(() => self.clients.claim())
     );
 });
 
-// ============= FETCH =============
 self.addEventListener('fetch', event => {
     const { request } = event;
     const url = new URL(request.url);
 
-    // Bỏ qua các request không phải GET hoặc từ chrome-extension, postMessage, etc.
+
     if (request.method !== 'GET' || url.protocol !== 'http:' && url.protocol !== 'https:') {
         return;
     }
 
-    // 1. API calls & admin routes → luôn lấy mạng trước (stale-while-revalidate)
+
     if (url.pathname.startsWith('/api/') ||
         url.pathname.includes('/admin') ||
         url.pathname.includes('/user') ||
@@ -69,21 +67,18 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // 2. Trang tĩnh HTML (các route Yii2) → Cache-first + fallback offline
     if (request.headers.get('accept').includes('text/html')) {
         event.respondWith(
             caches.match(request).then(cachedResponse => {
                 if (cachedResponse) {
-                    // Có cache → trả ngay + cập nhật nền
                     fetch(request).then(networkResponse => {
                         caches.open(DYNAMIC_CACHE).then(cache => {
                             cache.put(request, networkResponse.clone());
                         });
-                    }).catch(() => { }); // Lỗi mạng thì thôi
+                    }).catch(() => { });
                     return cachedResponse;
                 }
 
-                // Không có cache → lấy mạng + cache lại
                 return fetch(request).then(networkResponse => {
                     if (networkResponse && networkResponse.status === 200) {
                         caches.open(DYNAMIC_CACHE).then(cache => {
@@ -92,7 +87,6 @@ self.addEventListener('fetch', event => {
                     }
                     return networkResponse;
                 }).catch(() => {
-                    // Không có mạng → trả trang offline
                     return caches.match('/site/offline');
                 });
             })
@@ -100,7 +94,6 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // 3. Tài nguyên tĩnh (css, js, img, font) → Cache-first, fallback mạng
     event.respondWith(
         caches.match(request).then(cachedResponse => {
             if (cachedResponse) {
@@ -114,7 +107,6 @@ self.addEventListener('fetch', event => {
                 }
                 return networkResponse;
             }).catch(() => {
-                // Nếu là hình ảnh → có thể trả placeholder
                 if (request.destination === 'image') {
                     return caches.match('/img/offline-banner.png');
                 }

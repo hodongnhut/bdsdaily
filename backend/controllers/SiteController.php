@@ -378,6 +378,21 @@ class SiteController extends Controller
     }
 
     /**
+     * Trang offline dành riêng cho PWA
+     * Được Service Worker gọi khi không có mạng
+     */
+    public function actionOffline()
+    {
+        // Quan trọng: trả về status 503 để một số trình duyệt hiểu là "offline"
+        $this->layout = false; // không dùng layout chính (tránh lỗi load asset khi offline)
+        
+        Yii::$app->response->statusCode = 503;
+        Yii::$app->response->headers->set('Service-Worker-Allowed', '/');
+
+        return $this->render('offline');
+    }
+
+    /**
      * Logout action.
      *
      * @return Response
