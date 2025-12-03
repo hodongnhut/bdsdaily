@@ -33,6 +33,21 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
+    <style>
+        #install-pwa-btn {
+            @apply fixed bottom-6 right-6 bg-blue-600 text-white px-5 py-3 rounded-full shadow-2xl flex items-center space-x-3 hover:bg-blue-700 transition z-50 opacity-0 invisible;
+        }
+        #install-pwa-btn.show {
+            @apply opacity-100 visible;
+        }
+        #install-pwa-btn.installed {
+            @apply bg-green-600 hover:bg-green-700;
+        }
+        #install-pwa-btn .btn-text installed::after {
+            content: "Đã cài đặt";
+        }
+        </style>
 </head>
 <body class="flex min-h-screen bg-gray-100">
 <?php $this->beginBody() ?>
@@ -148,7 +163,7 @@ AppAsset::register($this);
             userMenuButton.setAttribute('aria-expanded', 'false');
         }, 300);
     });
-    // New sidebar toggle script
+
     const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
     const mainSidebar = document.getElementById('main-sidebar');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
@@ -160,69 +175,59 @@ AppAsset::register($this);
 
     if (mobileSidebarToggle && mainSidebar && sidebarBackdrop) {
         mobileSidebarToggle.addEventListener('click', toggleSidebar);
-        sidebarBackdrop.addEventListener('click', toggleSidebar); // Close when clicking backdrop
+        sidebarBackdrop.addEventListener('click', toggleSidebar); 
 
-        // Close sidebar on ESC key
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && mainSidebar.classList.contains('aside-open')) {
                 toggleSidebar();
             }
         });
 
-        // Handle resize to ensure correct state on desktop
         window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) { // Desktop breakpoint
+            if (window.innerWidth >= 768) { 
                 mainSidebar.classList.remove('aside-open');
                 sidebarBackdrop.classList.remove('show');
             }
         });
     }
 </script>
+
 <script>
-  // Đăng ký Service Worker
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('SW registered: ', reg))
-        .catch(err => console.log('SW registration failed: ', err));
-    });
-  }
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW failed:', err));
+            });
+        }
 
-  // Sự kiện Install PWA
-  let deferredPrompt;
-  const installButton = document.getElementById('install-pwa-btn');
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-pwa-btn');
 
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.classList.add('show');
+        });
 
-    // Hiện nút với hiệu ứng mượt
-    if (installButton) {
-        installButton.classList.add('show');
-    }
-});
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                installBtn.classList.remove('show');
+                installBtn.classList.add('installed');
+                installBtn.querySelector('.btn-text').textContent = 'Đã cài đặt';
+            }
+            deferredPrompt = null;
+        });
 
-installButton?.addEventListener('click', async () => {
-    if (!deferredPrompt) return;
-
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-
-    if (outcome === 'accepted') {
-        installButton.classList.remove('show');
-        installButton.classList.add('installed');
-    }
-    deferredPrompt = null;
-});
-
-// Ẩn luôn nếu đã cài rồi
-window.addEventListener('appinstalled', () => {
-    if (installButton) {
-        installButton.classList.remove('show');
-        installButton.classList.add('installed');
-    }
-});
-</script>
+        window.addEventListener('appinstalled', () => {
+            installBtn.classList.remove('show');
+            installBtn.classList.add('installed');
+        });
+    </script>
 <?php $this->endBody() ?>
 </body>
 </html>
