@@ -1,11 +1,11 @@
-const CACHE_NAME = 'bdsdaily-v19';
-const STATIC_CACHE = 'static-v19';
-const DYNAMIC_CACHE = 'dynamic-v19';
+const CACHE_NAME = 'bdsdaily-v20';
+const STATIC_CACHE = 'static-v20';
+const DYNAMIC_CACHE = 'dynamic-v20';
 
 
 const PRECACHE_URLS = [
     '/',
-    '/site/offline',
+    '/offline',
     '/css/site.css',
     '/js/site.js',
     '/img/logo.webp',
@@ -87,7 +87,7 @@ self.addEventListener('fetch', event => {
                     }
                     return networkResponse;
                 }).catch(() => {
-                    return caches.match('/site/offline');
+                    return caches.match('/offline');
                 });
             })
         );

@@ -383,8 +383,7 @@ class SiteController extends Controller
      */
     public function actionOffline()
     {
-        // Quan trọng: trả về status 503 để một số trình duyệt hiểu là "offline"
-        $this->layout = false; // không dùng layout chính (tránh lỗi load asset khi offline)
+        $this->layout = false; 
         
         Yii::$app->response->statusCode = 503;
         Yii::$app->response->headers->set('Service-Worker-Allowed', '/');
