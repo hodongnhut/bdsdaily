@@ -32,18 +32,60 @@ AppAsset::register($this);
     <?php $this->head() ?>
 
     <style>
+    #install-pwa-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 9999;
+        background: linear-gradient(135deg, #0d47a1, #1976d2);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 14px 20px;
+        font-size: 15px;
+        font-weight: 600;
+        box-shadow: 0 8px 25px rgba(13, 71, 161, 0.4);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-family: inherit;
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+
+    #install-pwa-btn.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    #install-pwa-btn:hover {
+        background: linear-gradient(135deg, #1976d2, #42a5f5);
+        transform: translateY(-3px) !important;
+        box-shadow: 0 12px 30px rgba(13, 71, 161, 0.5);
+    }
+
+    @media (max-width: 768px) {
         #install-pwa-btn {
-            @apply fixed bottom-6 right-6 bg-blue-600 text-white px-5 py-3 rounded-full shadow-2xl flex items-center space-x-3 hover:bg-blue-700 transition z-50 opacity-0 invisible;
+            padding: 12px 16px;
+            font-size: 14px;
+            right: 15px;
+            bottom: 15px;
         }
-        #install-pwa-btn.show {
-            @apply opacity-100 visible;
+
+        .btn-text {
+            display: none;
         }
-        #install-pwa-btn.installed {
-            @apply bg-green-600 hover:bg-green-700;
-        }
-        #install-pwa-btn .btn-text installed::after {
-            content: "Đã cài đặt";
-        }
+    }
+
+
+    #install-pwa-btn.installed {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(100px);
+    }
         </style>
 </head>
 <body>
