@@ -1,6 +1,6 @@
-const CACHE_NAME = 'bdsdaily-v17'; // Tăng version mỗi khi deploy mới
-const STATIC_CACHE = 'static-v15';
-const DYNAMIC_CACHE = 'dynamic-v15';
+const CACHE_NAME = 'bdsdaily-v18'; // Tăng version mỗi khi deploy mới
+const STATIC_CACHE = 'static-v18';
+const DYNAMIC_CACHE = 'dynamic-v18';
 
 
 const PRECACHE_URLS = [
