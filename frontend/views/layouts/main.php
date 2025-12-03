@@ -34,12 +34,23 @@ AppAsset::register($this);
 
 <header class="bg-white shadow-lg sticky top-0 z-50">
     <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-        <a href="/" class="flex items-center">
-            <!-- Đảm bảo ảnh logo được đặt trong thư mục @web/img/ -->
-            <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" alt="Bất Động Sản Daily" class="h-12 sm:h-14 w-auto">
-            <h1 class="ml-1 md:ml-4 text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 whitespace-nowrap">
-                Phần Mềm Nhà Phố
-            </h1>
+        <a href="<?= Yii::$app->homeUrl ?>" class="flex items-center space-x-1 md:space-x-1 py-2 px-2 md:px-6 lg:px-8 hover:bg-gray-50 transition">
+            <!-- Logo -->
+            <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" 
+                alt="BDSDaily" 
+                class="h-10 sm:h-12 w-auto flex-shrink-0">
+
+                <div class="min-w-0"> <!-- min-w-0 để cho phép text bị cắt nếu quá dài -->
+     <!-- Tên chính -->
+     <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 leading-none">
+         BDSDaily
+     </h1>
+
+     <!-- Phụ đề – xuống dòng đẹp trên mobile -->
+     <p class="text-sm sm:text-base md:text-lg font-medium text-gray-600 leading-tight mt-0.5 logo-slogan mb-0 text-muted fst-italic">
+         Phần Mềm Nhà Phố
+     </p>
+ </div>
         </a>
         
         <!-- Desktop Menu Links -->
