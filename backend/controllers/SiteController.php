@@ -57,7 +57,8 @@ class SiteController extends Controller
                             'activity-data',
                             'map-ho-chi-minh',
                             'loan',
-                            'calendar'
+                            'calendar',
+                            'offline'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
