@@ -37,6 +37,9 @@ AppAsset::register($this);
         <a href="/" class="flex items-center">
             <!-- Đảm bảo ảnh logo được đặt trong thư mục @web/img/ -->
             <img src="<?= Yii::getAlias('@web') ?>/img/logo.webp" alt="Bất Động Sản Daily" class="h-12 sm:h-14 w-auto">
+            <h1 class="ml-1 md:ml-4 text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 whitespace-nowrap">
+                Phần Mềm Nhà Phố
+            </h1>
         </a>
         
         <!-- Desktop Menu Links -->

@@ -105,7 +105,7 @@ AppAsset::register($this);
         <nav class="flex flex-col space-y-2 w-full">
             <a href="<?= Yii::$app->homeUrl ?>" class="nav-item <?= Yii::$app->request->pathInfo === '' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Màn hình chính">
                 <i class="fas fa-tachometer text-xl"></i>
-                <span>Màn hình chính</span>
+                <span class="text-black">Màn hình chính</span>
             </a>
             <a href="<?= \yii\helpers\Url::to(['/news']) ?>" class="nav-item <?= Yii::$app->controller->action->id === 'post' ? 'bg-blue-100 text-blue-600' : '' ?>" aria-label="Bản tin nội bộ">
                 <i class="fas fa-newspaper text-xl"></i>
