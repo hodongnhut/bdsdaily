@@ -116,7 +116,7 @@ self.addEventListener('fetch', event => {
             }).catch(() => {
                 // Nếu là hình ảnh → có thể trả placeholder
                 if (request.destination === 'image') {
-                    return caches.match('/img/offline-banner.jpg');
+                    return caches.match('/img/offline-banner.png');
                 }
             });
         })
