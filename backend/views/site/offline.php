@@ -38,7 +38,7 @@
         </div>
 
         <p class="text-sm text-gray-500 mt-12">
-            King Land – BDS Daily
+            BDS Daily
         </p>
     </div>
 </body>
