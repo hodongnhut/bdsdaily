@@ -269,7 +269,7 @@ $this->registerMetaTag([
                     Tự động cập nhật các tin rao nhà phố mới nhất đến nhóm Zalo của bạn. Hệ thống của chúng tôi sẽ
                     giúp bạn và đối tác luôn nắm bắt được các cơ hội đầu tư một cách nhanh chóng và kịp thời.
                 </p>
-                <a href="#"
+                <a href="https://zalo.me/g/ktfwjs927"
                     class="inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-green-600 transition-colors duration-300">
                     Đăng Ký Nhận Tin
                 </a>
