@@ -120,8 +120,8 @@ AppAsset::register($this);
             </div>
         </div>
         <div class="border-t border-gray-700 pt-6 text-sm text-gray-400">
-            Copyright ©2025 All rights reserved | The Company <b><a href="https://bdsdaily.com/"
-                target="_blank" rel="nofollow noopener" title="BDSDaily">BDSDaily</a></b>
+            Copyright ©2025 All rights reserved | The Company <b><a href="https://stonenetworktech.com/"
+                target="_blank" rel="nofollow noopener" title="StoneNetwork">StoneNetwork</a></b>
 
         </div>
     </div>
