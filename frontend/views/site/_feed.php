@@ -1,8 +1,6 @@
-
-
 <!-- NEW: HORIZONTAL VIDEO CAROUSEL SECTION -->
 <section id="horizontal-video-feed" class="py-6 bg-white shadow-sm border-b border-gray-200">
-    <div class="container mx-auto px-4 md:px-0">
+    <div class="container mx-auto md:px-0">
         <h3 class="text-xl font-bold text-gray-800 mb-4">Video Hướng Dẫn Sử Dụng</h3>
         
         <!-- Wrapper for Carousel and Controls -->
