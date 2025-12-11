@@ -138,43 +138,74 @@ class EmailCampaignController extends Controller
         }
     }
 
-    public function actionTestMail($to = 'hodongnhut@gmail.com', $from = 'bdsdaily247@gmail.com')
+    public function actionTestMail($to = 'hodongnhut@gmail.com', $from = 'nhuthd@bdsdaily.com')
     {
-        $log = new EmailLog();
-        $log->email = $to;
-        $log->sent_at = date('Y-m-d H:i:s');
+        $this->stdout("=== RESEND + YII2 SYMFONY MAILER TEST (2025) ===\n");
+        $this->stdout("To:   $to\n");
+        $this->stdout("From: $from\n\n");
 
         try {
-            $result = Yii::$app->mailer->compose()
+            // 1. Check mailer exists
+            if (!Yii::$app->has('mailer')) {
+                $this->stdout("ERROR: Component 'mailer' not configured!\n");
+                return Controller::EXIT_CODE_ERROR;
+            }
+
+            $mailer = Yii::$app->mailer;
+
+            // 2. Show real DSN being used (this is the most important line!)
+            $transport = $mailer->getTransport();
+            if (method_exists($transport, 'toString')) {
+                $this->stdout("DSN being used: " . $transport->toString() . "\n\n");
+            } else {
+                $this->stdout("Transport: " . get_class($transport) . "\n\n");
+            }
+
+            // 3. Build message
+            $message = $mailer->compose()
                 ->setFrom($from)
                 ->setTo($to)
-                ->setSubject('Test Gmail SMTP')
-                ->setTextBody('Hello, đây là mail test từ Yii2 Gmail SMTP!')
-                ->send();
+                ->setSubject('Test Resend – ' . date('Y-m-d H:i:s'))
+                ->setTextBody('Hello from Yii2 + Resend! Time: ' . date('c') . "\n\nIf you see this email → everything works!");
 
-            $log->status = $result ? 'sent' : 'failed';
-            if ($result) {
-                $this->stdout("Đã gửi mail đến $to!\n");
-                $this->stdout("Check MailHog at http://localhost:8025 to view the email.\n");
+            // 4. Send with full error details
+            $this->stdout("Sending email...\n");
+            $sent = $message->send();
+
+            if ($sent) {
+                $this->stdout("EMAIL SENT SUCCESSFULLY!\n");
+                $this->stdout("Check inbox/spam at: $to\n");
+                $this->stdout("Also check: https://resend.com/emails\n");
             } else {
-                $this->stdout("Gửi mail thất bại đến $to!\n");
+                $this->stdout("SEND RETURNED FALSE – usually means:\n");
+                $this->stdout("   • Domain bdsdaily.com not verified in Resend\n");
+                $this->stdout("   • From address not allowed\n");
+                $this->stdout("   • API key has no permission\n");
             }
 
-            if (!$log->save()) {
-                $this->stdout("❌ Failed to save EmailLog for {$to}: " . print_r($log->getErrors(), true) . "\n");
-            } else {
-                $this->stdout("✅ Logged email status for {$to}\n");
+            return $sent ? Controller::EXIT_CODE_NORMAL : Controller::EXIT_CODE_ERROR;
+
+        } catch (\Symfony\Component\Mailer\Exception\TransportException $e) {
+            $this->stdout("TRANSPORT ERROR (this is the real problem!):\n");
+            $this->stdout($e->getMessage() . "\n\n");
+
+            // Most common messages you'll see:
+            if (str_contains($e->getMessage(), 'authentication failed')) {
+                $this->stdout("FIX: Wrong API key! Use your real re_xxx key as BOTH username & password\n");
+            }
+            if (str_contains($e->getMessage(), 'Connection refused')) {
+                $this->stdout("FIX: Port blocked or wrong port. Use 587 + TLS\n");
+            }
+            if (str_contains($e->getMessage(), '535')) {
+                $this->stdout("FIX: Authentication failed – 99% wrong API key\n");
             }
 
-            return $result ? Controller::EXIT_CODE_NORMAL : Controller::EXIT_CODE_ERROR;
+            return Controller::EXIT_CODE_ERROR;
+
         } catch (\Exception $e) {
-            $this->stdout("Error sending test email to $to: {$e->getMessage()}\n");
-            $log->status = 'failed';
-            if (!$log->save()) {
-                $this->stdout("❌ Failed to save EmailLog for {$to}: " . print_r($log->getErrors(), true) . "\n");
-            } else {
-                $this->stdout("✅ Logged email status for {$to}\n");
-            }
+            $this->stdout("UNEXPECTED ERROR: " . $e->getMessage() . "\n");
+            $this->stdout("Class: " . get_class($e) . "\n");
+            $this->stdout("Trace:\n" . $e->getTraceAsString() . "\n");
             return Controller::EXIT_CODE_ERROR;
         }
     }
