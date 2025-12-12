@@ -42,6 +42,7 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.um
             <?= Html::a('<i class="fas fa-plus mr-2"></i> Danh Sách Email', ['./sales-contact'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
             <?= Html::a('<i class="fas fa-plus mr-2"></i> Tạo Mẫu', ['create'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
             <?= Html::a('<i class="fas fa-eye mr-2"></i> Logs Email Đã Gửi', ['./email-log'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
+            <?= Html::a('<i class="fas fa-cog mr-2"></i> Cài Đặt Email', ['./mailer'], ['class' => 'items-right bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md shadow-md flex items-center transition-colors duration-200']) ?>
         </div>
 
         <h2 class="text-lg font-bold text-gray-700 mb-4">Thống kê Email 7 Ngày Gần Nhất</h2>

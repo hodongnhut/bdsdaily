@@ -68,7 +68,7 @@ class EmailCampaignController extends Controller
             $this->stdout("Unexpected error: {$e->getMessage()}\n");
             return Controller::EXIT_CODE_ERROR;
         } finally {
-            // Ensure resources are closed if an error occurs
+
             try {
                 $channel->close();
                 $connection->close();
@@ -88,7 +88,6 @@ class EmailCampaignController extends Controller
         $log->sent_at = date('Y-m-d H:i:s');
 
         try {
-            // Validate email address
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $this->stdout("Invalid email address: $email\n");
                 $log->status = 'failed';
@@ -100,12 +99,11 @@ class EmailCampaignController extends Controller
                 return Controller::EXIT_CODE_ERROR;
             }
 
-            // Send email using Yii2 mailer
             $result = Yii::$app->mailer->compose('@common/mail/introduce-bdsdaily', [
                 'name' => $name,
                 'email' => $email,
             ])
-                ->setFrom(['nhuthd@bdsdaily.com' => 'BDSDaily'])
+                ->setFrom(from: ['nhuthd@bdsdaily.com' => 'BDSDaily'])
                 ->setTo($email)
                 ->setSubject($subject)
                 ->send();
