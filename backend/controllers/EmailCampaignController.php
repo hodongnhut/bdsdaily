@@ -157,7 +157,10 @@ class EmailCampaignController extends Controller
 
         $sentEmailsSubquery = EmailLog::find()
             ->select('email')
-            ->where(['campaign_id' => $campaign->id]);
+            ->where(['campaign_id' => $campaign->id])
+            ->andWhere(['>=', 'sent_at', date('Y-m-d H:i:s', strtotime('-30 days'))])
+            ->andWhere(['IS NOT', 'email', null])
+            ->distinct();
         
         $recipients = SalesContact::find()
             ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
