@@ -82,8 +82,7 @@ class EmailCampaignController extends Controller
         return $this->redirect(['index']);
     }
 
-
-
+    // API for n8n to check and queue campaigns
     public function actionCheckSchedule()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -107,14 +106,15 @@ class EmailCampaignController extends Controller
     }
 
     /**
-     * Đẩy email vào RabbitMQ
-     * Chỉ gửi cho những người CHƯA TỪNG nhận email từ campaign này (1 lần duy nhất)
+     * Pushes emails for a campaign to the RabbitMQ queue.
+     * Chỉ gửi cho những người CHƯA TỪNG nhận email nào từ HỆ THỐNG (chưa có trong email_log)
      */
-    private function pushToQueue($campaignId): int
+    private function pushToQueue($campaignId)
     {
         $rabbitMqConfig = Yii::$app->params['rabbitmq'];
 
         try {
+            try {
             $connection = new AMQPStreamConnection(
                 $rabbitMqConfig['host'],
                 $rabbitMqConfig['port'],
@@ -131,48 +131,52 @@ class EmailCampaignController extends Controller
         $campaign = EmailCampaign::findOne($campaignId);
         if (!$campaign) {
             Yii::error("Campaign ID {$campaignId} not found.", __METHOD__);
-            $channel->close();
-            $connection->close();
+            $this->closeRabbitMQ($channel, $connection);
             return 0;
         }
 
-        // 1. Kiểm tra limit ngày
         $sentToday = EmailLog::find()
             ->where(['campaign_id' => $campaign->id, 'status' => 'sent'])
             ->andWhere(['>=', 'sent_at', date('Y-m-d 00:00:00')])
             ->count();
 
-        $dailyLimit     = $campaign->limit ?? 100;
+        $dailyLimit = $campaign->limit ?? 100;
         $remainingLimit = $dailyLimit - $sentToday;
 
         if ($remainingLimit <= 0) {
-            Yii::info("Campaign {$campaign->id} đạt limit ngày ({$sentToday}/{$dailyLimit})", __METHOD__);
-            $channel->close();
-            $connection->close();
+            Yii::info("Campaign {$campaign->id} đã đạt limit ngày ({$sentToday}/{$dailyLimit})", __METHOD__);
+            $this->closeRabbitMQ($channel, $connection);
             return 0;
         }
 
-        // 2. Lấy danh sách email ĐÃ TỪNG nhận từ campaign này (bất kỳ lúc nào)
-        $sentEmailsSubquery = EmailLog::find()
-            ->select('email')
-            ->where(['campaign_id' => $campaign->id])
-            ->andWhere(['IS NOT', 'email', null]);
-
-        // 3. Lấy danh sách người CHƯA TỪNG nhận từ campaign này
-        $recipients = SalesContact::find()
-            ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
-            ->where(['NOT EXISTS', $sentEmailsSubquery, 'sales_contact.email = email_log.email'])
-            ->andWhere(['IS NOT', 'email', null])
+        // 2. LẤY DANH SÁCH EMAIL ĐÃ TỪNG GỬI (từ toàn bộ hệ thống)
+        $sentEmails = EmailLog::find()
+            ->select('DISTINCT email')
+            ->where(['IS NOT', 'email', null])
             ->andWhere(['<>', 'email', ''])
-            ->orderBy('RAND()')
+            ->column(); // trả về mảng string: ['a@gmail.com', 'b@yahoo.com', ...]
+
+        // Nếu không có ai từng được gửi → gửi hết
+        if (empty($sentEmails)) {
+            $notInCondition = ['IS', 'email', null]; // không loại ai cả
+        } else {
+            $notInCondition = ['NOT IN', 'email', $sentEmails];
+        }
+
+        // 3. LẤY NHỮNG NGƯỜI CHƯA TỪNG ĐƯỢC GỬI
+        $recipients = SalesContact::find()
+            ->select(['id', 'name', 'email', 'phone', 'company_status', 'zalo', 'area', 'address'])
+            ->where(['IS NOT', 'email', null])
+            ->andWhere(['<>', 'email', ''])
+            ->andWhere($notInCondition) // đây chính là NOT IN
+            ->orderBy('RAND()')         // hoặc ORDER BY id DESC nếu muốn theo thứ tự thêm mới
             ->limit($remainingLimit)
             ->asArray()
             ->all();
 
         if (empty($recipients)) {
-            Yii::info("Campaign {$campaign->id}: Không còn liên hệ mới nào để gửi.", __METHOD__);
-            $channel->close();
-            $connection->close();
+            Yii::info("Campaign {$campaign->id}: Không còn contact mới nào để gửi.", __METHOD__);
+            $this->closeRabbitMQ($channel, $connection);
             return 0;
         }
 
@@ -187,7 +191,7 @@ class EmailCampaignController extends Controller
                 'phone1'          => $recipient['phone1'] ?? '',
                 'zalo'            => $recipient['zalo'] ?? '',
                 'area'            => $recipient['area'] ?? '',
-                'address'         => $recipient['address'] ?? '',
+                'address'          => $recipient['address'] ?? '',
                 'subject'         => $campaign->subject,
                 'content'         => $campaign->content,
             ];
@@ -196,24 +200,24 @@ class EmailCampaignController extends Controller
                 $msg = new AMQPMessage(json_encode($data), ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
                 $channel->basic_publish($msg, '', 'email_queue');
                 $queuedCount++;
-
                 Yii::info("QUEUED → {$recipient['email']} (Campaign #{$campaign->id})", __METHOD__);
             } catch (\Exception $e) {
                 Yii::error("Queue failed {$recipient['email']}: {$e->getMessage()}", __METHOD__);
             }
         }
 
-        // Đóng kết nối an toàn
-        try {
-            $channel->close();
-            $connection->close();
-        } catch (\Exception $e) {
-            Yii::error("Close RabbitMQ error: {$e->getMessage()}", __METHOD__);
-        }
+        $this->closeRabbitMQ($channel, $connection);
 
-        Yii::info("Campaign {$campaign->id} đã đẩy {$queuedCount} email mới vào queue.", __METHOD__);
+        Yii::info("Campaign {$campaign->id} đã đẩy {$queuedCount} email HOÀN TOÀN MỚI vào RabbitMQ.", __METHOD__);
 
-        return $queuedCount; // Trả về số lượng thực tế đã queue
+        return $queuedCount;
+    }
+
+    // Helper để đóng kết nối an toàn
+    private function closeRabbitMQ($channel, $connection)
+    {
+        try { $channel->close(); } catch (\Exception $e) {}
+        try { $connection->close(); } catch (\Exception $e) {}
     }
 
 
