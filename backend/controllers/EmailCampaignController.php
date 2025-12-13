@@ -151,56 +151,54 @@ class EmailCampaignController extends Controller
         return $this->render('logs', ['logs' => $logs]);
     }
 
-    // ====================== PUBLIC API FOR n8n ======================
-
     public function actionCheckSchedule()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $currentDay  = date('N');   // 1 = Monday ... 7 = Sunday
-        $currentHour = date('H');   // 00-23
+        $currentDay  = date('N');
+        $currentHour = date('H');
 
         $campaigns = EmailCampaign::find()
-            ->where([
-                'send_day'  => $currentDay,
-                'send_hour' => $currentHour,
-                'status'    => 'on',
-            ])
+            ->where(['send_day' => $currentDay, 'send_hour' => $currentHour, 'status' => 'on'])
             ->all();
 
-        $queued = [];
+        $result = [
+            'checked_at' => date('c'),
+            'total_campaigns_checked' => count($campaigns),
+            'results' => []
+        ];
 
         foreach ($campaigns as $campaign) {
-            $count = $this->pushToQueue($campaign->id);
-            if ($count > 0) {
-                $queued[] = ['id' => $campaign->id, 'queued' => $count];
-            }
+            $queueResult = $this->pushToQueue($campaign->id);
+
+            $result['results'][] = [
+                'campaign_id'   => $campaign->id,
+                'campaign_name' => $campaign->name ?? 'No name',
+                'queued_count'  => $queueResult['queued_count'],
+                'skipped_reason'=> $queueResult['skipped_reason'],
+                'payloads'      => $queueResult['payloads'], 
+            ];
         }
 
-        return [
-            'status'           => 'success',
-            'checked_at'       => date('c'),
-            'queued_campaigns' => $queued,
-            'total_queued'     => array_sum(array_column($queued, 'queued')),
-        ];
+        return $result;
     }
 
-    // ====================== PRIVATE HELPERS ======================
 
     /**
-     * Push emails of a campaign to RabbitMQ
-     * Only sends to contacts that have NEVER received ANY email from the system
+     * Đẩy email vào RabbitMQ và TRẢ VỀ danh sách payload đã được queue
+     *
+     * @param int $campaignId
+     * @return array  // ['queued_count' => int, 'payloads' => array, 'skipped_reason' => string|null]
      */
-    private function pushToQueue(int $campaignId): int
+    private function pushToQueue(int $campaignId): array
     {
         $config = Yii::$app->params['rabbitmq'] ?? null;
         if (!$config) {
-            Yii::error('RabbitMQ configuration missing.', __METHOD__);
-            return 0;
+            return ['queued_count' => 0, 'payloads' => [], 'skipped_reason' => 'RabbitMQ config missing'];
         }
 
         $connection = null;
-        $channel    = null;
+        $channel = null;
 
         try {
             $connection = new AMQPStreamConnection(
@@ -216,39 +214,40 @@ class EmailCampaignController extends Controller
                 3.0,
                 3.0,
                 null,
-                true // keepalive
+                true
             );
-
             $channel = $connection->channel();
             $channel->queue_declare('email_queue', false, true, false, false);
         } catch (\Throwable $e) {
             Yii::error('RabbitMQ connection failed: ' . $e->getMessage(), __METHOD__);
-            return 0;
+            return ['queued_count' => 0, 'payloads' => [], 'skipped_reason' => 'RabbitMQ connection failed'];
         }
 
         $campaign = EmailCampaign::findOne($campaignId);
         if (!$campaign) {
-            Yii::error("Campaign ID {$campaignId} not found.", __METHOD__);
             $this->closeRabbitMQ($channel, $connection);
-            return 0;
+            return ['queued_count' => 0, 'payloads' => [], 'skipped_reason' => 'Campaign not found'];
         }
 
-        // ---------- Daily limit ----------
+        // === 1. Kiểm tra limit ngày ===
         $sentToday = (int) EmailLog::find()
             ->where(['campaign_id' => $campaign->id, 'status' => 'sent'])
             ->andWhere(['>=', 'sent_at', date('Y-m-d 00:00:00')])
             ->count();
 
-        $dailyLimit      = (int) ($campaign->limit ?? 100);
-        $remainingLimit  = $dailyLimit - $sentToday;
+        $dailyLimit = (int)($campaign->limit ?? 100);
+        $remaining = $dailyLimit - $sentToday;
 
-        if ($remainingLimit <= 0) {
-            Yii::info("Campaign {$campaign->id} reached daily limit ({$sentToday}/{$dailyLimit})", __METHOD__);
+        if ($remaining <= 0) {
             $this->closeRabbitMQ($channel, $connection);
-            return 0;
+            return [
+                'queued_count' => 0,
+                'payloads' => [],
+                'skipped_reason' => "Daily limit reached ({$sentToday}/{$dailyLimit})"
+            ];
         }
 
-        // ---------- Get emails that have EVER been sent in the whole system ----------
+        // === 2. Lấy danh sách email đã từng gửi trong toàn hệ thống ===
         $sentEmails = EmailLog::find()
             ->select('email')
             ->where(['IS NOT', 'email', null])
@@ -256,6 +255,7 @@ class EmailCampaignController extends Controller
             ->distinct()
             ->column();
 
+        // === 3. Query danh sách người nhận MỚI ===
         $query = SalesContact::find()
             ->select(['id', 'name', 'email', 'phone', 'phone1', 'company_status', 'zalo', 'area', 'address'])
             ->where(['IS NOT', 'email', null])
@@ -267,16 +267,21 @@ class EmailCampaignController extends Controller
 
         $recipients = $query
             ->orderBy(new \yii\db\Expression('RAND()'))
-            ->limit($remainingLimit)
+            ->limit($remaining)
             ->asArray()
             ->all();
 
         if (empty($recipients)) {
-            Yii::info("Campaign {$campaign->id}: No new contacts left to send.", __METHOD__);
             $this->closeRabbitMQ($channel, $connection);
-            return 0;
+            return [
+                'queued_count' => 0,
+                'payloads' => [],
+                'skipped_reason' => 'No new contacts available'
+            ];
         }
 
+        // === 4. Queue + Thu thập payload ===
+        $queuedPayloads = [];
         $queuedCount = 0;
 
         foreach ($recipients as $recipient) {
@@ -285,7 +290,7 @@ class EmailCampaignController extends Controller
                 'name'            => $recipient['name'] ?? '',
                 'recipient_email' => $recipient['email'],
                 'company_status'  => $recipient['company_status'] ?? '',
-                'phone'           => $recipient['phone'] ?? '',
+                'phone'            => $recipient['phone'] ?? '',
                 'phone1'          => $recipient['phone1'] ?? '',
                 'zalo'            => $recipient['zalo'] ?? '',
                 'area'            => $recipient['area'] ?? '',
@@ -296,23 +301,37 @@ class EmailCampaignController extends Controller
 
             try {
                 $msg = new AMQPMessage(json_encode($payload), [
-                    'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
+                    'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
                 ]);
-
                 $channel->basic_publish($msg, '', 'email_queue');
+
+                $queuedPayloads[] = $payload; // Lưu lại để trả về
                 $queuedCount++;
 
                 Yii::info("QUEUED → {$recipient['email']} (Campaign #{$campaign->id})", __METHOD__);
             } catch (\Throwable $e) {
-                Yii::error("Failed to queue {$recipient['email']}: {$e->getMessage()}", __METHOD__);
+                Yii::error("Queue failed {$recipient['email']}: {$e->getMessage()}", __METHOD__);
+                // Vẫn giữ payload để bạn biết nó bị lỗi
+                $payload['queue_error'] = $e->getMessage();
+                $queuedPayloads[] = $payload;
             }
         }
 
         $this->closeRabbitMQ($channel, $connection);
 
-        Yii::info("Campaign {$campaign->id} → queued {$queuedCount} brand-new emails.", __METHOD__);
+        Yii::info("Campaign {$campaign->id} → queued {$queuedCount} new emails.", __METHOD__);
 
-        return $queuedCount;
+        return [
+            'queued_count'   => $queuedCount,
+            'payloads'       => $queuedPayloads,
+            'skipped_reason' => null,
+            'campaign'       => [
+                'id'    => $campaign->id,
+                'name'  => $campaign->name ?? 'No name',
+                'limit' => $dailyLimit,
+                'sent_today' => $sentToday,
+            ]
+        ];
     }
 
     private function closeRabbitMQ($channel, $connection): void
