@@ -126,7 +126,7 @@ class EmailCampaignController extends Controller
      * Đẩy email vào RabbitMQ
      * Chỉ gửi cho những người CHƯA TỪNG nhận email từ campaign này (1 lần duy nhất)
      */
-    private function pushToQueue($campaignId)
+    private function pushToQueue($campaignId): int
     {
         $rabbitMqConfig = Yii::$app->params['rabbitmq'];
 
