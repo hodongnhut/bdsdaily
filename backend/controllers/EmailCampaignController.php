@@ -89,11 +89,13 @@ class EmailCampaignController extends Controller
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        echo "Server time: " . date('Y-m-d H:i:s') . " (timezone: " . date_default_timezone_get() . ")<br>";
-        echo "Yii timezone: " . Yii::$app->timeZone . "<br><br>";
+        // BUỘC GIỜ VIỆT NAM DÙ SERVER CHẠY GIỜ GÌ
+        $vietnamTime = new \DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
+        $currentDay  = $vietnamTime->format('N'); // 1=Thứ 2 ... 6=Thứ 7, 7=CN
+        $currentHour = $vietnamTime->format('H'); // 00-23
 
-        $currentDay  = date('N', strtotime('+7 hours')); // 1 = Thứ 2 ... 6 = Thứ 7, 7 = CN
-        $currentHour = date('H', strtotime('+7 hours'));   // 00-23
+        // Debug tạm (bỏ comment khi cần kiểm tra)
+        // Yii::info("Check schedule: Day={$currentDay}, Hour={$currentHour}", __METHOD__);
 
         $campaigns = EmailCampaign::find()
             ->where([
@@ -105,13 +107,16 @@ class EmailCampaignController extends Controller
 
         $result = [
             'status'           => 'success',
-            'checked_at'       => date('c'),
+            'checked_at'       => $vietnamTime->format('c'),
+            'vietnam_time'     => $vietnamTime->format('Y-m-d H:i:s'),
+            'day'              => (int)$currentDay,
+            'hour'             => (int)$currentHour,
             'queued_campaigns' => [],
             'total_queued'     => 0
         ];
 
         if (empty($campaigns)) {
-            return $result;
+            return $result; // Không có campaign nào đúng giờ → trả về nhẹ nhàng
         }
 
         foreach ($campaigns as $campaign) {
