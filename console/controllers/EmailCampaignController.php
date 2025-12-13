@@ -219,14 +219,6 @@ class EmailCampaignController extends Controller
 
             $mailer = Yii::$app->mailer;
 
-            // 2. Show real DSN being used (this is the most important line!)
-            $transport = Yii::$app->mailer->getTransport();
-            if (method_exists($transport, '__toString')) {
-                $this->stdout("DSN: " . $transport . "\n\n"); // gọi __toString trực tiếp
-            } else {
-                $this->stdout("Transport: " . get_class($transport) . "\n\n");
-            }
-
             // 3. Build message
             $message = $mailer->compose()
                 ->setFrom($from)
