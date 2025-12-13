@@ -86,32 +86,48 @@ class EmailCampaignController extends Controller
     public function actionCheckSchedule()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $currentDay = date('N'); 
-        // echo $currentDay; 
-        $currentHour = date('H');
-        // echo $currentHour; die;
+
+        $currentDay  = date('N');   // 1 = Thứ 2 ... 6 = Thứ 7, 7 = CN
+        $currentHour = date('H');   // 00-23
+
         $campaigns = EmailCampaign::find()
-            ->where(['send_day' => $currentDay, 'send_hour' => $currentHour, 'status' => 'on'])
+            ->where([
+                'send_day'  => $currentDay,
+                'send_hour' => $currentHour,
+                'status'    => 'on'
+            ])
             ->all();
 
-        $queued = [];
-        if (!empty($campaigns)) {
-            foreach ($campaigns as $campaign) {
-                $this->pushToQueue($campaign->id);
-                $queued[] = $campaign->id;
+        $result = [
+            'status'           => 'success',
+            'checked_at'       => date('c'),
+            'queued_campaigns' => [],
+            'total_queued'     => 0
+        ];
+
+        if (empty($campaigns)) {
+            return $result;
+        }
+
+        foreach ($campaigns as $campaign) {
+            $queuedCount = $this->pushToQueue($campaign->id);
+            if ($queuedCount > 0) {
+                $result['queued_campaigns'][] = $campaign->id;
+                $result['total_queued'] += $queuedCount;
             }
         }
-        
-        return ['status' => 'success', 'queued_campaigns' => $queued];
+
+        return $result;
     }
 
     /**
-     * Pushes emails for a campaign to the RabbitMQ queue.
+     * Đẩy email vào RabbitMQ
+     * Chỉ gửi cho những người CHƯA TỪNG nhận email từ campaign này (1 lần duy nhất)
      */
     private function pushToQueue($campaignId)
     {
         $rabbitMqConfig = Yii::$app->params['rabbitmq'];
-        
+
         try {
             $connection = new AMQPStreamConnection(
                 $rabbitMqConfig['host'],
@@ -122,8 +138,8 @@ class EmailCampaignController extends Controller
             $channel = $connection->channel();
             $channel->queue_declare('email_queue', false, true, false, false);
         } catch (\Exception $e) {
-            Yii::error("Failed to connect to RabbitMQ: {$e->getMessage()}", __METHOD__);
-            return;
+            Yii::error("RabbitMQ connect failed: " . $e->getMessage(), __METHOD__);
+            return 0;
         }
 
         $campaign = EmailCampaign::findOne($campaignId);
@@ -131,37 +147,32 @@ class EmailCampaignController extends Controller
             Yii::error("Campaign ID {$campaignId} not found.", __METHOD__);
             $channel->close();
             $connection->close();
-            return;
+            return 0;
         }
 
-        // Kiểm tra số email đã gửi trong ngày cho chiến dịch
+        // 1. Kiểm tra limit ngày
         $sentToday = EmailLog::find()
-        ->where([
-            'campaign_id' => $campaign->id,
-            'status' => 'sent'
-        ])
-        ->andWhere(['>=', 'sent_at', date('Y-m-d 00:00:00')])
-        ->andWhere(['<=', 'sent_at', date('Y-m-d 23:59:59')])
-        ->count();
+            ->where(['campaign_id' => $campaign->id, 'status' => 'sent'])
+            ->andWhere(['>=', 'sent_at', date('Y-m-d 00:00:00')])
+            ->count();
 
-        $dailyLimit = ($campaign->limit ?? 100);
+        $dailyLimit     = $campaign->limit ?? 100;
         $remainingLimit = $dailyLimit - $sentToday;
 
         if ($remainingLimit <= 0) {
-            Yii::info("Daily limit reached for campaign ID {$campaign->id}. Sent: {$sentToday}/{$dailyLimit}", __METHOD__);
+            Yii::info("Campaign {$campaign->id} đạt limit ngày ({$sentToday}/{$dailyLimit})", __METHOD__);
             $channel->close();
             $connection->close();
-            return ['queued' => 0, 'message' => 'Daily limit reached'];
+            return 0;
         }
 
-
+        // 2. Lấy danh sách email ĐÃ TỪNG nhận từ campaign này (bất kỳ lúc nào)
         $sentEmailsSubquery = EmailLog::find()
             ->select('email')
             ->where(['campaign_id' => $campaign->id])
-            ->andWhere(['>=', 'sent_at', date('Y-m-d H:i:s', strtotime('-30 days'))])
-            ->andWhere(['IS NOT', 'email', null])
-            ->distinct(true);
-        
+            ->andWhere(['IS NOT', 'email', null]);
+
+        // 3. Lấy danh sách người CHƯA TỪNG nhận từ campaign này
         $recipients = SalesContact::find()
             ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
             ->where(['NOT EXISTS', $sentEmailsSubquery, 'sales_contact.email = email_log.email'])
@@ -169,44 +180,54 @@ class EmailCampaignController extends Controller
             ->andWhere(['<>', 'email', ''])
             ->orderBy('RAND()')
             ->limit($remainingLimit)
+            ->asArray()
             ->all();
 
         if (empty($recipients)) {
-            Yii::warning("No contacts available for campaign ID {$campaign->id}.", __METHOD__);
+            Yii::info("Campaign {$campaign->id}: Không còn liên hệ mới nào để gửi.", __METHOD__);
             $channel->close();
             $connection->close();
-            return;
+            return 0;
         }
 
+        $queuedCount = 0;
         foreach ($recipients as $recipient) {
             $data = [
-                'campaign_id' => $campaign->id,
-                'name' => $recipient->name,
-                'recipient_email' => $recipient->email,
-                'company_status' => $recipient->company_status,
-                'phone' => $recipient->phone,
-                'phone1' => $recipient->phone1 ?? '',
-                'zalo' => $recipient->zalo,
-                'area' => $recipient->area,
-                'address' => $recipient->address,
-                'subject' => $campaign->subject,
-                'content' => $campaign->content,
+                'campaign_id'     => $campaign->id,
+                'name'            => $recipient['name'] ?? '',
+                'recipient_email' => $recipient['email'],
+                'company_status'  => $recipient['company_status'] ?? '',
+                'phone'           => $recipient['phone'] ?? '',
+                'phone1'          => $recipient['phone1'] ?? '',
+                'zalo'            => $recipient['zalo'] ?? '',
+                'area'            => $recipient['area'] ?? '',
+                'address'         => $recipient['address'] ?? '',
+                'subject'         => $campaign->subject,
+                'content'         => $campaign->content,
             ];
+
             try {
                 $msg = new AMQPMessage(json_encode($data), ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
                 $channel->basic_publish($msg, '', 'email_queue');
-                Yii::info("Queued email for {$recipient->email} in campaign ID {$campaign->id}", __METHOD__);
+                $queuedCount++;
+
+                Yii::info("QUEUED → {$recipient['email']} (Campaign #{$campaign->id})", __METHOD__);
             } catch (\Exception $e) {
-                Yii::error("Failed to queue email for {$recipient->email}: {$e->getMessage()}", __METHOD__);
+                Yii::error("Queue failed {$recipient['email']}: {$e->getMessage()}", __METHOD__);
             }
         }
 
+        // Đóng kết nối an toàn
         try {
             $channel->close();
             $connection->close();
         } catch (\Exception $e) {
-            Yii::error("Error closing RabbitMQ connection: {$e->getMessage()}", __METHOD__);
+            Yii::error("Close RabbitMQ error: {$e->getMessage()}", __METHOD__);
         }
+
+        Yii::info("Campaign {$campaign->id} đã đẩy {$queuedCount} email mới vào queue.", __METHOD__);
+
+        return $queuedCount; // Trả về số lượng thực tế đã queue
     }
 
 
