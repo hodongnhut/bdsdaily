@@ -1,20 +1,20 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
 use yii\web\Controller;
-use common\models\EmailLog;
-use common\models\SalesContact;
-use common\models\EmailCampaign;
 use yii\web\NotFoundHttpException;
-use PhpAmqpLib\Message\AMQPMessage;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use yii\filters\AccessControl; 
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
+use common\models\EmailCampaign;
+use common\models\SalesContact;
+use common\models\EmailLog;
 
 class EmailCampaignController extends Controller
 {
-
     /**
      * {@inheritdoc}
      */
@@ -29,13 +29,9 @@ class EmailCampaignController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            $user = Yii::$app->user;
-                            $identity = $user->identity;
-                            
-                            if (isset($identity->jobTitle->role_code)) {
-                                return in_array($identity->jobTitle->role_code, ['manager', 'super_admin']);
-                            }
-                            return false;
+                            $identity = Yii::$app->user->identity;
+                            return isset($identity->jobTitle->role_code)
+                                && in_array($identity->jobTitle->role_code, ['manager', 'super_admin']);
                         }
                     ],
                 ],
@@ -48,26 +44,43 @@ class EmailCampaignController extends Controller
             ],
         ];
     }
-    // Create email campaign
+
+    // ====================== ACTIONS ======================
+
+    public function actionIndex()
+    {
+        $campaigns = EmailCampaign::find()->all();
+        $chartData = $this->getChartData();
+
+        return $this->render('index', [
+            'campaigns' => $campaigns,
+            'chartData'  => $chartData,
+        ]);
+    }
+
     public function actionCreate()
     {
         $model = new EmailCampaign();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->save();
-            Yii::$app->session->setFlash('success', 'Campaign created. It will be sent according to the schedule.');
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->validate()) {
+            $model->save(false); // false = skip validation again
+            Yii::$app->session->setFlash('success', 'Campaign created successfully. It will be sent according to the schedule.');
             return $this->redirect(['index']);
         }
+
         return $this->render('create', ['model' => $model]);
     }
 
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->save();
-            Yii::$app->session->setFlash('success', 'Campaign created. It will be sent according to the schedule.');
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->validate()) {
+            $model->save(false);
+            Yii::$app->session->setFlash('success', 'Campaign updated successfully.');
             return $this->redirect(['index']);
         }
+
         return $this->render('create', ['model' => $model]);
     }
 
@@ -76,55 +89,140 @@ class EmailCampaignController extends Controller
         $model = EmailCampaign::findOne($id);
         if ($model) {
             $model->status = $model->status === 'on' ? 'off' : 'on';
-            $model->save();
+            $model->save(false);
             Yii::$app->session->setFlash('success', 'Campaign status updated.');
         }
+
         return $this->redirect(['index']);
     }
 
-    // API for n8n to check and queue campaigns
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+        Yii::$app->session->setFlash('success', 'Campaign deleted.');
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionPreview($id, $contact_id = null)
+    {
+        $campaign = $this->findModel($id);
+
+        $contact = $contact_id
+            ? SalesContact::findOne($contact_id)
+            : new SalesContact([
+                'name'           => 'Sample Name',
+                'email'          => 'sample@example.com',
+                'company_status' => 'Sample Company',
+                'phone'          => '0123456789',
+                'phone1'         => '0987654321',
+                'zalo'           => 'sample_zalo',
+                'area'           => 'Sample Area',
+                'address'        => 'Sample Address',
+            ]);
+
+        if (!$contact) {
+            throw new NotFoundHttpException('Contact not found.');
+        }
+
+        $content = $this->renderPartial('@common/mail/introduce-bdsdaily', [
+            'name'           => $contact->name,
+            'email'          => $contact->email,
+            'content'        => $campaign->content,
+            'company_status' => $contact->company_status,
+            'phone'          => $contact->phone,
+            'phone1'         => $contact->phone1 ?? '',
+            'zalo'           => $contact->zalo ?? '',
+            'area'           => $contact->area ?? '',
+            'address'        => $contact->address ?? '',
+        ]);
+
+        return $this->render('preview', [
+            'campaign' => $campaign,
+            'contact'  => $contact,
+            'content'  => $content,
+        ]);
+    }
+
+    public function actionLogs()
+    {
+        $logs = EmailLog::find()->orderBy(['sent_at' => SORT_DESC])->all();
+
+        return $this->render('logs', ['logs' => $logs]);
+    }
+
+    // ====================== PUBLIC API FOR n8n ======================
+
     public function actionCheckSchedule()
     {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $currentDay = date('N'); 
-        // echo $currentDay; 
-        $currentHour = date('H');
-        // echo $currentHour; die;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $currentDay  = date('N');   // 1 = Monday ... 7 = Sunday
+        $currentHour = date('H');   // 00-23
+
         $campaigns = EmailCampaign::find()
-            ->where(['send_day' => $currentDay, 'send_hour' => $currentHour, 'status' => 'on'])
+            ->where([
+                'send_day'  => $currentDay,
+                'send_hour' => $currentHour,
+                'status'    => 'on',
+            ])
             ->all();
 
         $queued = [];
-        if (!empty($campaigns)) {
-            foreach ($campaigns as $campaign) {
-                $this->pushToQueue($campaign->id);
-                $queued[] = $campaign->id;
+
+        foreach ($campaigns as $campaign) {
+            $count = $this->pushToQueue($campaign->id);
+            if ($count > 0) {
+                $queued[] = ['id' => $campaign->id, 'queued' => $count];
             }
         }
-        
-        return ['status' => 'success', 'queued_campaigns' => $queued];
+
+        return [
+            'status'           => 'success',
+            'checked_at'       => date('c'),
+            'queued_campaigns' => $queued,
+            'total_queued'     => array_sum(array_column($queued, 'queued')),
+        ];
     }
 
+    // ====================== PRIVATE HELPERS ======================
+
     /**
-     * Pushes emails for a campaign to the RabbitMQ queue.
-     * Chỉ gửi cho những người CHƯA TỪNG nhận email nào từ HỆ THỐNG (chưa có trong email_log)
+     * Push emails of a campaign to RabbitMQ
+     * Only sends to contacts that have NEVER received ANY email from the system
      */
-    private function pushToQueue($campaignId)
+    private function pushToQueue(int $campaignId): int
     {
-        $rabbitMqConfig = Yii::$app->params['rabbitmq'];
+        $config = Yii::$app->params['rabbitmq'] ?? null;
+        if (!$config) {
+            Yii::error('RabbitMQ configuration missing.', __METHOD__);
+            return 0;
+        }
+
+        $connection = null;
+        $channel    = null;
 
         try {
-            try {
             $connection = new AMQPStreamConnection(
-                $rabbitMqConfig['host'],
-                $rabbitMqConfig['port'],
-                $rabbitMqConfig['username'],
-                $rabbitMqConfig['password']
+                $config['host'],
+                $config['port'],
+                $config['username'],
+                $config['password'],
+                '/',
+                false,
+                'AMQPLAIN',
+                null,
+                'en_US',
+                3.0,
+                3.0,
+                null,
+                true // keepalive
             );
+
             $channel = $connection->channel();
             $channel->queue_declare('email_queue', false, true, false, false);
-        } catch (\Exception $e) {
-            Yii::error("RabbitMQ connect failed: " . $e->getMessage(), __METHOD__);
+        } catch (\Throwable $e) {
+            Yii::error('RabbitMQ connection failed: ' . $e->getMessage(), __METHOD__);
             return 0;
         }
 
@@ -135,54 +233,54 @@ class EmailCampaignController extends Controller
             return 0;
         }
 
-        $sentToday = EmailLog::find()
+        // ---------- Daily limit ----------
+        $sentToday = (int) EmailLog::find()
             ->where(['campaign_id' => $campaign->id, 'status' => 'sent'])
             ->andWhere(['>=', 'sent_at', date('Y-m-d 00:00:00')])
             ->count();
 
-        $dailyLimit = $campaign->limit ?? 100;
-        $remainingLimit = $dailyLimit - $sentToday;
+        $dailyLimit      = (int) ($campaign->limit ?? 100);
+        $remainingLimit  = $dailyLimit - $sentToday;
 
         if ($remainingLimit <= 0) {
-            Yii::info("Campaign {$campaign->id} đã đạt limit ngày ({$sentToday}/{$dailyLimit})", __METHOD__);
+            Yii::info("Campaign {$campaign->id} reached daily limit ({$sentToday}/{$dailyLimit})", __METHOD__);
             $this->closeRabbitMQ($channel, $connection);
             return 0;
         }
 
-        // 2. LẤY DANH SÁCH EMAIL ĐÃ TỪNG GỬI (từ toàn bộ hệ thống)
+        // ---------- Get emails that have EVER been sent in the whole system ----------
         $sentEmails = EmailLog::find()
-            ->select('DISTINCT email')
+            ->select('email')
             ->where(['IS NOT', 'email', null])
             ->andWhere(['<>', 'email', ''])
-            ->column(); // trả về mảng string: ['a@gmail.com', 'b@yahoo.com', ...]
+            ->distinct()
+            ->column();
 
-        // Nếu không có ai từng được gửi → gửi hết
-        if (empty($sentEmails)) {
-            $notInCondition = ['IS', 'email', null]; // không loại ai cả
-        } else {
-            $notInCondition = ['NOT IN', 'email', $sentEmails];
+        $query = SalesContact::find()
+            ->select(['id', 'name', 'email', 'phone', 'phone1', 'company_status', 'zalo', 'area', 'address'])
+            ->where(['IS NOT', 'email', null])
+            ->andWhere(['<>', 'email', '']);
+
+        if (!empty($sentEmails)) {
+            $query->andWhere(['NOT IN', 'email', $sentEmails]);
         }
 
-        // 3. LẤY NHỮNG NGƯỜI CHƯA TỪNG ĐƯỢC GỬI
-        $recipients = SalesContact::find()
-            ->select(['id', 'name', 'email', 'phone', 'company_status', 'zalo', 'area', 'address'])
-            ->where(['IS NOT', 'email', null])
-            ->andWhere(['<>', 'email', ''])
-            ->andWhere($notInCondition) // đây chính là NOT IN
-            ->orderBy('RAND()')         // hoặc ORDER BY id DESC nếu muốn theo thứ tự thêm mới
+        $recipients = $query
+            ->orderBy(new \yii\db\Expression('RAND()'))
             ->limit($remainingLimit)
             ->asArray()
             ->all();
 
         if (empty($recipients)) {
-            Yii::info("Campaign {$campaign->id}: Không còn contact mới nào để gửi.", __METHOD__);
+            Yii::info("Campaign {$campaign->id}: No new contacts left to send.", __METHOD__);
             $this->closeRabbitMQ($channel, $connection);
             return 0;
         }
 
         $queuedCount = 0;
+
         foreach ($recipients as $recipient) {
-            $data = [
+            $payload = [
                 'campaign_id'     => $campaign->id,
                 'name'            => $recipient['name'] ?? '',
                 'recipient_email' => $recipient['email'],
@@ -191,182 +289,96 @@ class EmailCampaignController extends Controller
                 'phone1'          => $recipient['phone1'] ?? '',
                 'zalo'            => $recipient['zalo'] ?? '',
                 'area'            => $recipient['area'] ?? '',
-                'address'          => $recipient['address'] ?? '',
+                'address'         => $recipient['address'] ?? '',
                 'subject'         => $campaign->subject,
                 'content'         => $campaign->content,
             ];
 
             try {
-                $msg = new AMQPMessage(json_encode($data), ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
+                $msg = new AMQPMessage(json_encode($payload), [
+                    'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
+                ]);
+
                 $channel->basic_publish($msg, '', 'email_queue');
                 $queuedCount++;
+
                 Yii::info("QUEUED → {$recipient['email']} (Campaign #{$campaign->id})", __METHOD__);
-            } catch (\Exception $e) {
-                Yii::error("Queue failed {$recipient['email']}: {$e->getMessage()}", __METHOD__);
+            } catch (\Throwable $e) {
+                Yii::error("Failed to queue {$recipient['email']}: {$e->getMessage()}", __METHOD__);
             }
         }
 
         $this->closeRabbitMQ($channel, $connection);
 
-        Yii::info("Campaign {$campaign->id} đã đẩy {$queuedCount} email HOÀN TOÀN MỚI vào RabbitMQ.", __METHOD__);
+        Yii::info("Campaign {$campaign->id} → queued {$queuedCount} brand-new emails.", __METHOD__);
 
         return $queuedCount;
     }
 
-    // Helper để đóng kết nối an toàn
-    private function closeRabbitMQ($channel, $connection)
+    private function closeRabbitMQ($channel, $connection): void
     {
-        try { $channel->close(); } catch (\Exception $e) {}
-        try { $connection->close(); } catch (\Exception $e) {}
-    }
-
-
-     /**
-     * Previews the email template for a campaign.
-     */
-    public function actionPreview($id, $contact_id = null)
-    {
-        $campaign = $this->findModel($id);
-        $contact = $contact_id ? SalesContact::findOne($contact_id) : new SalesContact([
-            'name' => 'Sample Name',
-            'email' => 'sample@example.com',
-            'company_status' => 'Sample Company',
-            'phone' => '1234567890',
-            'phone1' => '0987654321',
-            'zalo' => 'sample_zalo',
-            'area' => 'Sample Area',
-            'address' => 'Sample Address',
-        ]);
-
-        // Render the email template
-        $content = $this->renderPartial('@common/mail/introduce-bdsdaily', [
-            'name' => $contact->name,
-            'email' => $contact->email,
-            'content' => $campaign->content,
-            'company_status' => $contact->company_status,
-            'phone' => $contact->phone,
-            'phone1' => $contact->phone1,
-            'zalo' => $contact->zalo,
-            'area' => $contact->area,
-            'address' => $contact->address,
-        ]);
-
-        return $this->render('preview', [
-            'campaign' => $campaign,
-            'contact' => $contact,
-            'content' => $content,
-        ]);
-    }
-
-
-    public function actionIndex()
-    {
-        $campaigns = EmailCampaign::find()->all();
-        $chartData = $this->getChartData(); 
-        return $this->render('index', [
-            'campaigns' => $campaigns,
-            'chartData' => $chartData,
-        ]);
+        try {
+            $channel?->close();
+        } catch (\Throwable $e) {}
+        try {
+            $connection?->close();
+        } catch (\Throwable $e) {}
     }
 
     /**
-     * Lấy dữ liệu thống kê email thành công/thất bại trong 7 ngày gần nhất.
-     * @return array
+     * Chart data for last 7 days
      */
-    protected function getChartData()
+    protected function getChartData(): array
     {
-        // 1. Tính toán ngày bắt đầu (7 ngày trước, tính từ 00:00:00)
-        $sevenDaysAgo = strtotime('-7 days midnight');
+        $sevenDaysAgo = date('Y-m-d 00:00:00', strtotime('-7 days'));
 
-        // 2. Truy vấn dữ liệu: gom nhóm theo ngày và trạng thái
-        $queryData = EmailLog::find()
+        $rows = EmailLog::find()
             ->select([
-                'log_date' => new \yii\db\Expression('DATE(sent_at)'),
+                'log_date' => 'DATE(sent_at)',
                 'status',
-                'count' => new \yii\db\Expression('COUNT(*)'),
+                'cnt'      => 'COUNT(*)',
             ])
             ->where(['>=', 'sent_at', $sevenDaysAgo])
-            ->groupBy(['log_date', 'status'])
+            ->groupBy(['DATE(sent_at)', 'status'])
             ->asArray()
             ->all();
 
-        $allDates = [];
-
-        // Khởi tạo 7 ngày gần nhất
+        $data = [];
         for ($i = 6; $i >= 0; $i--) {
-            $date = date('Y-m-d', strtotime("-$i days"));
-            $allDates[$date] = [
-                'success' => 0,
-                'failure' => 0,
-            ];
+            $date = date('Y-m-d', strtotime("-{$i} days"));
+            $data[$date] = ['success' => 0, 'failure' => 0];
         }
 
-        // Điền dữ liệu đã query vào mảng
-        foreach ($queryData as $row) {
-            $date = $row['log_date'];
-            $status = strtolower($row['status']); 
-            $count = (int) $row['count'];
+        foreach ($rows as $row) {
+            $date   = $row['log_date'];
+            $status = strtolower($row['status']);
+            $count  = (int)$row['cnt'];
 
-            if (isset($allDates[$date])) {
-                // Giả định trạng thái thành công là 'sent' hoặc 'success'
-                if ($status === 'sent' || $status === 'success') { 
-                    $allDates[$date]['success'] += $count;
-                } 
-                // Giả định trạng thái thất bại là 'failed' hoặc 'error'
-                else if ($status === 'failed' || $status === 'error') { 
-                    $allDates[$date]['failure'] += $count;
-                }
+            if ($status === 'sent' || $status === 'success') {
+                $data[$date]['success'] += $count;
+            } elseif ($status === 'failed' || $status === 'error') {
+                $data[$date]['failure'] += $count;
             }
         }
 
-        // Định dạng dữ liệu cuối cùng
-        $chartData = [
-            'labels' => array_keys($allDates),
-            'successData' => array_column($allDates, 'success'),
-            'failureData' => array_column($allDates, 'failure'),
+        return [
+            'labels'       => array_map(fn($d) => date('d/m', strtotime($d)), array_keys($data)),
+            'successData'  => array_values(array_column($data, 'success')),
+            'failureData' => array_values(array_column($data, 'failure')),
         ];
-        
-        // Chuyển định dạng ngày Y-m-d thành d/m (ví dụ: 01/10) cho dễ nhìn
-        $chartData['labels'] = array_map(function($date) {
-            return date('d/m', strtotime($date));
-        }, $chartData['labels']);
-
-        return $chartData;
-    }
-
-     /**
-     * Deletes an existing SalesContact model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the SalesContact model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id ID
-     * @return SalesContact the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param int $id
+     * @return EmailCampaign
+     * @throws NotFoundHttpException
      */
-    protected function findModel($id)
+    protected function findModel(int $id): EmailCampaign
     {
-        if (($model = EmailCampaign::findOne(['id' => $id])) !== null) {
-            return $model;
+        $model = EmailCampaign::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested campaign does not exist.');
         }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionLogs()
-    {
-        $logs = EmailLog::find()->all();
-        return $this->render('logs', ['logs' => $logs]);
+        return $model;
     }
 }
