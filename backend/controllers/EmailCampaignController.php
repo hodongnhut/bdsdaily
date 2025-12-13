@@ -89,6 +89,9 @@ class EmailCampaignController extends Controller
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
+        echo "Server time: " . date('Y-m-d H:i:s') . " (timezone: " . date_default_timezone_get() . ")<br>";
+        echo "Yii timezone: " . Yii::$app->timeZone . "<br><br>";
+
         $currentDay  = date('N');   // 1 = Thứ 2 ... 6 = Thứ 7, 7 = CN
         $currentHour = date('H');   // 00-23
 
