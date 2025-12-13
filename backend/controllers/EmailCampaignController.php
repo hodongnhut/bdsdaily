@@ -92,8 +92,8 @@ class EmailCampaignController extends Controller
         echo "Server time: " . date('Y-m-d H:i:s') . " (timezone: " . date_default_timezone_get() . ")<br>";
         echo "Yii timezone: " . Yii::$app->timeZone . "<br><br>";
 
-        $currentDay  = date('N');   // 1 = Thứ 2 ... 6 = Thứ 7, 7 = CN
-        $currentHour = date('H');   // 00-23
+        $currentDay  = date('N', strtotime('+7 hours')); // 1 = Thứ 2 ... 6 = Thứ 7, 7 = CN
+        $currentHour = date('H', strtotime('+7 hours'));   // 00-23
 
         $campaigns = EmailCampaign::find()
             ->where([
