@@ -84,50 +84,26 @@ class EmailCampaignController extends Controller
 
 
 
-    // API for n8n to check and queue campaigns
     public function actionCheckSchedule()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        // BUỘC GIỜ VIỆT NAM DÙ SERVER CHẠY GIỜ GÌ
-        $vietnamTime = new \DateTime('now', new \DateTimeZone('Asia/Ho_Chi_Minh'));
-        $currentDay  = $vietnamTime->format('N'); // 1=Thứ 2 ... 6=Thứ 7, 7=CN
-        $currentHour = $vietnamTime->format('H'); // 00-23
-
-        // Debug tạm (bỏ comment khi cần kiểm tra)
-        // Yii::info("Check schedule: Day={$currentDay}, Hour={$currentHour}", __METHOD__);
-
+        $currentDay = date('N'); 
+        // echo $currentDay; 
+        $currentHour = date('H');
+        // echo $currentHour; die;
         $campaigns = EmailCampaign::find()
-            ->where([
-                'send_day'  => $currentDay,
-                'send_hour' => $currentHour,
-                'status'    => 'on'
-            ])
+            ->where(['send_day' => $currentDay, 'send_hour' => $currentHour, 'status' => 'on'])
             ->all();
 
-        $result = [
-            'status'           => 'success',
-            'checked_at'       => $vietnamTime->format('c'),
-            'vietnam_time'     => $vietnamTime->format('Y-m-d H:i:s'),
-            'day'              => (int)$currentDay,
-            'hour'             => (int)$currentHour,
-            'queued_campaigns' => [],
-            'total_queued'     => 0
-        ];
-
-        if (empty($campaigns)) {
-            return $result; // Không có campaign nào đúng giờ → trả về nhẹ nhàng
-        }
-
-        foreach ($campaigns as $campaign) {
-            $queuedCount = $this->pushToQueue($campaign->id);
-            if ($queuedCount > 0) {
-                $result['queued_campaigns'][] = $campaign->id;
-                $result['total_queued'] += $queuedCount;
+        $queued = [];
+        if (!empty($campaigns)) {
+            foreach ($campaigns as $campaign) {
+                $this->pushToQueue($campaign->id);
+                $queued[] = $campaign->id;
             }
         }
-
-        return $result;
+        
+        return ['status' => 'success', 'queued_campaigns' => $queued];
     }
 
     /**
