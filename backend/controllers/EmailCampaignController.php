@@ -160,7 +160,7 @@ class EmailCampaignController extends Controller
             ->where(['campaign_id' => $campaign->id])
             ->andWhere(['>=', 'sent_at', date('Y-m-d H:i:s', strtotime('-30 days'))])
             ->andWhere(['IS NOT', 'email', null])
-            ->distinct();
+            ->distinct(true);
         
         $recipients = SalesContact::find()
             ->select(['email', 'name', 'company_status', 'phone', 'phone1', 'zalo', 'area', 'address'])
