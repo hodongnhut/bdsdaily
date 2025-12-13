@@ -82,6 +82,8 @@ class EmailCampaignController extends Controller
         return $this->redirect(['index']);
     }
 
+
+
     // API for n8n to check and queue campaigns
     public function actionCheckSchedule()
     {
