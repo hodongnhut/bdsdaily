@@ -349,7 +349,8 @@ class EmailCampaignController extends Controller
      */
     protected function getChartData(): array
     {
-        $sevenDaysAgo = date('Y-m-d 00:00:00', strtotime('-7 days'));
+        // Start from midnight 6 days ago → includes Dec 12 to Dec 18 (7 full days)
+        $startDate = date('Y-m-d 00:00:00', strtotime('-6 days'));
 
         $rows = EmailLog::find()
             ->select([
@@ -357,26 +358,32 @@ class EmailCampaignController extends Controller
                 'status',
                 'cnt'      => 'COUNT(*)',
             ])
-            ->where(['>=', 'sent_at', $sevenDaysAgo])
+            ->where(['>=', 'sent_at', $startDate])
             ->groupBy(['DATE(sent_at)', 'status'])
             ->asArray()
             ->all();
 
+        // Initialize exactly 7 days (today + last 6 days)
         $data = [];
         for ($i = 6; $i >= 0; $i--) {
             $date = date('Y-m-d', strtotime("-{$i} days"));
             $data[$date] = ['success' => 0, 'failure' => 0];
         }
 
+        // Populate data safely
         foreach ($rows as $row) {
-            $date   = $row['log_date'];
-            $status = strtolower($row['status']);
-            $count  = (int)$row['cnt'];
+            $date = $row['log_date'];
 
-            if ($status === 'sent' || $status === 'success') {
-                $data[$date]['success'] += $count;
-            } elseif ($status === 'failed' || $status === 'error') {
-                $data[$date]['failure'] += $count;
+            // Extra safety: only if date is in our range (should always be true now)
+            if (isset($data[$date])) {
+                $status = strtolower($row['status']);
+                $count  = (int)$row['cnt'];
+
+                if ($status === 'sent' || $status === 'success') {
+                    $data[$date]['success'] += $count;
+                } elseif ($status === 'failed' || $status === 'error') {
+                    $data[$date]['failure'] += $count;
+                }
             }
         }
 
