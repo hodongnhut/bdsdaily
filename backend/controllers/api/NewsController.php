@@ -3,16 +3,17 @@
 namespace backend\controllers\api;
 
 use Yii;
-use yii\rest\ActiveController;
+use yii\rest\Controller;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
 use common\models\News;
+use common\models\NewsSearch;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
 
-class NewsController extends ActiveController
+class NewsController extends Controller
 {
    
     public function behaviors()
@@ -25,22 +26,60 @@ class NewsController extends ActiveController
     }
 
     /**
-     * List news - chỉ lấy bài PUBLISHED + eager loading category
+     * List news - tái sử dụng NewsSearch như web
      * GET /api/news
+     * Support search, filter category/status/title + pagination giống GridView web
      */
     public function actionIndex()
     {
-        $query = News::find()
-            ->with(['category', 'createdBy'])
-            ->where(['status' => News::STATUS_PUBLISHED])
-            ->orderBy(['created_at' => SORT_DESC]);
+        $searchModel = new NewsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return new ActiveDataProvider([
-            'query' => $query,
+        $models = $dataProvider->getModels();
+
+        $newsList = [];
+        foreach ($models as $model) {
+            $newsList[] = [
+                'id' => $model->id,
+                'title' => $model->title,
+                'slug' => $model->slug,
+                'short_description' => $model->short_description,
+                'content' => $model->content,
+                'image_url' => $model->image_path ? Yii::getAlias('@web') . $model->image_path : null,
+                'status' => $model->status === News::STATUS_PUBLISHED ? 'Published' : 'Draft',
+                'status_code' => $model->status,
+                'category' => $model->category ? [
+                    'id' => $model->category->id,
+                    'name' => $model->category->name ?? 'Uncategorized',
+                ] : null,
+                'created_by' => $model->createdBy ? [
+                    'id' => $model->createdBy->id,
+                    'full_name' => $model->createdBy->full_name ?? $model->createdBy->username,
+                ] : null,
+                'updated_by' => $model->updatedBy ? [
+                    'id' => $model->updatedBy->id,
+                    'full_name' => $model->updatedBy->full_name ?? $model->updatedBy->username,
+                ] : null,
+                'created_at' => date('Y-m-d H:i:s', $model->created_at),
+                'updated_at' => date('Y-m-d H:i:s', $model->updated_at),
+            ];
+        }
+
+        return [
+            'status' => true,
+            'msg' => 'Lấy danh sách tin tức thành công',
+            'data' => $newsList,
             'pagination' => [
-                'pageSize' => 20,
+                'total_count' => $dataProvider->getTotalCount(),
+                'page_count' => $dataProvider->pagination->getPageCount(),
+                'current_page' => $dataProvider->pagination->getPage() + 1, 
+                'page_size' => $dataProvider->pagination->pageSize,
             ],
-        ]);
+            'sort' => [
+                'current' => $dataProvider->sort->getOrders(),
+                'attributes' => array_keys($dataProvider->sort->attributes),
+            ]
+        ];
     }
 
     /**
