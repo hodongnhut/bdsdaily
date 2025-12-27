@@ -94,6 +94,10 @@ return [
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/news',
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/user',
                     'pluralize' => false,
                     'extraPatterns' => [
