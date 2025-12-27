@@ -96,6 +96,13 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/user',
                     'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET,HEAD' => 'index',
+                        'POST' => 'create',
+                        'GET,HEAD {id}' => 'view',
+                        'PUT,PATCH {id}' => 'update',
+                        'DELETE {id}' => 'delete',
+                    ],
                 ],
                 'POST api/post/add-property-history/<property_id:\d+>' => 'api/post/add-property-history',
                 'GET api/post/view-property/<external_id:[\w-]+>' => 'api/post/view-property',
