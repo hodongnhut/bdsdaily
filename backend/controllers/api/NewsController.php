@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use common\models\Posts;
 use yii\web\NotFoundHttpException;
+use yii\web\UnauthorizedHttpException;
+use yii\web\ForbiddenHttpException;
 
 class NewsController extends Controller
 {
@@ -120,7 +122,6 @@ class NewsController extends Controller
     {
         $model = $this->findModel($id);
 
-
         return [
             'status' => true,
             'msg' => 'Lấy bài viết thành công',
@@ -160,5 +161,131 @@ class NewsController extends Controller
             throw new NotFoundHttpException('Bài viết không tồn tại.');
         }
         return $model;
+    }
+
+    /**
+     * Create new post
+     * POST /api/posts
+     * Body: JSON hoặc form-data
+     */
+    public function actionCreate()
+    {
+        $currentUser = Yii::$app->user->identity;
+
+        if (!$currentUser) {
+            throw new UnauthorizedHttpException('Bạn cần đăng nhập để xem thông tin người dùng.');
+        }
+
+        $currentRole = $currentUser->jobTitle ? $currentUser->jobTitle->role_code : null;
+
+        // Quy tắc quyền:
+        // - super_admin hoặc manager: được xem bất kỳ user nào
+        // - user thường: chỉ được xem chính mình
+        $allowedRoles = ['manager', 'super_admin'];
+        if (!in_array($currentRole, $allowedRoles)) {
+            throw new ForbiddenHttpException('Bạn không có quyền xem thông tin người dùng này.');
+        }
+        $model = new Posts();
+
+        if ($model->load(Yii::$app->request->post(), '')) {
+            // Validate post_type hợp lệ
+            if (!array_key_exists($model->post_type, Posts::optsPostType())) {
+                return [
+                    'status' => false,
+                    'msg' => 'Kiểu bài viết không hợp lệ.',
+                    'data' => ['post_type' => ['Kiểu bài viết không hợp lệ.']]
+                ];
+            }
+
+            // Mặc định active
+            $model->is_active = $model->is_active ?? 1;
+
+            // Timestamps
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->updated_at = date('Y-m-d H:i:s');
+
+            if ($model->save()) {
+                Yii::$app->response->statusCode = 201; // Created
+
+                return [
+                    'status' => true,
+                    'msg' => 'Tạo bài viết thành công',
+                    'data' => [
+                        'post_id' => $model->post_id,
+                        'post_title' => $model->post_title,
+                        'post_type' => $model->post_type,
+                        'post_type_label' => $model->displayPostType(),
+                        'post_date' => $model->post_date,
+                        'is_active' => $model->is_active,
+                    ]
+                ];
+            }
+        }
+
+        // Nếu validate hoặc save thất bại
+        return [
+            'status' => false,
+            'msg' => 'Tạo bài viết thất bại',
+            'data' => $model->getErrors(),
+        ];
+    }
+
+    /**
+     * Update existing post
+     * PUT hoặc PATCH /api/posts/{id}
+     */
+    public function actionUpdate($id)
+    {
+        $currentUser = Yii::$app->user->identity;
+
+        if (!$currentUser) {
+            throw new UnauthorizedHttpException('Bạn cần đăng nhập để xem thông tin người dùng.');
+        }
+
+        $currentRole = $currentUser->jobTitle ? $currentUser->jobTitle->role_code : null;
+
+
+        $allowedRoles = ['manager', 'super_admin'];
+        if (!in_array($currentRole, $allowedRoles)) {
+            throw new ForbiddenHttpException('Bạn không có quyền xem thông tin người dùng này.');
+        }
+
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post(), '')) {
+            // Kiểm tra post_type nếu có thay đổi
+            if ($model->isAttributeChanged('post_type') && !array_key_exists($model->post_type, Posts::optsPostType())) {
+                return [
+                    'status' => false,
+                    'msg' => 'Kiểu bài viết không hợp lệ.',
+                    'data' => ['post_type' => ['Kiểu bài viết không hợp lệ.']]
+                ];
+            }
+
+            // Cập nhật timestamp
+            $model->updated_at = date('Y-m-d H:i:s');
+
+            if ($model->save()) {
+                return [
+                    'status' => true,
+                    'msg' => 'Cập nhật bài viết thành công',
+                    'data' => [
+                        'post_id' => $model->post_id,
+                        'post_title' => $model->post_title,
+                        'post_type' => $model->post_type,
+                        'post_type_label' => $model->displayPostType(),
+                        'post_date' => $model->post_date,
+                        'is_active' => $model->is_active,
+                        'updated_at' => $model->updated_at,
+                    ]
+                ];
+            }
+        }
+
+        return [
+            'status' => false,
+            'msg' => 'Cập nhật bài viết thất bại',
+            'data' => $model->getErrors(),
+        ];
     }
 }
