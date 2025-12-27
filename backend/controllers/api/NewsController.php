@@ -48,18 +48,6 @@ class NewsController extends Controller
                 'image_url' => $model->image_path ? Yii::getAlias('@web') . $model->image_path : null,
                 'status' => $model->status === News::STATUS_PUBLISHED ? 'Published' : 'Draft',
                 'status_code' => $model->status,
-                'category' => $model->category ? [
-                    'id' => $model->category->id,
-                    'name' => $model->category->name ?? 'Uncategorized',
-                ] : null,
-                'created_by' => $model->createdBy ? [
-                    'id' => $model->createdBy->id,
-                    'full_name' => $model->createdBy->full_name ?? $model->createdBy->username,
-                ] : null,
-                'updated_by' => $model->updatedBy ? [
-                    'id' => $model->updatedBy->id,
-                    'full_name' => $model->updatedBy->full_name ?? $model->updatedBy->username,
-                ] : null,
                 'created_at' => date('Y-m-d H:i:s', $model->created_at),
                 'updated_at' => date('Y-m-d H:i:s', $model->updated_at),
             ];
