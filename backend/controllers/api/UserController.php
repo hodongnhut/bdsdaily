@@ -101,7 +101,7 @@ class UserController extends Controller
 
     /**
      * Create new user - tái sử dụng SignupForm như actionCreate web
-     * POST /api/users
+     * POST /api/user
      */
     public function actionCreate()
     {
@@ -131,7 +131,7 @@ class UserController extends Controller
 
     /**
      * Update user - tái sử dụng logic update như web
-     * PUT/PATCH /api/users/{id}
+     * PUT/PATCH /api/user/{id}
      */
     public function actionUpdate($id)
     {
