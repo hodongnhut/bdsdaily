@@ -178,9 +178,6 @@ class NewsController extends Controller
 
         $currentRole = $currentUser->jobTitle ? $currentUser->jobTitle->role_code : null;
 
-        // Quy tắc quyền:
-        // - super_admin hoặc manager: được xem bất kỳ user nào
-        // - user thường: chỉ được xem chính mình
         $allowedRoles = ['manager', 'super_admin'];
         if (!in_array($currentRole, $allowedRoles)) {
             throw new ForbiddenHttpException('Bạn không có quyền xem thông tin người dùng này.');
@@ -188,7 +185,6 @@ class NewsController extends Controller
         $model = new Posts();
 
         if ($model->load(Yii::$app->request->post(), '')) {
-            // Validate post_type hợp lệ
             if (!array_key_exists($model->post_type, Posts::optsPostType())) {
                 return [
                     'status' => false,
@@ -197,15 +193,13 @@ class NewsController extends Controller
                 ];
             }
 
-            // Mặc định active
             $model->is_active = $model->is_active ?? 1;
 
-            // Timestamps
             $model->created_at = date('Y-m-d H:i:s');
             $model->updated_at = date('Y-m-d H:i:s');
 
             if ($model->save()) {
-                Yii::$app->response->statusCode = 201; // Created
+                Yii::$app->response->statusCode = 201;
 
                 return [
                     'status' => true,
@@ -222,7 +216,6 @@ class NewsController extends Controller
             }
         }
 
-        // Nếu validate hoặc save thất bại
         return [
             'status' => false,
             'msg' => 'Tạo bài viết thất bại',
@@ -253,7 +246,6 @@ class NewsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post(), '')) {
-            // Kiểm tra post_type nếu có thay đổi
             if ($model->isAttributeChanged('post_type') && !array_key_exists($model->post_type, Posts::optsPostType())) {
                 return [
                     'status' => false,
@@ -262,7 +254,6 @@ class NewsController extends Controller
                 ];
             }
 
-            // Cập nhật timestamp
             $model->updated_at = date('Y-m-d H:i:s');
 
             if ($model->save()) {
@@ -285,6 +276,36 @@ class NewsController extends Controller
         return [
             'status' => false,
             'msg' => 'Cập nhật bài viết thất bại',
+            'data' => $model->getErrors(),
+        ];
+    }
+
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+
+        // Kiểm tra quyền
+        $currentUser = Yii::$app->user->identity;
+        $currentRole = $currentUser && $currentUser->jobTitle ? $currentUser->jobTitle->role_code : null;
+
+        if (!in_array($currentRole, ['manager', 'super_admin'])) {
+            throw new ForbiddenHttpException('Bạn không có quyền ẩn bài viết này.');
+        }
+
+        $model->is_active = 0;
+        $model->updated_at = date('Y-m-d H:i:s');
+
+        if ($model->save(false)) {
+            return [
+                'status' => true,
+                'msg' => 'Ẩn bài viết thành công',
+                'data' => null,
+            ];
+        }
+
+        return [
+            'status' => false,
+            'msg' => 'Ẩn bài viết thất bại',
             'data' => $model->getErrors(),
         ];
     }
