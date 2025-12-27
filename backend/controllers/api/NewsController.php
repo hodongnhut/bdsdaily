@@ -27,39 +27,90 @@ class NewsController extends Controller
     /**
      * List posts với filter + pagination
      * GET /api/posts
-     * Query params:
-     *   ?post_type=NEWS
-     *   ?category_id=5
-     *   ?is_active=1
-     *   ?search=keyword
-     *   ?page=2&per-page=20
+     * Query params mới:
+     *   ?is_active=1   → chỉ lấy bài đang active
+     *   ?is_active=0   → chỉ lấy bài bị ẩn
+     *   ?is_active=all → lấy tất cả (không filter is_active) - chỉ dành cho admin
      */
     public function actionIndex()
     {
         $request = Yii::$app->request;
 
         $query = Posts::find()
-            ->with(['category', 'attachments']) // Eager loading quan hệ
-            ->orderBy(['post_date' => SORT_DESC]);
+            ->with(['category', 'attachments'])
+            ->orderBy(['post_date' => SORT_DESC]); // Mới nhất trước
 
-        // Filter theo query params
+        // === FILTER THEO QUERY PARAMS ===
+        
+        // 1. post_type
         if ($postType = $request->get('post_type')) {
-            $query->andWhere(['post_type' => $postType]);
+            if (array_key_exists($postType, Posts::optsPostType())) {
+                $query->andWhere(['post_type' => $postType]);
+            } else {
+                // Nếu post_type không hợp lệ → trả về rỗng
+                return [
+                    'status' => false,
+                    'msg' => 'Kiểu bài viết không hợp lệ.',
+                    'data' => [],
+                    'pagination' => [
+                        'total_count' => 0,
+                        'page_count' => 0,
+                        'current_page' => 1,
+                        'page_size' => 20,
+                    ]
+                ];
+            }
         }
 
+        // 2. category_id
         if ($categoryId = $request->get('category_id')) {
             $query->andWhere(['category_id' => (int)$categoryId]);
         }
 
-        if ($request->get('is_active') !== null) {
-            $query->andWhere(['is_active' => (int)$request->get('is_active')]);
+        // 3. is_active - LOGIC MỚI & CHÍNH XÁC
+        $isActiveParam = $request->get('is_active');
+
+        if ($isActiveParam !== null) {
+            $isActive = (int)$isActiveParam;
+
+            // Nếu param là 1 hoặc 0 → filter chính xác
+            if (in_array($isActive, [0, 1])) {
+                $query->andWhere(['is_active' => $isActive]);
+            }
+            // Nếu param là "all" → chỉ admin mới được xem tất cả (active + inactive)
+            elseif (strtolower($isActiveParam) === 'all') {
+                $currentUser = Yii::$app->user->identity;
+                $currentRole = $currentUser && $currentUser->jobTitle ? $currentUser->jobTitle->role_code : null;
+
+                if (!in_array($currentRole, ['manager', 'super_admin'])) {
+                    throw new \yii\web\ForbiddenHttpException('Bạn không có quyền xem tất cả bài viết (bao gồm bài bị ẩn).');
+                }
+                // Không filter is_active → hiển thị tất cả
+            } else {
+                // Giá trị không hợp lệ
+                return [
+                    'status' => false,
+                    'msg' => 'Tham số is_active không hợp lệ. Chỉ chấp nhận 0, 1 hoặc "all" (cho admin).',
+                    'data' => [],
+                    'pagination' => [
+                        'total_count' => 0,
+                        'page_count' => 0,
+                        'current_page' => 1,
+                        'page_size' => 20,
+                    ]
+                ];
+            }
+        } else {
+            // Mặc định: chỉ hiển thị bài active (is_active = 1) cho người dùng thường
+            $query->andWhere(['is_active' => 1]);
         }
 
+        // 4. search theo tiêu đề
         if ($search = $request->get('search')) {
             $query->andWhere(['like', 'post_title', $search]);
         }
 
-        // Tạo DataProvider
+        // === DATA PROVIDER ===
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -71,10 +122,9 @@ class NewsController extends Controller
             ],
         ]);
 
-        // Chuyển models thành mảng dữ liệu JSON đẹp
+        // === CHUYỂN ĐỔI THÀNH JSON ===
         $posts = [];
         foreach ($dataProvider->getModels() as $model) {
-            /** @var Posts $model */
             $posts[] = [
                 'post_id' => $model->post_id,
                 'post_title' => $model->post_title,
@@ -82,7 +132,7 @@ class NewsController extends Controller
                 'post_type' => $model->post_type,
                 'post_type_label' => $model->displayPostType(),
                 'post_date' => $model->post_date,
-                'is_active' => $model->is_active,
+                'is_active' => (bool)$model->is_active,
                 'created_at' => $model->created_at,
                 'updated_at' => $model->updated_at,
                 'category' => $model->category ? [
@@ -100,7 +150,6 @@ class NewsController extends Controller
             ];
         }
 
-        // Trả về JSON chuẩn API
         return [
             'status' => true,
             'msg' => 'Lấy danh sách bài viết thành công',
@@ -108,7 +157,7 @@ class NewsController extends Controller
             'pagination' => [
                 'total_count' => $dataProvider->getTotalCount(),
                 'page_count' => $dataProvider->pagination->getPageCount(),
-                'current_page' => $dataProvider->pagination->getPage() + 1, // Yii2 page bắt đầu từ 0
+                'current_page' => $dataProvider->pagination->getPage() + 1,
                 'page_size' => $dataProvider->pagination->pageSize,
             ],
         ];
