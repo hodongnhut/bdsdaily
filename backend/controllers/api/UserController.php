@@ -64,10 +64,21 @@ class UserController extends Controller
 
     /**
      * View single user - tái sử dụng findModel
-     * GET /api/users/{id}
+     * GET /api/user/{id}
      */
     public function actionView($id)
     {
+        $user = Yii::$app->user->identity;
+
+        if ($user) {
+            $user = User::findOne($user->id);
+        }
+        $role_code = $user && $user->jobTitle ? $user->jobTitle->role_code : '';
+
+        if (!$role_code || ($role_code !== 'manager' && $role_code !== 'super_admin')) {
+            throw new ForbiddenHttpException('Bạn không có quyền xem thôn tin');
+        }
+
         $model = $this->findModel($id);
 
         return [
@@ -80,6 +91,8 @@ class UserController extends Controller
                 'full_name' => $model->full_name,
                 'phone' => $model->phone,
                 'status' => $model->status,
+                'job_title_id' => $model->job_title_id,
+                'department_id' => $model->department_id,
                 'created_at' => date('Y-m-d H:i:s', $model->created_at),
                 'updated_at' => date('Y-m-d H:i:s', $model->updated_at),
             ]
