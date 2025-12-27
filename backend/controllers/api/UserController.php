@@ -8,10 +8,10 @@ use yii\filters\auth\HttpBearerAuth;
 use yii\web\Response;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
-use yii\data\ActiveDataProvider;
 use common\models\User;
 use common\models\UserSearch;
 use common\models\SignupForm;
+use yii\web\UnauthorizedHttpException;
 
 class UserController extends Controller
 {
@@ -68,15 +68,20 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        $user = Yii::$app->user->identity;
+        $currentUser = Yii::$app->user->identity;
 
-        if ($user) {
-            $user = User::findOne($user->id);
+        if (!$currentUser) {
+            throw new UnauthorizedHttpException('Bạn cần đăng nhập để xem thông tin người dùng.');
         }
-        $role_code = $user && $user->jobTitle ? $user->jobTitle->role_code : '';
 
-        if (!$role_code || ($role_code !== 'manager' && $role_code !== 'super_admin')) {
-            throw new ForbiddenHttpException('Bạn không có quyền xem thôn tin');
+        $currentRole = $currentUser->jobTitle ? $currentUser->jobTitle->role_code : null;
+
+        // Quy tắc quyền:
+        // - super_admin hoặc manager: được xem bất kỳ user nào
+        // - user thường: chỉ được xem chính mình
+        $allowedRoles = ['manager', 'super_admin'];
+        if (!in_array($currentRole, $allowedRoles) && $currentUser->id != $id) {
+            throw new ForbiddenHttpException('Bạn không có quyền xem thông tin người dùng này.');
         }
 
         $model = $this->findModel($id);
