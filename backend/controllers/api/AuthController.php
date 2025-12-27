@@ -41,6 +41,7 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'phone' => $user->phone,
                     'full_name' => $user->full_name,
+                    'role_code' => $user->jobTitle ? $user->jobTitle->role_code : ''
                 ],
             ]);
         }
@@ -61,6 +62,7 @@ class AuthController extends Controller
             'id' => $user->id,
             'username' => $user->username,
             'email' => $user->email,
+            'role_code' => $user->jobTitle ? $user->jobTitle->role_code : ''
         ]);
     }
 
