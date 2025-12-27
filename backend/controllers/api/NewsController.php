@@ -120,13 +120,6 @@ class NewsController extends Controller
     {
         $model = $this->findModel($id);
 
-        // Chỉ hiển thị nếu active (trừ admin)
-        $currentUser = Yii::$app->user->identity;
-        $currentRole = $currentUser && $currentUser->jobTitle ? $currentUser->jobTitle->role_code : null;
-
-        if ($model->is_active == 0 && !in_array($currentRole, ['manager', 'super_admin'])) {
-            throw new \yii\web\ForbiddenHttpException('Bạn không có quyền xem bài viết này.');
-        }
 
         return [
             'status' => true,
